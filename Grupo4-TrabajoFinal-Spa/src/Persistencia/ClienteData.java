@@ -12,7 +12,7 @@ public class ClienteData {
         con = conexion.buscarconexion();
     }
     
-    public void agregarCliente (Cliente cliente){
+    public void agregarCliente (int cliente){
         String sql = "INSERT INTO cliente(dni, nombre, apellido, edad, afecciones, estado, telefono) VALUES (?,?,?,?,?,?,?)";
         
         

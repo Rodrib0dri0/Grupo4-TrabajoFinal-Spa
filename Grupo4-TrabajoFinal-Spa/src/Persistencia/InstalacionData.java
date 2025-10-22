@@ -4,6 +4,7 @@ import Modelo.Conexion;
 import Modelo.Instalacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +35,7 @@ public class InstalacionData {
             if (registro > 0) {
                 JOptionPane.showMessageDialog(null, "Instalación guardada correctamente!");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
@@ -41,7 +43,7 @@ public class InstalacionData {
     
     public void eliminarInstalacion(int id){
         try {
-            String sql = "DELETE FROM instalacion WHERE ?";
+            String sql = "DELETE FROM instalacion WHERE idInstalacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             
@@ -50,10 +52,87 @@ public class InstalacionData {
             if(registro > 0){
                 JOptionPane.showMessageDialog(null, "Instalación eliminada correctamente!");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar.");
         }
         
-        
+    }
+    public Instalacion buscarInstalacion(int id){
+        Instalacion insta = null;
+        try {
+            String sql = "SELECT * FROM instalacion WHERE idInstalacion = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){
+                int ID = rs.getInt("idInstalacion");
+                String nombre = rs.getString("nombre");
+                String detalle = rs.getString("uso");
+                double precio30m = rs.getDouble("precio30m");
+                boolean estado = rs.getBoolean("estado");
+                
+                insta = new Instalacion(nombre,detalle,precio30m,estado);
+                insta.setIdInstalacion(ID);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar.");
+        }
+        return insta;
+    }
+    
+    public void actualizar(Instalacion insA){
+        try {
+            String sql = "UPDATE instalacion SET nombre= ?, uso= ?, precio30m = ?, estado = ? WHERE idInstalacion = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setString(1, insA.getNombre());
+            ps.setString(2, insA.getDetalleDeUso());
+            ps.setDouble(3, insA.getPrecio30m());
+            ps.setBoolean(4, insA.isEstado());
+            
+            int registro = ps.executeUpdate();
+            if(registro > 0){
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+        }
+    }
+    
+    public void darDeBaja(int idIns){
+        try {
+            String slq = "UPDATE instalacion SET estado = false WHERE idInstalacion = ?";
+            PreparedStatement ps = con.prepareStatement(slq);
+            ps.setInt(1, idIns);
+            
+            int registro = ps.executeUpdate();
+            if(registro > 0){
+                JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al dar de baja.");
+        }
+    }
+    
+        public void darDeAlta(int idIns){
+        try {
+            String slq = "UPDATE instalacion SET estado = true WHERE idInstalacion = ?";
+            PreparedStatement ps = con.prepareStatement(slq);
+            ps.setInt(1, idIns);
+            
+            int registro = ps.executeUpdate();
+            if(registro > 0){
+                JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al dar de alta.");
+        }
     }
 }
