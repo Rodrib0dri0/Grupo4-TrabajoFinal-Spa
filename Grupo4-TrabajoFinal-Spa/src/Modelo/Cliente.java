@@ -1,5 +1,5 @@
 
-package proyectofinal;
+package Modelo;
 
 //Cliente: codCli, dni, nombre completo, teléfono, edad, afecciones, estado (Clase Opcional Grupos 3)
 
