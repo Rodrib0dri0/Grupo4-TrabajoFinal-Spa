@@ -4,16 +4,16 @@ package Modelo;
 //Cliente: codCli, dni, nombre completo, teléfono, edad, afecciones, estado (Clase Opcional Grupos 3)
 
 public class Cliente {
-    private int CodCli;
+    private int idCliente;
     private int dni;
     private String nombre;
     private String apellido;
     private int telefono;
     private int edad;
     private String afecciones;
-    private String estado;
+    private boolean estado;
 
-    public Cliente(int dni, String nombre, String apellido, int telefono, int edad, String afecciones, String estado) {
+    public Cliente(int dni, String nombre, String apellido, int telefono, int edad, String afecciones, boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -71,14 +71,20 @@ public class Cliente {
         this.afecciones = afecciones;
     }
 
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
 }
 
