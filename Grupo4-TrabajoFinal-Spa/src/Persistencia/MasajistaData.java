@@ -4,6 +4,7 @@ import Modelo.Conexion;
 import Modelo.Masajista;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,6 +80,31 @@ public class MasajistaData {
         }
     }
 
+    public Masajista buscarInstalacion(int matricula) {
+        Masajista masa = null;
+        try {
+            String sql = "SELECT * FROM instalacion WHERE idInstalacion = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, matricula);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int matri = rs.getInt("matricula");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                int telefono = rs.getInt("telefono");
+                String especialidad = rs.getString("especialidad");
+                boolean estado = rs.getBoolean("estado");
+
+                masa = new Masajista(matricula,nombre,apellido,telefono, especialidad, estado);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar.");
+        }
+        return masa;
+    }
     public void darDeBaja(Masajista masa) {
         try {
             if (!masa.isEstado()) {

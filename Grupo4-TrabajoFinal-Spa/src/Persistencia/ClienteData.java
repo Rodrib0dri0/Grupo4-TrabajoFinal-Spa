@@ -109,7 +109,7 @@ public class ClienteData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
-        return insta;
+        return cliente;
     }
     
     public void darDeBaja(Cliente cliente) {
