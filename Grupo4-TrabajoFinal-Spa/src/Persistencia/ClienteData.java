@@ -11,15 +11,15 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ClienteData {
-    
+
     private Connection con;
-    
+
     public ClienteData() {
         Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-trabajofinal-spa", "root", "");
         con = conexion.buscarconexion();
     }
-    
-    public void agregarCliente (Cliente cliente){
+
+    public void agregarCliente(Cliente cliente) {
         try {
             String sql = "INSERT INTO cliente(dni, nombre, apellido, edad, afecciones, estado, telefono) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -30,19 +30,19 @@ public class ClienteData {
             ps.setString(5, cliente.getAfecciones());
             ps.setBoolean(6, cliente.getEstado());
             ps.setInt(7, cliente.getTelefono());
-            
+
             int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente guardado correctamente!");
+                System.out.println("Cliente guardado correctamente!");
             }
             ps.close();
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
     }
-    
+
     public void eliminarCliente(int id) {
         try {
             String sql = "DELETE FROM cliente WHERE idCliente = ?";
@@ -52,17 +52,18 @@ public class ClienteData {
             int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente eliminado correctamente!");
+                System.out.println("Cliente eliminado correctamente!");
+
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar.");
         }
     }
-    
+
     public void actualizarCliente(Cliente clienteAc) {
         try {
-            String sql = "UPDATE cliente SET dni= ?, nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE ?";
+            String sql = "UPDATE cliente SET dni= ?, nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, clienteAc.getDni());
             ps.setString(2, clienteAc.getNombre());
@@ -75,14 +76,14 @@ public class ClienteData {
 
             int registro = ps.executeUpdate();
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
+                System.out.println("Cliente actualizado");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar.");
         }
     }
-    
+
     public Cliente buscarCliente(int id) {
         Cliente cliente = null;
         try {
@@ -102,32 +103,33 @@ public class ClienteData {
                 String afecciones = rs.getString("afecciones");
                 boolean estado = rs.getBoolean("estado");
 
-                cliente = new Cliente(dni,nombre,apellido,edad,telefono,afecciones,estado);
+                cliente = new Cliente(dni, nombre, apellido, edad, telefono, afecciones, estado);
                 cliente.setIdCliente(ID);
-                
-                System.out.println("encontrado");
+
             }
-            //ps.close();
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return cliente;
     }
-    
+
     public void darDeBaja(Cliente cliente) {
         try {
-            if (!cliente.getEstado()) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
-            }
-            String slq = "UPDATE masajista SET estado = false WHERE matricula = ?";
-            PreparedStatement ps = con.prepareStatement(slq);
-            ps.setInt(1, cliente.getIdCliente());
+            if (cliente.getEstado()) {
+                String slq = "UPDATE cliente SET estado = false WHERE idCliente = ?";
+                PreparedStatement ps = con.prepareStatement(slq);
+                ps.setInt(1, cliente.getIdCliente());
 
-            int registro = ps.executeUpdate();
-            if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
+                int registro = ps.executeUpdate();
+                if (registro > 0) {
+                    System.out.println("Dado de baja correctamente!");
+                    
+                }
+                ps.close();
+            } else {
+                System.out.println("Ya está dado de baja!");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
@@ -136,15 +138,15 @@ public class ClienteData {
     public void darDeAlta(Cliente cliente) {
         try {
             if (cliente.getEstado()) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
+                System.out.println("Ya está dado de alta!");
             } else {
-                String slq = "UPDATE masajista SET estado = true WHERE matricula = ?";
+                String slq = "UPDATE cliente SET estado = true WHERE idCliente = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
                 ps.setInt(1, cliente.getIdCliente());
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
-                    JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
+                    System.out.println("Dado de alta correctamente!");
                 }
                 ps.close();
             }

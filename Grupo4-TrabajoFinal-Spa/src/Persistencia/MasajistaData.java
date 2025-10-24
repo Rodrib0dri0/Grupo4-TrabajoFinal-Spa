@@ -80,10 +80,10 @@ public class MasajistaData {
         }
     }
 
-    public Masajista buscarInstalacion(int matricula) {
+    public Masajista buscarMasajista(int matricula) {
         Masajista masa = null;
         try {
-            String sql = "SELECT * FROM instalacion WHERE idInstalacion = ?";
+            String sql = "SELECT * FROM masajista WHERE matricula = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, matricula);
 
@@ -97,7 +97,7 @@ public class MasajistaData {
                 String especialidad = rs.getString("especialidad");
                 boolean estado = rs.getBoolean("estado");
 
-                masa = new Masajista(matricula,nombre,apellido,telefono, especialidad, estado);
+                masa = new Masajista(matri, nombre, apellido, telefono, especialidad, estado);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -105,6 +105,7 @@ public class MasajistaData {
         }
         return masa;
     }
+
     public void darDeBaja(Masajista masa) {
         try {
             if (!masa.isEstado()) {

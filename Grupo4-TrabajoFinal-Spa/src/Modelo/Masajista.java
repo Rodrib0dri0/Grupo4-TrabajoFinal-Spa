@@ -67,7 +67,7 @@ public class Masajista {
 
     @Override
     public String toString() {
-        return "Masajista{" + "matricula=" + matricula + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", especialidad=" + especialidad + ", estado=" + estado + '}';
+        return "Matricula: " + matricula + ", Nombre: " + nombre + ", Apellido: " + apellido + ", Telefono: " + telefono + ", Especialidad: " + especialidad + ", Estado: " + estado ;
     }
     
     

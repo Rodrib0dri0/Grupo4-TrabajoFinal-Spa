@@ -1,5 +1,5 @@
 
-package proyectofinal;
+package Modelo;
 
 import java.util.List;
 
