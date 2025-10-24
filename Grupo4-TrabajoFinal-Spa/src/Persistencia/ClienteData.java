@@ -104,8 +104,10 @@ public class ClienteData {
 
                 cliente = new Cliente(dni,nombre,apellido,edad,telefono,afecciones,estado);
                 cliente.setIdCliente(ID);
+                
+                System.out.println("encontrado");
             }
-            ps.close();
+            //ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
