@@ -1,6 +1,7 @@
 
 package Modelo;
 
+import java.sql.Time;
 import java.util.List;
 
 /*Tratamiento/Masaje: codTratam, nombre, tipo(facial, corporal, relajación, o estético), detalle, List<productos>, duración, costo, activo*/
@@ -10,11 +11,11 @@ public class TratamientoMasaje {
     private String tipo;
     private String detalle;
     private List<Producto> productos; 
-    private int duracion; 
+    private Time duracion; 
     private double costo;
     private boolean activo;
 
-    public TratamientoMasaje(int IdTratamiento, String nombre, String tipo, String detalle, List<Producto> productos, int duracion, double costo, boolean activo) {
+    public TratamientoMasaje(int IdTratamiento, String nombre, String tipo, String detalle, List<Producto> productos, Time duracion, double costo, boolean activo) {
         this.IdTratamiento = IdTratamiento;
         this.nombre = nombre;
         this.tipo = tipo;
@@ -65,11 +66,11 @@ public class TratamientoMasaje {
         this.productos = productos;
     }
 
-    public int getDuracion() {
+    public Time getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(Time duracion) {
         this.duracion = duracion;
     }
 
