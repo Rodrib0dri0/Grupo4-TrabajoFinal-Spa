@@ -3,12 +3,12 @@ package Modelo;
 public class Producto {
     private String nombre;
     private String marca;
-    private double cantidad; 
+    private double costo; 
 
-    public Producto(String nombre, String marca, double cantidad) {
+    public Producto(String nombre, String marca, double costo) {
         this.nombre = nombre;
         this.marca = marca;
-        this.cantidad = cantidad;
+        this.costo = costo;
     }
 
     public String getNombre() {
@@ -19,12 +19,12 @@ public class Producto {
         return marca;
     }
 
-    public double getCantidad() {
-        return cantidad;
+    public double getCosto() {
+        return costo;
     }
 
     @Override
     public String toString() {
-        return nombre + "," + marca + "," + cantidad + ",";
+        return nombre + "," + marca + "," + costo + ",";
     }
 }

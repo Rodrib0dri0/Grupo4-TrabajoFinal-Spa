@@ -123,12 +123,12 @@ public class ClienteData {
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
-                    System.out.println("Dado de baja correctamente!");
+                   JOptionPane.showMessageDialog(null,"Dado de baja correctamente!");
                     
                 }
                 ps.close();
             } else {
-                System.out.println("Ya está dado de baja!");
+               JOptionPane.showMessageDialog(null,"Ya está dado de baja!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
@@ -138,7 +138,7 @@ public class ClienteData {
     public void darDeAlta(Cliente cliente) {
         try {
             if (cliente.getEstado()) {
-                System.out.println("Ya está dado de alta!");
+                JOptionPane.showMessageDialog(null,"Ya está dado de alta!");
             } else {
                 String slq = "UPDATE cliente SET estado = true WHERE idCliente = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
@@ -146,7 +146,7 @@ public class ClienteData {
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
-                    System.out.println("Dado de alta correctamente!");
+                    JOptionPane.showMessageDialog(null,"Dado de alta correctamente!");
                 }
                 ps.close();
             }

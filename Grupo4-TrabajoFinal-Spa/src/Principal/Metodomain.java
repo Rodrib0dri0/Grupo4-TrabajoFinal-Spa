@@ -7,10 +7,21 @@ import Persistencia.ClienteData;
 import Persistencia.InstalacionData;
 import Persistencia.MasajistaData;
 import java.sql.Connection;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Metodomain {
 
     public static void main(String[] args) {
+        
+        String hora = "20:43:00";
+            Time sepa = Time.valueOf(hora);
+            System.out.println("The current time is: " +sepa);
+        
+   
+        
+        
 
         // creamos un objeto ClienteData y un Cliente
         ClienteData clidat = new ClienteData();
@@ -24,13 +35,10 @@ public class Metodomain {
         //clidat.agregarCliente(cliente2);
         
         //busca el cliente cuando esta en la base de datos
-         System.out.println(clidat.buscarCliente(2));
+         //System.out.println(clidat.buscarCliente(2));
         
         //Intengo dar de alta al cliente creado y el metodo me indica que ya fue dado de alta
-        clidat.darDeAlta(cliente2);
-        
-        //Dar de baja
-        clidat.darDeBaja(cliente1);
+        //clidat.darDeAlta(cliente1);
 
         //Eliminamos el cliente que creamos que tenia id 1
         //clidat.eliminarCliente(1);
@@ -40,7 +48,9 @@ public class Metodomain {
         Masajista masj = new Masajista(10, "Carlos", "Gomez", 2668, "manos", true);
 
         //MD.GuardarMasajista(masj);
-        System.out.println(MD.buscarMasajista(10));
+        //System.out.println(MD.buscarMasajista(10));
+        
+       //MD.darDeAlta(masj);
     }
 
 }

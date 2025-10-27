@@ -108,18 +108,19 @@ public class MasajistaData {
 
     public void darDeBaja(Masajista masa) {
         try {
-            if (!masa.isEstado()) {
+            if (!masa.isEstado() == false) {
                 JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
-            }
-            String slq = "UPDATE masajista SET estado = false WHERE matricula = ?";
-            PreparedStatement ps = con.prepareStatement(slq);
-            ps.setInt(1, masa.getMatricula());
+            } else if (masa.isEstado() == true) {
+                String slq = "UPDATE masajista SET estado = false WHERE matricula = ?";
+                PreparedStatement ps = con.prepareStatement(slq);
+                ps.setInt(1, masa.getMatricula());
 
-            int registro = ps.executeUpdate();
-            if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
+                int registro = ps.executeUpdate();
+                if (registro > 0) {
+                    JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
+                }
+                ps.close();
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
@@ -127,9 +128,9 @@ public class MasajistaData {
 
     public void darDeAlta(Masajista masa) {
         try {
-            if (masa.isEstado()) {
+            if (masa.isEstado() == true) {
                 JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
-            } else {
+            } else if (masa.isEstado() == false) {
                 String slq = "UPDATE masajista SET estado = true WHERE matricula = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
                 ps.setInt(1, masa.getMatricula());
