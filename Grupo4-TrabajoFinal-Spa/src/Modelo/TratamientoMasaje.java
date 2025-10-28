@@ -11,19 +11,17 @@ public class TratamientoMasaje {
     private String tipo;
     private String detalle;
     private List<Producto> productos; 
-    private Time duracion; 
+    private int duracion; 
     private double costo;
     private boolean activo;
 
-    public TratamientoMasaje(int IdTratamiento, String nombre, String tipo, String detalle, List<Producto> productos, Time duracion, double costo, boolean activo) {
-        this.IdTratamiento = IdTratamiento;
+    public TratamientoMasaje(String nombre, String tipo, String detalle, int duracion, double costo, boolean activo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.detalle = detalle;
-        this.productos = productos;
         this.duracion = duracion;
-        this.costo = costo;
         this.activo = activo;
+        this.costo = costo;
     }
 
     public int getIdTratamiento() {
@@ -66,11 +64,11 @@ public class TratamientoMasaje {
         this.productos = productos;
     }
 
-    public Time getDuracion() {
+    public int getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Time duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
