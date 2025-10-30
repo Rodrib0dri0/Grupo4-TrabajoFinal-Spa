@@ -9,6 +9,8 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
     public InfoTratamientos() {
         initComponents();
         getContentPane().setBackground(new Color(122,79,53));
+        Masajes.setBackground(new Color(122,79,53));
+        TratamientosFaciales.setBackground(new Color(122,79,53));
     }
 
     @SuppressWarnings("unchecked")
@@ -17,27 +19,36 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        Masajes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        TratamientosFaciales = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -45,84 +56,219 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jScrollPane1.setViewportView(jPanel2);
 
-        jLabel13.setText("Limpieza profunda, exfoliación y mascarilla para refrescar el cutis.");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 589, -1, -1));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SpaLogo.png"))); // NOI18N
+
+        jLabel34.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
+        jLabel34.setText("Entre Dedos spa");
+
+        jLabel1.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
+        jLabel1.setText("Entre Dedos spa");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spacostado.jpg"))); // NOI18N
 
         jLabel4.setText("Terapia de relajación de cuerpo completo con presión ligera a media.");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 278, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel14.setText("• Faciales avanzados                                   $10.500");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 616, 483, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("• Masaje de tejido profundo                                    $10.500");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 305, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel15.setText("• Radiofrecuencia                                $11.000");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 671, 483, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("• Masaje con piedras calientes                                $11.000");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 360, 483, -1));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel16.setText("• Ultrasonido                                         $12.000");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 729, 483, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("• Masajes especializados                                          $12.000");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 418, -1, -1));
-
-        jLabel17.setText("Utiliza piedras calientes para calmar los músculos y el sistema nervioso. ");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 702, -1, -1));
 
         jLabel9.setText("Utiliza piedras calientes para calmar los músculos y el sistema nervioso. ");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 391, -1, -1));
+
+        jLabel10.setText("Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa.");
+
+        jLabel11.setText("Incluyen técnicas como la aromaterapia, masajes para parejas o masajes prenatales.");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/masaje (1).png"))); // NOI18N
         jLabel2.setText("MASAJES");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 177, 176, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("• Masaje Sueco                                                           $8.500");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 247, -1, -1));
+
+        javax.swing.GroupLayout MasajesLayout = new javax.swing.GroupLayout(Masajes);
+        Masajes.setLayout(MasajesLayout);
+        MasajesLayout.setHorizontalGroup(
+            MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 582, Short.MAX_VALUE)
+            .addGroup(MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MasajesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(MasajesLayout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(jLabel4))
+                        .addComponent(jLabel6)
+                        .addGroup(MasajesLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel10))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(MasajesLayout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addComponent(jLabel9))
+                        .addComponent(jLabel8)
+                        .addGroup(MasajesLayout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addComponent(jLabel11))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        MasajesLayout.setVerticalGroup(
+            MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 311, Short.MAX_VALUE)
+            .addGroup(MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MasajesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel2)
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel3)
+                    .addGap(11, 11, 11)
+                    .addComponent(jLabel4)
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel6)
+                    .addGap(3, 3, 3)
+                    .addComponent(jLabel10)
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel7)
+                    .addGap(5, 5, 5)
+                    .addComponent(jLabel9)
+                    .addGap(7, 7, 7)
+                    .addComponent(jLabel8)
+                    .addGap(7, 7, 7)
+                    .addComponent(jLabel11)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jLabel13.setText("Limpieza profunda, exfoliación y mascarilla para refrescar el cutis.");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel14.setText("• Faciales avanzados                                                 $12.000");
+
+        jLabel24.setText("Utiliza piedras calientes para calmar los músculos y el sistema nervioso. ");
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setText("• Radiofrecuencia                                                      $10.000");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel16.setText("• Ultrasonido                                                              $8.500");
+
+        jLabel17.setText("Utiliza piedras calientes para calmar los músculos y el sistema nervioso. ");
+
+        jLabel26.setText("Exfolia la capa superficial de la piel usando puntas de diamante o microcristales.");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel27.setText("• Microdermoabrasión                                              $9.500");
 
         jLabel18.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/masaje-facial.png"))); // NOI18N
         jLabel18.setText("Tratamientos faciales");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 488, 335, -1));
-
-        jLabel10.setText("Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa.");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 333, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel19.setText("• Facial básico                                                           $8.500");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 558, -1, -1));
+        jLabel19.setText("• Facial básico                                                            $7.000");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel29.setText("• Luz Pulsada Intensa (IPL)                                       $14.000");
 
         jLabel20.setText("Para aliviar tensión muscular crónica y tratar contracturas, con presión más intensa.");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 644, -1, -1));
 
-        jLabel11.setText("Incluyen técnicas como la aromaterapia, masajes para parejas o masajes prenatales.");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 449, -1, -1));
+        jLabel21.setText("Usa ondas sonoras de alta frecuencia para limpiar/masajear/penetrar la piel.");
 
-        jLabel21.setText("Incluyen técnicas como la aromaterapia, masajes para parejas o masajes prenatales.");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 760, -1, -1));
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel31.setText("• Vaporizador facial                                                   $6.000");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/sepa.jpg"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 0, -1, -1));
+        jLabel22.setText("Incluyen técnicas como la aromaterapia, masajes para parejas o masajes prenatales.");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SpaLogo.png"))); // NOI18N
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 6, -1, -1));
-
-        jLabel1.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
-        jLabel1.setText("Entre Dedos spa");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 140, -1, 19));
-
-        jScrollPane1.setViewportView(jPanel2);
+        javax.swing.GroupLayout TratamientosFacialesLayout = new javax.swing.GroupLayout(TratamientosFaciales);
+        TratamientosFaciales.setLayout(TratamientosFacialesLayout);
+        TratamientosFacialesLayout.setHorizontalGroup(
+            TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TratamientosFacialesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addGap(35, 35, 35))
+            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel13))
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                                    .addGap(1, 1, 1)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TratamientosFacialesLayout.createSequentialGroup()
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(89, 89, 89)))
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel20))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel17))
+                    .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, TratamientosFacialesLayout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(jLabel21)))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel24)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TratamientosFacialesLayout.setVerticalGroup(
+            TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel18)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel13)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel14)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel29)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,11 +276,44 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel34)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(Masajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(TratamientosFaciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1056, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 1509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 186, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel12)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addComponent(Masajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TratamientosFaciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,6 +321,8 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Masajes;
+    private javax.swing.JPanel TratamientosFaciales;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -156,7 +337,14 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
