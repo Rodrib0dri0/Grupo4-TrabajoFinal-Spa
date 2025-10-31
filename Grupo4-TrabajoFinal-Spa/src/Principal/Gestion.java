@@ -89,7 +89,7 @@ public class Gestion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        Tratamientos t = new Tratamientos();
+        GestionarTratamientos t = new GestionarTratamientos();
         t.setVisible(true);
         Escritorio.add(t);
         Escritorio.moveToFront(t);

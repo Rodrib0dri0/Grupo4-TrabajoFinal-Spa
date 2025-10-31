@@ -108,9 +108,10 @@ public class TratamientoMasajeData {
             String sql = "SELECT * FROM `tratamiento/masaje` WHERE idTratamiento = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
-            int idTratemiento = rs.getInt("idTratamiento");
+            int idTratamiento = rs.getInt("idTratamiento");
             String nombre = rs.getString("nombre");
             String tipo = rs.getString("tipo");
             List<Producto> productos = pd.buscarProductos(id);
@@ -119,9 +120,8 @@ public class TratamientoMasajeData {
             String detalle = rs.getString("detalle");
             boolean estado = rs.getBoolean("estado");
 
-            tra = new TratamientoMasaje(nombre, tipo, detalle, duracion, costo, estado);
+            tra = new TratamientoMasaje(idTratamiento, nombre, tipo, detalle, duracion, costo, estado);
             tra.setProductos(productos);
-            tra.setIdTratamiento(idTratemiento);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }

@@ -12,6 +12,7 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         Masajes.setBackground(new Color(122,79,53));
         TratamientosFaciales.setBackground(new Color(122,79,53));
         TratamientosCorporales.setBackground(new Color(122,79,53));
+        jPanel2.setBackground(new Color(122,79,53));
     }
 
     @SuppressWarnings("unchecked")
@@ -21,8 +22,17 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        TratamientosCorporales = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         TratamientosFaciales = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -39,16 +49,6 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        TratamientosCorporales = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
         Masajes = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -59,6 +59,7 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
 
         setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -66,14 +67,104 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jScrollPane1.setViewportView(jPanel2);
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/SpaLogo.png"))); // NOI18N
-
-        jLabel34.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
-        jLabel34.setText("SPA Entre Dedos");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/creoqsi.jpg"))); // NOI18N
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel23.setText("• Envolturas corporales                                            $9.000");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel25.setText("• Hidroterapia                                                         $11.500");
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setText("• Vacumterapia                                                        $12.000");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel30.setText(" Sesiones en saunas, jacuzzis o baños de vapor.");
+
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel32.setText("Hidratan y desintoxican la piel con ingredientes como algas, barro o chocolate.");
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel33.setText("Es una succión corporal que mejora la circulación sanguínea y el drenaje linfático. ");
+
+        jLabel35.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crema-de-manos (1).png"))); // NOI18N
+        jLabel35.setText("Tratamientos corporales ");
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel36.setText("• Exfoliación corporal                                               $8.000");
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel37.setText("Elimina las células muertas de la piel con el uso de sales o azúcares.");
+
+        javax.swing.GroupLayout TratamientosCorporalesLayout = new javax.swing.GroupLayout(TratamientosCorporales);
+        TratamientosCorporales.setLayout(TratamientosCorporalesLayout);
+        TratamientosCorporalesLayout.setHorizontalGroup(
+            TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel23)))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel32))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel30))
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel28))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel33))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel36))
+                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TratamientosCorporalesLayout.setVerticalGroup(
+            TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TratamientosCorporalesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel23)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addGap(182, 182, 182))
+        );
+
+        jPanel2.add(TratamientosCorporales, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 780, -1, 260));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel13.setText("Limpieza profunda, exfoliación y mascarilla para refrescar el cutis.");
@@ -121,95 +212,6 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel22.setText("Incluyen técnicas como la aromaterapia, masajes para parejas o masajes prenatales.");
 
-        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel23.setText("• Envolturas corporales                                            $9.000");
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel25.setText("• Hidroterapia                                                         $11.500");
-
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel28.setText("• Vacumterapia                                                       $12.000");
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel30.setText(" Sesiones en saunas, jacuzzis o baños de vapor.");
-
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel32.setText("Hidratan y desintoxican la piel con ingredientes como algas, barro o chocolate.");
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel33.setText("Es una succión corporal que mejora la circulación sanguínea y el drenaje linfático. ");
-
-        jLabel35.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crema-de-manos (1).png"))); // NOI18N
-        jLabel35.setText("Tratamientos corporales ");
-
-        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel36.setText("• Exfoliación corporal                                               $8.000");
-
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel37.setText("Elimina las células muertas de la piel con el uso de sales o azúcares.");
-
-        javax.swing.GroupLayout TratamientosCorporalesLayout = new javax.swing.GroupLayout(TratamientosCorporales);
-        TratamientosCorporales.setLayout(TratamientosCorporalesLayout);
-        TratamientosCorporalesLayout.setHorizontalGroup(
-            TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel23)))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel32))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel30))
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel28))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel33))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel36))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        TratamientosCorporalesLayout.setVerticalGroup(
-            TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TratamientosCorporalesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel35)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel36)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel32)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel28)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel33)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout TratamientosFacialesLayout = new javax.swing.GroupLayout(TratamientosFaciales);
         TratamientosFaciales.setLayout(TratamientosFacialesLayout);
         TratamientosFacialesLayout.setHorizontalGroup(
@@ -220,45 +222,38 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
                     .addGroup(TratamientosFacialesLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TratamientosFacialesLayout.createSequentialGroup()
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
                     .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                        .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel13))
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel20))
-                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel17))
-                            .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, TratamientosFacialesLayout.createSequentialGroup()
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jLabel21)))
-                            .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel24)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel13))
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel20))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17))
+                    .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, TratamientosFacialesLayout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(jLabel21)))
+                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel24))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
             .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                .addGroup(TratamientosFacialesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TratamientosFacialesLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel22))
-                    .addComponent(TratamientosCorporales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel22)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         TratamientosFacialesLayout.setVerticalGroup(
@@ -294,10 +289,10 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel31)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TratamientosCorporales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel2.add(TratamientosFaciales, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, -1, 370));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel4.setText("Terapia de relajación de cuerpo completo con presión ligera a media.");
@@ -350,15 +345,14 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
                 .addGroup(MasajesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(MasajesLayout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addComponent(jLabel9))
                         .addComponent(jLabel8)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addGroup(MasajesLayout.createSequentialGroup()
                             .addGap(15, 15, 15)
-                            .addComponent(jLabel11))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                            .addGroup(MasajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel11))))
                     .addContainerGap(44, Short.MAX_VALUE)))
         );
         MasajesLayout.setVerticalGroup(
@@ -388,45 +382,23 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
                     .addContainerGap(7, Short.MAX_VALUE)))
         );
 
+        jPanel2.add(Masajes, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
+
+        jLabel34.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
+        jLabel34.setText("SPA Entre Dedos");
+        jPanel2.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
+
+        jScrollPane1.setViewportView(jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Masajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TratamientosFaciales, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel12))
-                            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Masajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TratamientosFaciales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1066, Short.MAX_VALUE)
         );
 
         pack();

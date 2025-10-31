@@ -15,8 +15,9 @@ public class TratamientoMasaje {
     private double costo;
     private boolean activo;
 
-    public TratamientoMasaje(String nombre, String tipo, String detalle, int duracion, double costo, boolean activo) {
+    public TratamientoMasaje(int IdTratamiento,String nombre, String tipo, String detalle, int duracion, double costo, boolean activo) {
         this.nombre = nombre;
+        this.IdTratamiento = IdTratamiento;
         this.tipo = tipo;
         this.detalle = detalle;
         this.duracion = duracion;
