@@ -103,6 +103,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         jCTratamientos.addItem("Relajación");
         jCTratamientos.addItem("Facial");
         jCTratamientos.addItem("Corporal");
+        jCTratamientos.addItem("Estético");
     }
 
     public void cargarTratamientos() {
