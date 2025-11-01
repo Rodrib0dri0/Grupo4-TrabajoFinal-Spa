@@ -12,7 +12,7 @@ public class DiaDeSpa {
     private List<Sesion> sesion;
     private double monto;
     private boolean estado;
-    private LocalDateTime fecha_hora;
+   
 
     public DiaDeSpa(LocalDateTime fechaHora, String preferencias, Cliente cliente, List<Sesion> sesion, double monto, boolean estado) {
         this.fechaHora = fechaHora;
@@ -35,7 +35,7 @@ public class DiaDeSpa {
         return fechaHora;
     }
 
-    public void setFecha_hora(LocalDateTime fechaHora) {
+    public void setFechahora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 

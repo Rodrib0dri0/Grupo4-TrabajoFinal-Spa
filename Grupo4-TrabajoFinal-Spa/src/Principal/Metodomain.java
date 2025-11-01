@@ -48,7 +48,7 @@ public class Metodomain {
         Masajista masj = new Masajista(10, "Carlos", "Gomez", 2668, "manos", true);
 
         //MD.GuardarMasajista(masj);
-        //System.out.println(MD.buscarMasajista(10));
+        System.out.println(MD.buscarMasajista(10));
         
        //MD.darDeAlta(masj);
     }
