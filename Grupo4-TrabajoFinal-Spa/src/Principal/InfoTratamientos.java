@@ -2,6 +2,7 @@
 package Principal;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JScrollPane;
 
 public class InfoTratamientos extends javax.swing.JInternalFrame {
@@ -13,6 +14,7 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
         TratamientosFaciales.setBackground(new Color(122,79,53));
         TratamientosCorporales.setBackground(new Color(122,79,53));
         jPanel2.setBackground(new Color(122,79,53));
+        jPanel2.setPreferredSize(new Dimension(800,1800));
     }
 
     @SuppressWarnings("unchecked")
@@ -110,31 +112,21 @@ public class InfoTratamientos extends javax.swing.JInternalFrame {
                 .addGap(4, 4, 4)
                 .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel23)))
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel23)
                     .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jLabel32))
                     .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TratamientosCorporalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel30))
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel28))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel30))
+                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel28)
                     .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel33))
-                    .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel36))
+                    .addComponent(jLabel36)
                     .addGroup(TratamientosCorporalesLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))

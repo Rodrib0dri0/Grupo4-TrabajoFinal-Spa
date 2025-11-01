@@ -2,8 +2,10 @@ package Principal;
 
 import Persistencia.Guardar;
 import Modelo.TratamientoMasaje;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionarTratamientos extends javax.swing.JInternalFrame {
@@ -24,8 +26,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         cargarTipos();
         tratamientos = guardar.guardarTra();
         cargarTratamientos();
-        
-
+        inhabilitar();
     }
 
     @SuppressWarnings("unchecked")
@@ -36,7 +37,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTTable = new javax.swing.JTable();
-        jCTratamientos = new javax.swing.JComboBox<>();
+        jCTipo = new javax.swing.JComboBox<>();
         Relajacion = new javax.swing.JPanel();
         jCheckBox11 = new javax.swing.JCheckBox();
         jCheckBox12 = new javax.swing.JCheckBox();
@@ -61,6 +62,8 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         jCheckBox14 = new javax.swing.JCheckBox();
         jCheckBox16 = new javax.swing.JCheckBox();
         jCheckBox15 = new javax.swing.JCheckBox();
+        Prueba = new javax.swing.JPanel();
+        Fondo = new javax.swing.JPanel();
 
         jTTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -73,11 +76,16 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTTableMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTTable);
 
-        jCTratamientos.addItemListener(new java.awt.event.ItemListener() {
+        jCTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCTratamientosItemStateChanged(evt);
+                jCTipoItemStateChanged(evt);
             }
         });
 
@@ -89,7 +97,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jCTratamientos, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(41, 41, 41)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -101,7 +109,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(7, 7, 7)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jCTratamientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(7, Short.MAX_VALUE)))
         );
@@ -283,6 +291,10 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                     .addContainerGap(16, Short.MAX_VALUE)))
         );
 
+        Prueba.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -290,6 +302,13 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Prueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
@@ -309,9 +328,17 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(46, 46, 46))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(Prueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,17 +352,25 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCTratamientosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCTratamientosItemStateChanged
+    private void jCTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCTipoItemStateChanged
         // TODO add your handling code here:
         cargarTratamientos();
-    }//GEN-LAST:event_jCTratamientosItemStateChanged
+        inhabilitar();
+    }//GEN-LAST:event_jCTipoItemStateChanged
+
+    private void jTTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTableMousePressed
+        // TODO add your handling code here:
+        habilitar();
+    }//GEN-LAST:event_jTTableMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Corporal;
     private javax.swing.JPanel Facial;
+    private javax.swing.JPanel Fondo;
+    private javax.swing.JPanel Prueba;
     private javax.swing.JPanel Relajacion;
-    private javax.swing.JComboBox<String> jCTratamientos;
+    private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox10;
     private javax.swing.JCheckBox jCheckBox11;
@@ -371,22 +406,106 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
     }
 
     public void cargarTipos() {
-        jCTratamientos.addItem("Relajación");
-        jCTratamientos.addItem("Facial");
-        jCTratamientos.addItem("Corporal");
-        jCTratamientos.addItem("Estético");
+        jCTipo.addItem("Relajación");
+        jCTipo.addItem("Facial");
+        jCTipo.addItem("Corporal");
+        jCTipo.addItem("Estético");
     }
 
     public void cargarTratamientos() {
         modelo.setRowCount(0);
 
-        String tipo = jCTratamientos.getSelectedItem().toString();
+        String tipo = jCTipo.getSelectedItem().toString();
         for (TratamientoMasaje t : tratamientos) {
             if (t.getTipo().equals(tipo)) {
                 if (t.isActivo() == true) {
                     modelo.addRow(new Object[]{t.getNombre(), t.getTipo(), t.getDuracion(), t.getCosto()});
                 }
             }
+        }
+    }
+
+    public void falseR() {
+        jCheckBox1.setEnabled(false);
+        jCheckBox2.setEnabled(false);
+        jCheckBox3.setEnabled(false);
+        jCheckBox4.setEnabled(false);
+    }
+
+    public void falseF() {
+        jCheckBox5.setEnabled(false);
+        jCheckBox6.setEnabled(false);
+        jCheckBox7.setEnabled(false);
+        jCheckBox8.setEnabled(false);
+    }
+
+    public void falseC() {
+        jCheckBox9.setEnabled(false);
+        jCheckBox10.setEnabled(false);
+        jCheckBox11.setEnabled(false);
+        jCheckBox12.setEnabled(false);
+    }
+
+    public void falseE() {
+        jCheckBox13.setEnabled(false);
+        jCheckBox14.setEnabled(false);
+        jCheckBox15.setEnabled(false);
+        jCheckBox16.setEnabled(false);
+    }
+
+    public void inhabilitar() {
+        falseR();
+        falseF();
+        falseC();
+        falseE();
+    }
+
+    public void porTipo() {
+        String tipo = jCTipo.getSelectedItem().toString();
+
+        switch (tipo) {
+            case "Relajación":
+                jCheckBox1.setEnabled(true);
+                jCheckBox2.setEnabled(true);
+                jCheckBox3.setEnabled(true);
+                jCheckBox4.setEnabled(true);
+                falseF();
+                falseC();
+                falseE();
+                break;
+            case "Facial":
+                jCheckBox5.setEnabled(true);
+                jCheckBox6.setEnabled(true);
+                jCheckBox7.setEnabled(true);
+                jCheckBox8.setEnabled(true);
+                falseR();
+                falseC();
+                falseE();
+                break;
+            case "Corporal":
+                jCheckBox9.setEnabled(true);
+                jCheckBox10.setEnabled(true);
+                jCheckBox11.setEnabled(true);
+                jCheckBox12.setEnabled(true);
+                falseR();
+                falseF();
+                falseE();
+                break;
+            case "Estético":
+                jCheckBox13.setEnabled(true);
+                jCheckBox14.setEnabled(true);
+                jCheckBox15.setEnabled(true);
+                jCheckBox16.setEnabled(true);
+                falseR();
+                falseF();
+                falseC();
+                break;
+        }
+    }
+
+    public void habilitar() {
+        if (jTTable.getSelectedRow() >= 0) {
+            porTipo();
         }
     }
 }
