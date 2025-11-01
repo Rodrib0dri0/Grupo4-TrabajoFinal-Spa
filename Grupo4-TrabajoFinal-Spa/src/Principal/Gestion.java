@@ -106,7 +106,6 @@ public class Gestion extends javax.swing.JFrame {
         Escritorio.removeAll();
         Escritorio.repaint();
         GestionarTratamientos t = new GestionarTratamientos();
-        t.setSize(t.getWidth(),t.getHeight());
         t.setVisible(true);
         Escritorio.add(t);
         Escritorio.moveToFront(t);
