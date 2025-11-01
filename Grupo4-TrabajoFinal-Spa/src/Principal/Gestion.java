@@ -30,11 +30,11 @@ public class Gestion extends javax.swing.JFrame {
         Escritorio.setLayout(EscritorioLayout);
         EscritorioLayout.setHorizontalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 947, Short.MAX_VALUE)
+            .addGap(0, 1327, Short.MAX_VALUE)
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
+            .addGap(0, 721, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Tratamientos");
@@ -106,6 +106,7 @@ public class Gestion extends javax.swing.JFrame {
         Escritorio.removeAll();
         Escritorio.repaint();
         GestionarTratamientos t = new GestionarTratamientos();
+        t.setSize(t.getWidth(),t.getHeight());
         t.setVisible(true);
         Escritorio.add(t);
         Escritorio.moveToFront(t);

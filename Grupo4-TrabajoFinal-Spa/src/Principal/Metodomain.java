@@ -51,6 +51,9 @@ public class Metodomain {
         System.out.println(MD.buscarMasajista(10));
         
        //MD.darDeAlta(masj);
+       
+       GestionarTratamientos ts = new GestionarTratamientos();
+        System.out.println();
     }
 
 }
