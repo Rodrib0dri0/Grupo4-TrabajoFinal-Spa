@@ -6,14 +6,14 @@ public class Instalacion {
     private String detalleDeUso;
     private double precio30m;
     private boolean estado;
-    private Sesion sesion;
+   //seria conveniente un atributo asi para representar que pertenece a una sesion?  private Sesion sesion;
 
-    public Instalacion(String nombre, String detalleDeUso, double precio30m, boolean estado, Sesion sesion) {
+    public Instalacion(String nombre, String detalleDeUso, double precio30m, boolean estado) {
         this.nombre = nombre;
         this.detalleDeUso = detalleDeUso;
         this.precio30m = precio30m;
         this.estado = estado;
-        this.sesion=sesion;
+        //this.sesion=sesion;
     }
 
     public int getIdInstalacion() {
@@ -56,17 +56,18 @@ public class Instalacion {
         this.estado = estado;
     }
 
-    public Sesion getSesion() {
+    /*public Sesion getSesion() {
         return sesion;
     }
 
     public void setSesion(Sesion sesion) {
         this.sesion = sesion;
-    }
-     
+    }*/
 
     @Override
     public String toString() {
-        return "Instalacion{" + "idInstalacion=" + idInstalacion + ", nombre=" + nombre + ", detalleDeUso=" + detalleDeUso + ", precio30m=" + precio30m + ", estado=" + estado + ", sesion=" + sesion + '}';
+        return "Instalacion{" + "idInstalacion=" + idInstalacion + ", nombre=" + nombre + ", detalleDeUso=" + detalleDeUso + ", precio30m=" + precio30m + ", estado=" + estado + '}';
     }
+     
+
 }

@@ -71,12 +71,12 @@ public class InstalacionData {
             while (rs.next()) {
                 int ID = rs.getInt("idInstalacion");
                 String nombre = rs.getString("nombre");
-                String detalle = rs.getString("uso");
+                String detalleDeUso = rs.getString("uso");
                 double precio30m = rs.getDouble("precio30m");
                 boolean estado = rs.getBoolean("estado");
 
-                insta = new Instalacion(nombre, detalle, precio30m, estado);
-                insta.setIdInstalacion(ID);
+                insta = new Instalacion(nombre, detalleDeUso, precio30m, estado);
+                insta.setIdInstalacion(ID); 
             }
             ps.close();
         } catch (SQLException ex) {
