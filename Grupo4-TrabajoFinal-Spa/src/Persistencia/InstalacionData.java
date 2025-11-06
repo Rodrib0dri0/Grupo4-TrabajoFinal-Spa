@@ -61,7 +61,7 @@ public class InstalacionData {
 
     public Instalacion buscarInstalacion(int id) {
         Instalacion insta = null;
-        try {
+        try { 
             String sql = "SELECT * FROM instalacion WHERE idInstalacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
