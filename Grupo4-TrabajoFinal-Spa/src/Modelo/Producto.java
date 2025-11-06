@@ -1,6 +1,7 @@
 package Modelo;
 
 public class Producto {
+   
     private String nombre;
     private String marca;
     private double costo;
@@ -13,6 +14,7 @@ public class Producto {
         this.estado= estado;
         this.costo = costo;
     }
+
 
     public boolean isEstado() {
         return estado;
@@ -44,6 +46,8 @@ public class Producto {
 
     @Override
     public String toString() {
-        return nombre + "," + marca + "," + costo + ",";
+        return " nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", estado=" + estado + ", idTratamientoMasaje=" + idTratamientoMasaje + '}';
     }
+
+   
 }

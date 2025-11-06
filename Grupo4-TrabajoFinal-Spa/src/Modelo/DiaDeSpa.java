@@ -1,12 +1,13 @@
 package Modelo;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class DiaDeSpa {
 
     private int idPack;
-    private LocalDateTime fechaHora;
+    private Timestamp fechaHora;
     private String preferencias;
     private Cliente cliente;
     private List<Sesion> sesion;
@@ -14,7 +15,7 @@ public class DiaDeSpa {
     private boolean estado;
    
 
-    public DiaDeSpa(LocalDateTime fechaHora, String preferencias, Cliente cliente, List<Sesion> sesion, double monto, boolean estado) {
+    public DiaDeSpa(Timestamp fechaHora, String preferencias, Cliente cliente, List<Sesion> sesion, double monto, boolean estado) {
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;
         this.cliente = cliente;
@@ -23,6 +24,17 @@ public class DiaDeSpa {
         this.estado = estado;
     }
 
+    public DiaDeSpa( Timestamp fechaHora, String preferencias, Cliente cliente, int Totalsesion, double monto, boolean estado) {
+        this.idPack = idPack;
+        this.fechaHora = fechaHora;
+        this.preferencias = preferencias;
+        this.cliente = cliente;
+        //this.sesion = TotalSesion;
+        this.monto = monto;
+        this.estado = estado;
+    }
+
+    
     public int getIdPack() {
         return idPack;
     }
@@ -31,11 +43,11 @@ public class DiaDeSpa {
         this.idPack = idPack;
     }
 
-    public LocalDateTime getFechaHora() {
+    public Timestamp getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechahora(LocalDateTime fechaHora) {
+    public void setFechahora(Timestamp fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -62,6 +74,14 @@ public class DiaDeSpa {
     public void setSesion(List<Sesion> sesion) {
         this.sesion = sesion;
     }
+ /*este metodo me permite a mi obtener el numero total de las sesiones y guardar directamente
+  un valor double en mi base de datos, algo representativo, ya que no puedo guardar una list en una columna*/
+    public int getTotalSesion() {
+    if (sesion == null) {
+        return 0; // por seguridad, si no hay lista
+    }
+    return sesion.size(); // cantidad de sesiones
+}
 
     public double getMonto() {
         return monto;
@@ -75,8 +95,15 @@ public class DiaDeSpa {
         return estado;
     }
 
+
+
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "DiaDeSpa{" + "idPack=" + idPack + ", fechaHora=" + fechaHora + ", preferencias=" + preferencias + ", cliente=" + cliente + ", sesion=" + sesion + ", monto=" + monto + ", estado=" + estado + '}';
     }
 
     
