@@ -22,8 +22,8 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         SpinnerDateModel modelohora= new SpinnerDateModel();
         jspinnerhora.setModel(modelohora);
         
-        JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
-        jspinnerhora.setEditor(editor);
+       // JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
+        //jspinnerhora.setEditor(editor);
     }
 
     /**
