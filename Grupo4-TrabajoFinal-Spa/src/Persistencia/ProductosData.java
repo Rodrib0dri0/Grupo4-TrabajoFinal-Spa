@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +22,15 @@ public class ProductosData {
     }
 
     public void agregarProducto(Producto producto) {
-        String sql = "INSERT INTO productos (nombre, marca, precio) VALUES (?,?,?)";
+        String sql = "INSERT INTO productos (nombre, marca ,tipo, precio,estado) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getMarca());
-            ps.setDouble(3, producto.getCosto());
+            ps.setString(3, producto.getTipo());
+            ps.setDouble(4, producto.getCosto());
+            ps.setBoolean(5, producto.isEstado());
 
             int registro = ps.executeUpdate();
 
@@ -58,11 +61,12 @@ public class ProductosData {
 
     public void actualizarProducto(Producto producto) {
         try {
-            String sql = "UPDATE productos SET nombre= ?,marca= ?,precio= ? WHERE idProducto = ?";
+            String sql = "UPDATE productos SET nombre= ?,marca= ?,tipo=? ,precio= ? WHERE idProducto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getMarca());
-            ps.setDouble(3, producto.getCosto());
+            ps.setString(3, producto.getTipo());
+            ps.setDouble(4, producto.getCosto());
 
             int registro = ps.executeUpdate();
 
@@ -75,11 +79,37 @@ public class ProductosData {
         }
     }
 
+    public List<Producto> traerProductos() {
+        List<Producto> productos = new ArrayList();
+        try {
+            String sql = "SELECT * FROM productos";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idP = rs.getInt("idProducto");
+                String nombre = rs.getString("nombre");
+                String marca = rs.getString("marca");
+                String tipo = rs.getString("tipo");
+                double precio = rs.getDouble("precio");
+                boolean estado = rs.getBoolean("estado");
+                Producto produ = new Producto(nombre, marca, tipo, precio, estado);
+                produ.setIdProducto(idP);
+
+                productos.add(produ);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al traer los productos.");
+        }
+        return productos;
+    }
+
     public Producto buscarProducto(int id) {
         Producto produ = null;
         try {
 
-            String sql = "SELECT * FROM productos WHERE idTratamiento = ?";
+            String sql = "SELECT * FROM productos WHERE idProducto = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -89,30 +119,43 @@ public class ProductosData {
                 int idP = rs.getInt("idProducto");
                 String nombre = rs.getString("nombre");
                 String marca = rs.getString("marca");
-                double costo = rs.getDouble("costo");
+                String tipo = rs.getString("tipo");
+                double costo = rs.getDouble("precio");
                 boolean estado = rs.getBoolean("estado");
-                produ = new Producto(nombre, marca, costo, estado);
+                produ = new Producto(nombre, marca, tipo, costo, estado);
                 produ.setIdProducto(idP);
             }
-
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return produ;
     }
 
-    public void darDeBaja(int id) {
+    public boolean estadoActual(int id) {
+        boolean estado = true;
         try {
             String slq = "SELECT estado FROM productos WHERE idProducto = ?";
-
-            PreparedStatement ps = con.prepareStatement(slq);
+            PreparedStatement ps = ps = con.prepareStatement(slq);
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
-            boolean estado = rs.getBoolean("estado");
-            if (estado == true) {
-                slq = "UPDATE productos SET estado = false WHERE idProducto = ?";
-                ps = con.prepareStatement(slq);
+            while (rs.next()) {
+                boolean es = rs.getBoolean("estado");
+                estado = es;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return estado;
+
+    }
+
+    public void darDeBaja(int id) {
+        try {
+            if (estadoActual(id)) {
+                String slq = "UPDATE productos SET estado = false WHERE idProducto = ?";
+                PreparedStatement ps = con.prepareStatement(slq);
                 ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();
@@ -130,16 +173,9 @@ public class ProductosData {
 
     public void darDeAlta(int id) {
         try {
-            String slq = "SELECT estado FROM productos WHERE idProducto = ?";
-
-            PreparedStatement ps = con.prepareStatement(slq);
-            ps.setInt(1, id);
-
-            ResultSet rs = ps.executeQuery();
-            boolean estado = rs.getBoolean("estado");
-            if (estado == false) {
-                slq = "UPDATE productos SET estado = true WHERE idProducto = ?";
-                ps = con.prepareStatement(slq);
+            if (!estadoActual(id)) {
+                String slq = "UPDATE productos SET estado = true WHERE idProducto = ?";
+                PreparedStatement ps = con.prepareStatement(slq);
                 ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();

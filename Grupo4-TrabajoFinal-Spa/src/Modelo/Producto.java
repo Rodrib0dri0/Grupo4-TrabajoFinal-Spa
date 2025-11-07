@@ -5,13 +5,14 @@ public class Producto {
     private int idProducto;
     private String nombre;
     private String marca;
+    private String tipo;
     private double costo;
     private boolean estado;
-    private int idTratamientoMasaje;
 
-    public Producto(String nombre, String marca, double costo, boolean estado) {
+    public Producto(String nombre, String marca, String tipo, double costo, boolean estado) {
         this.nombre = nombre;
         this.marca = marca;
+        this.tipo = tipo;
         this.estado = estado;
         this.costo = costo;
     }
@@ -36,12 +37,12 @@ public class Producto {
         return costo;
     }
 
-    public int getIdTratamientoMasaje() {
-        return idTratamientoMasaje;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setIdTratamientoMasaje(int idTratamientoMasaje) {
-        this.idTratamientoMasaje = idTratamientoMasaje;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public int getIdProducto() {
@@ -54,7 +55,7 @@ public class Producto {
 
     @Override
     public String toString() {
-        return " nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", estado=" + estado + ", idTratamientoMasaje=" + idTratamientoMasaje + '}';
+        return " nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", estado=" + estado + '}';
     }
 
 }

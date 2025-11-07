@@ -1,4 +1,3 @@
-
 package Principal;
 
 public class Gestion extends javax.swing.JFrame {
@@ -6,7 +5,7 @@ public class Gestion extends javax.swing.JFrame {
     public Gestion() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,7 +38,7 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenu1.setText("Tratamientos");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Gestionar Tratamientos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -47,7 +46,7 @@ public class Gestion extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("Info");
+        jMenuItem2.setText("Información de Tratamientos");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -57,9 +56,19 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Productos");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("Gestionar de Productos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -127,27 +136,39 @@ public class Gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        
+
         Escritorio.removeAll();
         Escritorio.repaint();
         Sesion ses = new Sesion();
         ses.setVisible(true);
         Escritorio.add(ses);
         Escritorio.moveToFront(ses);
-        
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
-
-Escritorio.removeAll();
+        Escritorio.removeAll();
         Escritorio.repaint();
         DiaDeSpa dds = new DiaDeSpa();
         dds.setVisible(true);
         Escritorio.add(dds);
         Escritorio.moveToFront(dds);
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        GestionarProductos gp = new GestionarProductos();
+        gp.setVisible(true);
+        Escritorio.add(gp);
+        Escritorio.moveToFront(gp);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
