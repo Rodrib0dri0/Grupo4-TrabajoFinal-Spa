@@ -25,19 +25,13 @@ public class TratamientoMasajeData {
 
     public void guardarTratamiento(TratamientoMasaje trata) {
         try {
-            List<Producto> productos = null;
-            double total = 0;
-            productos = trata.getProductos();
-            for (Producto p : productos) {
-                total += p.getCosto();
-            }
 
             String sql = "INSERT INTO tratamiento/masaje(nombre, tipo, totalProductos, duracion, costo, detalle, estado) VALUES (?,?,?,?,?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, trata.getNombre());
             ps.setString(2, trata.getTipo());
-            ps.setDouble(3, total);
+            ps.setDouble(3, trata.getProducto().getIdProducto());
             ps.setInt(4, trata.getDuracion());
             ps.setDouble(5, trata.getCosto());
             ps.setString(6, trata.getDetalle());
@@ -73,19 +67,12 @@ public class TratamientoMasajeData {
 
     public void actualizarTratamiento(TratamientoMasaje trata) {
         try {
-            List<Producto> productos = null;
-            double total = 0;
-            productos = trata.getProductos();
-            for (Producto p : productos) {
-                total += p.getCosto();
-            }
-
             String sql = "UPDATE tratamiento/masaje SET nombre = ?,tipo= ?,totalProductos= ?,duracion= ?,costo= ?,detalle =? ,estado= ? WHERE idTratamiento = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, trata.getNombre());
             ps.setString(2, trata.getTipo());
-            ps.setDouble(3, total);
+            ps.setDouble(3, trata.getProducto().getIdProducto());
             ps.setInt(4, trata.getDuracion());
             ps.setDouble(5, trata.getCosto());
             ps.setString(6, trata.getDetalle());
@@ -114,14 +101,13 @@ public class TratamientoMasajeData {
             int idTratamiento = rs.getInt("idTratamiento");
             String nombre = rs.getString("nombre");
             String tipo = rs.getString("tipo");
-            List<Producto> productos = pd.buscarProductos(id);
+            int idProdu = rs.getInt("idProducto");
             int duracion = rs.getInt("duracion");
             double costo = rs.getDouble("costo");
             String detalle = rs.getString("detalle");
             boolean estado = rs.getBoolean("estado");
 
             tra = new TratamientoMasaje(idTratamiento, nombre, tipo, detalle, duracion, costo, estado);
-            tra.setProductos(productos);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }

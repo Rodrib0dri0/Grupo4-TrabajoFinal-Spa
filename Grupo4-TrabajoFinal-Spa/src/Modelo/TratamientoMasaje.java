@@ -10,7 +10,7 @@ public class TratamientoMasaje {
     private String nombre;
     private String tipo;
     private String detalle;
-    private List<Producto> productos; 
+    private Producto producto; 
     private int duracion; 
     private double costo;
     private boolean activo;
@@ -57,12 +57,12 @@ public class TratamientoMasaje {
         this.detalle = detalle;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setProductos(Producto productos) {
+        this.producto = producto;
     }
 
     public int getDuracion() {

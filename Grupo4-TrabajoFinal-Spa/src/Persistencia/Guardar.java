@@ -29,7 +29,7 @@ public class Guardar {
         tratamientosMasajes.add(new TratamientoMasaje(0,"Vacumterapia", "Corporal", "Es una succión corporal que mejora la circulación sanguínea y el drenaje linfático.", 40, 12000.00, true));
         return tratamientosMasajes;
     }
-    
+    /*
     List<Producto> productos = new ArrayList();
     public List<Producto> guardarProductos(){
         productos.add(new Producto("Mascarilla de oro 24k","LuxurySkin",5.000,true));
@@ -54,4 +54,5 @@ public class Guardar {
         
         return productos;
     }
+*/
 }
