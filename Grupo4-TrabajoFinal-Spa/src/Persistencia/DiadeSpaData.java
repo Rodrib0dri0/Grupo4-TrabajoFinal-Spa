@@ -100,14 +100,14 @@ public class DiadeSpaData {
                 String preferencias = rs.getString("preferencias");
                 int cliente = rs.getInt("cliente");
                 //le paso a un atributo de mi base de datos, un valor extraido de un METODO de mi clase entidad DiaDeSpa
-                int totalSesion = rs.getInt("totalSesion");
+                Double totalSesion = rs.getDouble("totalSesion");
                 Double monto = rs.getDouble("monto");
                 boolean estado = rs.getBoolean("estado");
                  
                 //diadespa= new DiaDeSpa (fechaHora,preferencias,cliente,totalSesion,monto,estado);
 
-                /*diadiadespa = new DiaDeSpa(fechaHora, preferencias,totalSesion, ,monto, estado);
-                diadespa.getIdPack(ID);*/
+                //diadiadespa = new DiaDeSpa(fechaHora, preferencias,totalSesion, ,monto, estado);
+                //diadespa.getIdPack(ID);*/
 
             } 
             ps.close();
