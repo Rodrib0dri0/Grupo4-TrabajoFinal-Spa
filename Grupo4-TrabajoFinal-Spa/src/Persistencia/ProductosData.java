@@ -61,12 +61,13 @@ public class ProductosData {
 
     public void actualizarProducto(Producto producto) {
         try {
-            String sql = "UPDATE productos SET nombre= ?,marca= ?,tipo=? ,precio= ? WHERE idProducto = ?";
+            String sql = "UPDATE productos SET nombre= ?, marca= ?, tipo=?, precio= ? WHERE idProducto = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getMarca());
             ps.setString(3, producto.getTipo());
             ps.setDouble(4, producto.getCosto());
+            ps.setInt(5, producto.getIdProducto());
 
             int registro = ps.executeUpdate();
 
