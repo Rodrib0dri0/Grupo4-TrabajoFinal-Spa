@@ -47,13 +47,11 @@
                               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jCTipo" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jTMarca" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTNombre" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jTMarca" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                                   <Component id="jTPrecio" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="jTNombre" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="60" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jSeparator1" pref="17" max="32767" attributes="0"/>
@@ -106,7 +104,7 @@
                           <Component id="jTPrecio" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jBEliminar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jBGuardar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jBActualizar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -126,10 +124,12 @@
                   <Component id="jBCancelar" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="11" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBAlta" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBBaja" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jSalir" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jBAlta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jBBaja" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
       </Group>

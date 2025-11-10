@@ -1,32 +1,30 @@
 
 package Modelo;
 
-public class TratamientoMasaje {
-    private int IdTratamiento;
+public class Servicio {
+    private int IdServicio;
     private String nombre;
     private String tipo;
     private String detalle;
-    private Producto producto; 
     private int duracion; 
     private double costo;
-    private boolean activo;
+    private boolean estado;
 
-    public TratamientoMasaje(int IdTratamiento,String nombre, String tipo, String detalle, int duracion, double costo, boolean activo) {
+    public Servicio(String nombre, String tipo, int duracion, String detalle, double costo, boolean estado) {
         this.nombre = nombre;
-        this.IdTratamiento = IdTratamiento;
         this.tipo = tipo;
         this.detalle = detalle;
         this.duracion = duracion;
-        this.activo = activo;
         this.costo = costo;
+        this.estado = estado;
     }
 
-    public int getIdTratamiento() {
-        return IdTratamiento;
+    public int getIdServicio() {
+        return IdServicio;
     }
 
-    public void setIdTratamiento(int IdTratamiento) {
-        this.IdTratamiento = IdTratamiento;
+    public void setIdServicio(int IdServicio) {
+        this.IdServicio = IdServicio;
     }
 
     public String getNombre() {
@@ -53,14 +51,6 @@ public class TratamientoMasaje {
         this.detalle = detalle;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProductos(Producto productos) {
-        this.producto = producto;
-    }
-
     public int getDuracion() {
         return duracion;
     }
@@ -77,14 +67,16 @@ public class TratamientoMasaje {
         this.costo = costo;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
  
     
      
 }
+
+
