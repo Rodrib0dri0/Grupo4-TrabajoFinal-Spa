@@ -270,6 +270,8 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
                 pd.actualizarProducto(producto);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
@@ -291,9 +293,11 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
 
                 Producto producto = new Producto(nombre, marca, tipo, precio, estado);
                 pd.agregarProducto(producto);
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
             }
             limpiar();
         } else {
@@ -304,12 +308,16 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
 
     private void jBBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBajaActionPerformed
         // TODO add your handling code here:
-        pd.darDeBaja(productoSeleccionado().getIdProducto());
-        cargarTabla();
+        try {
+            pd.darDeBaja(productoSeleccionado().getIdProducto());
+            cargarTabla();
 
-        cargarTabla();
-        noSeleccionar();
-        limpiar();
+            cargarTabla();
+            noSeleccionar();
+            limpiar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jBBajaActionPerformed
 
     private void jBAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaActionPerformed
@@ -324,15 +332,19 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
 
     private void jTTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTableMousePressed
         // TODO add your handling code here:
-        Producto produ = productoSeleccionado();
+        try {
+            Producto produ = productoSeleccionado();
 
-        jTNombre.setText(produ.getNombre());
-        jTMarca.setText(produ.getMarca());
-        jCTipo.setSelectedItem(produ.getTipo());
-        String precio = String.valueOf(produ.getCosto());
-        jTPrecio.setText(precio);
+            jTNombre.setText(produ.getNombre());
+            jTMarca.setText(produ.getMarca());
+            jCTipo.setSelectedItem(produ.getTipo());
+            String precio = String.valueOf(produ.getCosto());
+            jTPrecio.setText(precio);
 
-        seleccionar();
+            seleccionar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jTTableMousePressed
 
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
@@ -345,11 +357,15 @@ public class GestionarProductos extends javax.swing.JInternalFrame {
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
-        Producto producto = productoSeleccionado();
-        pd.eliminarProducto(producto.getIdProducto());
-        cargarTabla();
-        noSeleccionar();
-        limpiar();
+        try {
+            Producto producto = productoSeleccionado();
+            pd.eliminarProducto(producto.getIdProducto());
+            cargarTabla();
+            noSeleccionar();
+            limpiar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed

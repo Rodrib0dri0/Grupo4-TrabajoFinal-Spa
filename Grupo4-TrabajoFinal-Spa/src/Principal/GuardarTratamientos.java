@@ -1,9 +1,11 @@
 package Principal;
 
 import Modelo.Producto;
+import Modelo.Servicio;
 import Persistencia.Guardar;
 import Modelo.TratamientoMasaje;
 import Persistencia.ProductosData;
+import Persistencia.ServicioData;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -16,17 +18,16 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    Guardar guardar = new Guardar();
-
-    List<TratamientoMasaje> tratamientos = new ArrayList();
+    List<Servicio> servicios = new ArrayList();
 
     ProductosData pd = new ProductosData();
+    ServicioData sd = new ServicioData();
 
     public GuardarTratamientos() {
         initComponents();
         armarCabecera();
         cargarTipos();
-        tratamientos = guardar.guardarTra();
+        servicios = sd.traerServicios();
         cargarTratamientos();
         inhabilitar();
         cargarProductos();
@@ -195,10 +196,10 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         modelo.setRowCount(0);
 
         String tipo = jCTipo.getSelectedItem().toString();
-        for (TratamientoMasaje t : tratamientos) {
-            if (t.getTipo().equals(tipo)) {
-                if (t.isActivo() == true) {
-                    modelo.addRow(new Object[]{t.getNombre(), t.getTipo(), t.getDuracion(), t.getCosto()});
+        for (Servicio s : servicios) {
+            if (s.getTipo().equals(tipo)) {
+                if (s.isEstado() == true) {
+                    modelo.addRow(new Object[]{s.getNombre(), s.getTipo(), s.getDuracion(), s.getCosto()});
                 }
             }
         }

@@ -41,6 +41,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         jCTipo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTDetalle = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTTable = new javax.swing.JTable();
         jSalir = new javax.swing.JButton();
@@ -73,6 +74,13 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         jTDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane1.setViewportView(jTDetalle);
 
+        jButton1.setText("Filtrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPDataLayout = new javax.swing.GroupLayout(jPData);
         jPData.setLayout(jPDataLayout);
         jPDataLayout.setHorizontalGroup(
@@ -98,11 +106,15 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPDataLayout.createSequentialGroup()
+                                        .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPDataLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)))
+                .addContainerGap())
         );
         jPDataLayout.setVerticalGroup(
             jPDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +126,8 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(jPDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -225,9 +238,9 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jPData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,28 +257,31 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(0, 24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBEliminar, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBCancelar))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBAlta)
-                            .addComponent(jBBaja)
-                            .addComponent(jSalir))
-                        .addGap(20, 20, 20))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jBEliminar, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(50, 50, 50))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBCancelar))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBAlta)
+                                    .addComponent(jBBaja)
+                                    .addComponent(jSalir))
+                                .addGap(20, 20, 20))))
+                    .addComponent(jSeparator1)))
         );
 
         pack();
@@ -278,31 +294,43 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
 
     private void jBAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaActionPerformed
         // TODO add your handling code here:
-        sd.darDeAlta(servicioSeleccionado().getIdServicio());
-        cargarTabla();
+        try {
+            sd.darDeAlta(servicioSeleccionado().getIdServicio());
+            cargarTabla();
 
-        cargarTabla();
-        noSeleccionar();
-        limpiar();
+            cargarTabla();
+            noSeleccionar();
+            limpiar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jBAltaActionPerformed
 
     private void jBBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBajaActionPerformed
         // TODO add your handling code here:
-        sd.darDeBaja(servicioSeleccionado().getIdServicio());
-        cargarTabla();
+        try {
+            sd.darDeBaja(servicioSeleccionado().getIdServicio());
+            cargarTabla();
 
-        cargarTabla();
-        noSeleccionar();
-        limpiar();
+            cargarTabla();
+            noSeleccionar();
+            limpiar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jBBajaActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
-        Servicio servi = servicioSeleccionado();
-        sd.eliminarTratamiento(servi.getIdServicio());
-        cargarTabla();
-        noSeleccionar();
-        limpiar();
+        try {
+            Servicio servi = servicioSeleccionado();
+            sd.eliminarTratamiento(servi.getIdServicio());
+            cargarTabla();
+            noSeleccionar();
+            limpiar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
@@ -323,7 +351,10 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
                 sd.actualizarTratamiento(producto);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
         }
@@ -362,20 +393,30 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
 
         limpiar();
         noSeleccionar();
+        cargarTabla();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
     private void jTTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTableMousePressed
         // TODO add your handling code here:
-        Servicio ser = servicioSeleccionado();
-        
-        jTNombre.setText(ser.getNombre());
-        jCTipo.setSelectedItem(ser.getTipo());
-        jTDetalle.setText(ser.getDetalle());
-        jTDuracion.setText(String.valueOf(ser.getDuracion()));
-        jTCosto.setText(String.valueOf(ser.getCosto()));
-        
-        seleccionar();
+        try {
+            Servicio ser = servicioSeleccionado();
+
+            jTNombre.setText(ser.getNombre());
+            jCTipo.setSelectedItem(ser.getTipo());
+            jTDetalle.setText(ser.getDetalle());
+            jTDuracion.setText(String.valueOf(ser.getDuracion()));
+            jTCosto.setText(String.valueOf(ser.getCosto()));
+
+            seleccionar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
     }//GEN-LAST:event_jTTableMousePressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        filtrarTabla();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -385,6 +426,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBGuardar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -468,6 +510,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
     }
 
     public Servicio servicioSeleccionado() {
+
         int fila = jTTable.getSelectedRow();
 
         int id = Integer.parseInt(jTTable.getValueAt(fila, 0).toString());
@@ -475,5 +518,22 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
         Servicio servi = sd.buscarServicio(id);
 
         return servi;
+
+    }
+
+    public void filtrarTabla() {
+        List<Servicio> servicios = new ArrayList();
+
+        String tipo = jCTipo.getSelectedItem().toString();
+
+        servicios = sd.traerServicios();
+
+        modelo.setRowCount(0);
+
+        for (Servicio s : servicios) {
+            if (s.getTipo().equals(tipo)) {
+                modelo.addRow(new Object[]{s.getIdServicio(), s.getNombre(), s.getTipo(), s.getDetalle(), s.getDuracion(), s.getCosto(), s.isEstado()});
+            }
+        }
     }
 }

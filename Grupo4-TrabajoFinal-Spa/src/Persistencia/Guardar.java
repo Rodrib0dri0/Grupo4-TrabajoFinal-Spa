@@ -21,7 +21,7 @@ public class Guardar {
         tratamientosMasajes.add(new TratamientoMasaje(0,"Radiofrecuencia", "Facial", "Usa ondas de radio para generar calor en la piel, estimulando la producción de colágeno y elastina", 45, 10000.00, true));
         tratamientosMasajes.add(new TratamientoMasaje(0,"Ultrasonido", "Facial", ": Usa ondas sonoras de alta frecuencia para limpiar la piel, penetrar activos o hacer masajes profundos.", 45, 8500.00, true));
         tratamientosMasajes.add(new TratamientoMasaje(0,"Luz Pulsada Intensa (IPL)", "Facial", "Utilizada para fotodepilación, rejuvenecimiento de la piel y tratamiento de manchas.", 50, 14000.00, true));
-        tratamientosMasajes.add(new TratamientoMasaje(0,"Vaporizador facia", "Facial", "Produce vapor para abrir los poros y limpiar la piel profundamente.", 30, 6000.00, true));
+        tratamientosMasajes.add(new TratamientoMasaje(0,"Vaporizador facial", "Facial", "Produce vapor para abrir los poros y limpiar la piel profundamente.", 30, 6000.00, true));
 
         tratamientosMasajes.add(new TratamientoMasaje(0,"Exfoliación corporal", "Corporal", "Elimina las células muertas de la piel con el uso de sales o azúcares.", 30,8000.00, true));
         tratamientosMasajes.add(new TratamientoMasaje(0,"Envolturas corporales", "Corporal", "Hidratan y desintoxican la piel con ingredientes como algas, barro o chocolate.", 50, 9000.00, true));
