@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class ClienteData {
 
@@ -113,17 +114,63 @@ public class ClienteData {
         return cliente;
     }
 
-    public void darDeBaja(Cliente cliente) {
+    public List<Cliente> traerClientes() {
+        List<Cliente> clientes = new ArrayList();
         try {
-            if (cliente.getEstado()) {
+            String sql = "SELECT * FROM cliente";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idC = rs.getInt("idCliente");
+                int dni = rs.getInt("dni");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                int edad = rs.getInt("edad");
+                String afe = rs.getString("afecciones");
+                int tele = rs.getInt("telefono");
+                boolean estado = rs.getBoolean("estado");
+                Cliente cli = new Cliente(dni, nombre, apellido, tele, edad, afe, estado);
+                cli.setIdCliente(idC);
+
+                clientes.add(cli);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al traer los productos.");
+        }
+        return clientes;
+    }
+
+    public boolean estadoActual(int id) {
+        boolean estado = true;
+        try {
+            String slq = "SELECT estado FROM cliente WHERE idCliente = ?";
+            PreparedStatement ps = ps = con.prepareStatement(slq);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                boolean es = rs.getBoolean("estado");
+                estado = es;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al encontrar estado.");
+        }
+
+        return estado;
+
+    }
+
+    public void darDeBaja(int id) {
+        try {
+            if (estadoActual(id)) {
                 String slq = "UPDATE cliente SET estado = false WHERE idCliente = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, cliente.getIdCliente());
+                ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
-
                 }
                 ps.close();
             } else {
@@ -134,22 +181,21 @@ public class ClienteData {
         }
     }
 
-    public void darDeAlta(Cliente cliente) {
+    public void darDeAlta(int id) {
         try {
-            if (cliente.getEstado()) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
-            } else {
+            if (!estadoActual(id)) {
                 String slq = "UPDATE cliente SET estado = true WHERE idCliente = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, cliente.getIdCliente());
+                ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
                 }
                 ps.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");
         }
