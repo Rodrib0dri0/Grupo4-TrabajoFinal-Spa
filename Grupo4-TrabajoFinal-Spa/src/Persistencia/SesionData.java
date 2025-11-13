@@ -9,6 +9,7 @@ import Modelo.TratamientoMasaje;
 import Persistencia.MasajistaData;
 import Persistencia.DiadeSpaData;
 import Persistencia.TratamientoMasajeData;
+import Persistencia.InstalacionData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -51,6 +53,12 @@ public class SesionData {
                         sesion.setIdSesion(idSesionGenerado); // guardamos el id en el objeto
                     }
                 }
+                 
+               // Si la sesión tiene una lista de instalaciones cargada (no es null ni está vacía), entonces guardo esa lista en la tabla intermedia sesion_instalacion
+        if (sesion.getInstalacion() != null && !sesion.getInstalacion().isEmpty()) {
+            agregarInstalacionesASesion(sesion.getIdSesion(), sesion.getInstalacion());
+        }
+
                 JOptionPane.showMessageDialog(null, "¡Sesión guardada correctamente!");
             }
 
@@ -60,36 +68,49 @@ public class SesionData {
     
     }
     
-    public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalacion) {
+    public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalaciones) {
     String sql = "INSERT INTO sesion_instalacion (idSesion, idInstalacion) VALUES (?, ?)";
     try (PreparedStatement ps = con.prepareStatement(sql)) {
-        for (Instalacion inst : instalacion) {
+        for (Instalacion inst : instalaciones) {
             ps.setInt(1, idSesion);
             ps.setInt(2, inst.getIdInstalacion());
-            ps.executeUpdate();
+            ps.addBatch();//Agrupa todas las inserciones y las hace de una sola vez
         }
+        ps.executeBatch();
+        System.out.println("instalaciones vinculadas correctamente a la sesion ");
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al guardar instalaciones: " + ex.getMessage());
     }
 }
 
     
-    public void elimarSesion(int id) {
-        try {
-            String sql = "DELETE FROM sesion WHERE idSesion = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+  public void eliminarSesion(int id) {
+    try {
+        // Primero eliminamos instalaciones asociadas
+        String deleteSQL = "DELETE FROM sesion_instalacion WHERE idSesion = ?";
+        try (PreparedStatement psDelete = con.prepareStatement(deleteSQL)) {
+            psDelete.setInt(1, id);
+            psDelete.executeUpdate();
+        }
 
+        // Luego eliminamos la sesión
+        String sql = "DELETE FROM sesion WHERE idSesion = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
             int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Sesion eliminada correctamente!");
+                JOptionPane.showMessageDialog(null, "Sesión eliminada correctamente!");
             }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar.");
         }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
     }
+}
+
+    
+    
     
     public void actualizarSesion(Sesion sesionAc) {
         String sql = "UPDATE sesion SET fecha_hora_inicio = ?, fecha_hora_fin = ?, "
@@ -107,6 +128,13 @@ public class SesionData {
 
             int actualizado = ps.executeUpdate();
             if (actualizado > 0) {
+                
+                // Actualizamos instalaciones si hay una lista cargada
+                
+                //CORROBORAR SI EN MIS METODOS DE INSTALACION ES INSTALACION O INSTALACIONES como esta declarado en la clase SESION
+                if (sesionAc.getInstalacion() != null) {
+                    actualizarInstalacionesDeSesion(sesionAc.getIdSesion(), sesionAc.getInstalacion());
+                }
                 JOptionPane.showMessageDialog(null, "¡Sesión actualizada correctamente!");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró la sesión a actualizar.");
@@ -165,11 +193,16 @@ public Sesion buscarSesion(int id) {
             TratamientoMasaje tratamiento = tratData.buscarTratamiento(idTratamiento);
             Masajista masajista = masData.buscarMasajista(Matricula);
             DiaDeSpa diaDeSpa = diaData.buscarDiaDeSpa(idPack);
+            
+            // Nueva sesión con sus instalaciones
+              List<Instalacion> instalaciones = buscarInstalacionesDeSesion(ID);
             // 2️⃣ Crear una nueva sesión con los datos extraídos
-            sesion = new Sesion(fechaHoraInicio,fechaHoraFin, tratamiento, masajista,null, diaDeSpa, estado);
+            sesion = new Sesion(fechaHoraInicio,fechaHoraFin, tratamiento, masajista,instalaciones, diaDeSpa, estado);
 
             // 3️⃣ Asignar el id de la sesión
             sesion.setIdSesion(ID);
+            
+            //necesitamos reconstruir la lista de instalaciones
         
 }
         ps.close();
@@ -179,6 +212,31 @@ public Sesion buscarSesion(int id) {
 
     return sesion;
 }
+
+
+
+
+ private List<Instalacion> buscarInstalacionesDeSesion(int idSesion) {
+        List<Instalacion> lista = new ArrayList<>();
+        String sql = "SELECT i.* FROM instalacion i JOIN sesion_instalacion si ON i.idInstalacion = si.idInstalacion WHERE si.idSesion = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idSesion);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Instalacion inst = new Instalacion(); 
+                inst.setIdInstalacion(rs.getInt("idInstalacion"));
+                inst.setNombre(rs.getString("nombre"));
+                inst.setDetalleDeUso(rs.getString("uso"));
+                inst.setPrecio30m(rs.getDouble("precio30m"));
+                inst.setEstado(rs.getBoolean("estado"));
+                lista.add(inst);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar: " + ex.getMessage());
+        }
+        return lista;
+    }
 
  public void darDeBaja(Sesion sesion) {
         try {

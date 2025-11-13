@@ -24,7 +24,7 @@ public class DiaDeSpa {
         this.estado = estado;
     }
 
-    public DiaDeSpa( Timestamp fechaHora, String preferencias, Cliente cliente, int Totalsesion, double monto, boolean estado) {
+    public DiaDeSpa(int idPack, Timestamp fechaHora, String preferencias, Cliente cliente, int Totalsesion, double monto, boolean estado) {
         this.idPack = idPack;
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;

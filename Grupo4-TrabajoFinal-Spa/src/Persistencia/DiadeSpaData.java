@@ -1,5 +1,6 @@
 package Persistencia;
 
+import Modelo.Cliente;
 import Modelo.Conexion;
 //import Principal.DiaDeSpa;
 import Modelo.DiaDeSpa;
@@ -71,7 +72,7 @@ public class DiadeSpaData {
             ps.setInt(4, diadespaAc.getTotalSesion());
             ps.setDouble(5, diadespaAc.getMonto());
             ps.setBoolean(6, diadespaAc.isEstado());
-            ps.setInt(8, diadespaAc.getIdPack());
+            ps.setInt(7, diadespaAc.getIdPack());
 
             int registro = ps.executeUpdate();
             if (registro > 0) {
@@ -98,16 +99,15 @@ public class DiadeSpaData {
                 //el tipo de dato es el que recibe la BD o el de la clase JAVA ?
                 Timestamp fechaHora = rs.getTimestamp("fecha_hora");
                 String preferencias = rs.getString("preferencias");
-                int cliente = rs.getInt("cliente");
-                //le paso a un atributo de mi base de datos, un valor extraido de un METODO de mi clase entidad DiaDeSpa
-                Double totalSesion = rs.getDouble("totalSesion");
+                int idCliente = rs.getInt("idCliente");
                 Double monto = rs.getDouble("monto");
                 boolean estado = rs.getBoolean("estado");
+                
+                 ClienteData cliData = new ClienteData();
+                 Cliente cliente = cliData.buscarCliente(idCliente);
                  
-                //diadespa= new DiaDeSpa (fechaHora,preferencias,cliente,totalSesion,monto,estado);
+                diadespa= new DiaDeSpa (ID,fechaHora,preferencias,cliente,0,monto,estado);
 
-                //diadiadespa = new DiaDeSpa(fechaHora, preferencias,totalSesion, ,monto, estado);
-                //diadespa.getIdPack(ID);*/
 
             } 
             ps.close();
