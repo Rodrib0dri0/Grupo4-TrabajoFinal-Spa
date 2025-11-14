@@ -61,26 +61,95 @@ public class ClienteData {
         }
     }
 
-    public void actualizarCliente(Cliente clienteAc) {
-        try {
-            String sql = "UPDATE cliente SET dni= ?, nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, clienteAc.getDni());
-            ps.setString(2, clienteAc.getNombre());
-            ps.setString(3, clienteAc.getApellido());
-            ps.setInt(4, clienteAc.getEdad());
-            ps.setString(5, clienteAc.getAfecciones());
-            ps.setBoolean(6, clienteAc.getEstado());
-            ps.setInt(7, clienteAc.getTelefono());
-            ps.setInt(8, clienteAc.getIdCliente());
+    public void actualizarCliente(Cliente clienteAc, boolean actDNI) {
+        if (actDNI) {
+            actualizarDNI(clienteAc.getDni(), clienteAc.getIdCliente());
+            try {
+                String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, clienteAc.getNombre());
+                ps.setString(2, clienteAc.getApellido());
+                ps.setInt(3, clienteAc.getEdad());
+                ps.setString(4, clienteAc.getAfecciones());
+                ps.setBoolean(5, clienteAc.getEstado());
+                ps.setInt(6, clienteAc.getTelefono());
+                ps.setInt(7, clienteAc.getIdCliente());
 
-            int registro = ps.executeUpdate();
-            if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Cliente actualizado!");
+                int registro = ps.executeUpdate();
+                if (registro > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente actualizado!");
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar.");
             }
+        } else {
+            try {
+                String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, clienteAc.getNombre());
+                ps.setString(2, clienteAc.getApellido());
+                ps.setInt(3, clienteAc.getEdad());
+                ps.setString(4, clienteAc.getAfecciones());
+                ps.setBoolean(5, clienteAc.getEstado());
+                ps.setInt(6, clienteAc.getTelefono());
+                ps.setInt(7, clienteAc.getIdCliente());
+
+                int registro = ps.executeUpdate();
+                if (registro > 0) {
+                    JOptionPane.showMessageDialog(null, "Cliente actualizado!");
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            }
+        }
+    }
+
+    public ArrayList<Integer> obtenerDNI() {
+        ArrayList<Integer> todosDni = new ArrayList<>();
+        try {
+            String sql = "SELECT dni FROM cliente";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int dni = rs.getInt("dni");
+
+                todosDni.add(dni);
+            }
+            if (todosDni.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No hay clientes cargados.");
+            }
+
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            JOptionPane.showMessageDialog(null, "Error al actualizar DNI.");
+        }
+        return todosDni;
+    }
+
+    public void actualizarDNI(int dni, int id) {
+        ArrayList<Integer> DNIs = obtenerDNI();
+
+        for (int i : DNIs) {
+            if (i == dni) {
+                JOptionPane.showMessageDialog(null, "DNi ya existente, no se puede actualizar.");
+                return;
+            }
+        }
+        try {
+            String sql = "UPDATE cliente SET dni= ? WHERE idCliente = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar DNI.");
         }
     }
 

@@ -193,7 +193,7 @@ public class Gestion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Escritorio.removeAll();
         Escritorio.repaint();
-        GestionarTratamientos get = new GestionarTratamientos();
+        GestionarServicios get = new GestionarServicios();
         get.setVisible(true);
         Escritorio.add(get);
         Escritorio.moveToFront(get);

@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.*;
 import javax.swing.JOptionPane;
 
-public class GestionarTratamientos extends javax.swing.JInternalFrame {
+public class GestionarServicios extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -17,7 +17,7 @@ public class GestionarTratamientos extends javax.swing.JInternalFrame {
 
     ServicioData sd = new ServicioData();
 
-    public GestionarTratamientos() {
+    public GestionarServicios() {
         initComponents();
         armarCabecera();
         cargarTabla();
