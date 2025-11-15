@@ -237,6 +237,45 @@ public Sesion buscarSesion(int id) {
         }
         return lista;
     }
+ 
+ 
+ public List<Sesion> buscarSesionesPorDia(int idPack) {
+    List<Sesion> lista = new ArrayList<>();
+    String sql = "SELECT * FROM sesion WHERE idPack = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idPack);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idSesion = rs.getInt("idSesion");
+            LocalDateTime inicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
+            LocalDateTime fin = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
+            int idTratamiento = rs.getInt("idTratamiento");
+            int matricula = rs.getInt("matricula");
+            boolean estado = rs.getBoolean("estado");
+
+            // Buscar tratamiento y masajista
+            TratamientoMasajeData tData = new TratamientoMasajeData();
+            TratamientoMasaje t = tData.buscarTratamiento(idTratamiento);
+
+            MasajistaData mData = new MasajistaData();
+            Masajista m = mData.buscarMasajista(matricula);
+
+            // Recuperar instalaciones
+            List<Instalacion> instalaciones = buscarInstalacionesDeSesion(idSesion);
+
+            // Crear la sesión
+            Sesion sesion = new Sesion(idSesion, inicio, fin, t, m, instalaciones, estado);
+            lista.add(sesion);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar sesiones por Día de Spa: " + ex.getMessage());
+    }
+
+    return lista;
+}
+
 
  public void darDeBaja(Sesion sesion) {
         try {
@@ -258,6 +297,7 @@ public Sesion buscarSesion(int id) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
     }
+
 public void darDeAlta(Sesion sesion) {
         try {
             if (sesion.isEstado()) {

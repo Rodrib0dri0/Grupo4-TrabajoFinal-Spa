@@ -4,11 +4,13 @@ import Modelo.Cliente;
 import Modelo.Conexion;
 //import Principal.DiaDeSpa;
 import Modelo.DiaDeSpa;
+import Modelo.Sesion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class DiadeSpaData {
@@ -21,19 +23,39 @@ public class DiadeSpaData {
     
     public void agregarDiadeSpa(DiaDeSpa diadespa) {
         try {
-            String sql = "INSERT INTO diadespa(fecha_hora, preferencias, idCliente, totalSesion, monto, estado) VALUES (?,?,?,?,?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "INSERT INTO diadespa(fecha_hora, preferencias, idCliente, monto, estado) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            
             ps.setTimestamp(1,diadespa.getFechaHora());
             ps.setString(2, diadespa.getPreferencias());
             ps.setInt(3,diadespa.getCliente().getIdCliente());
-            ps.setDouble(4, diadespa.getTotalSesion());//metodo nuevo declarado en clase DiaDeSpa
-            ps.setDouble(5, diadespa.getMonto());
-            ps.setBoolean(6, diadespa.isEstado());
+            ps.setDouble(4, diadespa.getMonto());
+            ps.setBoolean(5, diadespa.isEstado());
            
 
-            int registro = ps.executeUpdate();
+            int registro = ps.executeUpdate(); 
+            
+            
+          
 
             if (registro > 0) {
+                 // Obtener el ID generado para el Día de Spa
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int idPackGenerado = rs.getInt(1);
+                    diadespa.setIdPack(idPackGenerado);
+                }
+            }
+            
+            // Si el día tiene sesiones cargadas, guardarlas
+            if (diadespa.getSesion() != null && !diadespa.getSesion().isEmpty()) {
+                SesionData sesionData = new SesionData();
+                for (Sesion sesion : diadespa.getSesion()) {
+                    sesion.setDiaDeSpa(diadespa);
+                    sesionData.agregarSesion(sesion);
+                }
+            }
+            
                 System.out.println("Dia de Spa guardado correctamente!");
             }
             ps.close();
@@ -64,15 +86,14 @@ public class DiadeSpaData {
      
      public void actualizarDiadeSpa(DiaDeSpa diadespaAc) {
         try {
-            String sql = "UPDATE diadespa SET fecha_hora=?, preferencias=?, idCliente=?, totalSesion=?, monto=?, estado=? WHERE idPack = ?";
+            String sql = "UPDATE diadespa SET fecha_hora=?, preferencias=?, idCliente=?, monto=?, estado=? WHERE idPack = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setTimestamp(1,diadespaAc.getFechaHora());
             ps.setString(2, diadespaAc.getPreferencias());
             ps.setInt(3, diadespaAc.getCliente().getIdCliente());
-            ps.setInt(4, diadespaAc.getTotalSesion());
-            ps.setDouble(5, diadespaAc.getMonto());
-            ps.setBoolean(6, diadespaAc.isEstado());
-            ps.setInt(7, diadespaAc.getIdPack());
+            ps.setDouble(4, diadespaAc.getMonto());
+            ps.setBoolean(5, diadespaAc.isEstado());
+            ps.setInt(6, diadespaAc.getIdPack());
 
             int registro = ps.executeUpdate();
             if (registro > 0) {
@@ -95,27 +116,36 @@ public class DiadeSpaData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int ID = rs.getInt("idPack");
+                int idPack = rs.getInt("idPack");
                 //el tipo de dato es el que recibe la BD o el de la clase JAVA ?
                 Timestamp fechaHora = rs.getTimestamp("fecha_hora");
                 String preferencias = rs.getString("preferencias");
                 int idCliente = rs.getInt("idCliente");
-                Double monto = rs.getDouble("monto");
+                double monto = rs.getDouble("monto");
                 boolean estado = rs.getBoolean("estado");
                 
                  ClienteData cliData = new ClienteData();
                  Cliente cliente = cliData.buscarCliente(idCliente);
                  
-                diadespa= new DiaDeSpa (ID,fechaHora,preferencias,cliente,0,monto,estado);
+                diadespa= new DiaDeSpa (idPack,fechaHora,preferencias,cliente,monto,estado);
 
+                // 4️⃣ Recuperar las sesiones asociadas
+            SesionData sesionData = new SesionData();
+            List<Sesion> sesiones = sesionData.buscarSesionesPorDia(idPack);
 
-            } 
-            ps.close();
+            diadespa.setSesion(sesiones); // reconstruyo la relación
+        }
+ 
+            //} 
+            //ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return diadespa;
     }
+
+
+
 
       public void darDeBaja(DiaDeSpa diadespa) {
         try {

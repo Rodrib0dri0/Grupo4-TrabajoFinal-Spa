@@ -1,9 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Principal;
 
+import Modelo.Cliente;
+import Modelo.DiaDeSpa;//no entiendo donde esta mi error
+import Persistencia.ClienteData;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
@@ -18,9 +26,10 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
      */
     public DiaDeSpa() {
         initComponents();
+        cargarClientes();
         
         SpinnerDateModel modelohora= new SpinnerDateModel();
-        jspinnerhora.setModel(modelohora);
+        jshora.setModel(modelohora);
         
        // JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
         //jspinnerhora.setEditor(editor);
@@ -36,16 +45,15 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdfecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField1 = new javax.swing.JTextField();
+        jtpreferencias = new javax.swing.JTextArea();
         jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcclientes = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jspinnerhora = new javax.swing.JSpinner();
+        jshora = new javax.swing.JSpinner();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jbguardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -53,36 +61,39 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(736, 1104));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(736, 1104));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 140, -1));
+        jPanel1.add(jdfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 140, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtpreferencias.setColumns(20);
+        jtpreferencias.setRows(5);
+        jScrollPane1.setViewportView(jtpreferencias);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 340, 100));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 140, -1));
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 140, -1));
+        jcclientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jcclientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 140, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 140, -1));
-        jPanel1.add(jspinnerhora, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 140, -1));
+        jPanel1.add(jshora, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 140, -1));
 
         jRadioButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jRadioButton1.setText("Activo");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
 
-        jButton1.setText("Confirmar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 720, -1, -1));
+        jbguardar.setText("Guardar");
+        jbguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbguardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 720, -1, -1));
 
         jButton2.setText("Salir");
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 720, -1, -1));
@@ -117,11 +128,6 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         jLabel3.setText("Fecha");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 70, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Codigo Pack");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
-
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 790));
 
@@ -131,7 +137,7 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 394, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,15 +149,176 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private boolean validarPreferencias() {
+    String texto = jtpreferencias.getText().trim();
+
+    if (texto.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "El campo no puede estar vacío.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    if (texto.length() < 5) {
+        JOptionPane.showMessageDialog(this,
+                "Las preferencias deben tener al menos 5 caracteres.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    if (texto.length() > 300) {
+        JOptionPane.showMessageDialog(this,
+                "Las preferencias no pueden superar los 300 caracteres.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Solo letras, números, acentos y signos básicos
+    if (!texto.matches("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.()/-]*")) {
+        JOptionPane.showMessageDialog(this,
+                "Las preferencias contienen caracteres inválidos.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    return true; 
+}
+
+    private String obtenerPreferencias() {
+    return jtpreferencias.getText().trim();
+}
+
+private boolean validarFechaHora() {
+
+    // Validar fecha
+    if (jdfecha.getDate() == null) {
+        JOptionPane.showMessageDialog(this,
+                "Debe seleccionar una fecha.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Validar hora (el spinner NO debería ser nulo nunca, pero por seguridad lo chequeamos)
+    if (jshora.getValue() == null) {
+        JOptionPane.showMessageDialog(this,
+                "Debe seleccionar una hora válida.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    return true; 
+}
+private Timestamp obtenerFechaHora() {
+
+    // 1) Obtener fecha del JDateChooser
+    Date fechaSeleccionada = jdfecha.getDate();
+
+    // 2) Obtener hora del JSpinner
+    Date horaSeleccionada = (Date) jshora.getValue();
+
+    // 3) Convertir fecha a LocalDate
+    LocalDate fecha = fechaSeleccionada.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate();
+
+    // 4) Convertir hora a LocalTime
+    LocalTime hora = horaSeleccionada.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalTime();
+
+    // 5) Construir LocalDateTime
+    LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
+
+    // 6) Devolver como Timestamp
+    return Timestamp.valueOf(fechaHora);
+}
+
+
+private void cargarClientes() {
+    ClienteData clienteData = new ClienteData(); 
+    List<Cliente> lista = ClienteData.listarClientes(); //En mi clase Cliente Data deberia tener un metodo listar clientes verdad?
+
+    jcclientes.removeAllItems(); // Limpia el combo por las dudas
+    
+    for (Cliente c : lista) {
+        jcclientes.addItem(c);  // Gracias al toString mostrará nombre + apellido 
+        //CONSULTA: NO PUEDO CREAR UN METODO PARECIDO AL TOSTRING QUE MUESTRE SOLO NOMBRE Y APELLIDO Y LO INVOQUE?
+    }
+}
+
+
+    
+    private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
+
+ // === Validamos datos
+if (!validarPreferencias()) {return;}
+if (!validarFechaHora()){return;}
+
+// === EXTRAER datos validados
+String preferencias = obtenerPreferencias();
+Timestamp fechaHora = obtenerFechaHora();
+Cliente cli = (Cliente) jcclientes.getSelectedItem();
+
+ if (cli == null) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
+        return;
+    }
+
+        // 5️⃣ Obtener otros datos del formulario
+       // String preferencias = txtPreferencias.getText();
+       // Cliente cliente = (Cliente) comboCliente.getSelectedItem();
+       // if (cliente == null) {
+        //    JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
+        //    return;
+        //}
+
+        //double monto = Double.parseDouble(txtMonto.getText());
+       // boolean estado = chkEstado.isSelected();
+
+        // 6️⃣ Crear objeto DiaDeSpa
+        DiaDeSpa dia = new DiaDeSpa();
+        dia.setFechahora(fechaHora);
+        dia.setPreferencias(preferencias);
+        dia.setCliente(cli);
+        //dia.setMonto(monto);
+        //dia.setEstado(estado);
+
+        // 7️⃣ Guardar en la base
+       // diadespaData.agregarDiaDeSpa(dia);
+      /* DiaDeSpaData ddd = new DiaDeSpaData();
+    ddd.guardarDiaDeSpa(dia);
+
+    JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");*/
+}
+
+       /* JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Monto inválido.");
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+        ex.printStackTrace();*/
+
+
+
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbguardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -161,9 +328,18 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JSpinner jspinnerhora;
+    private javax.swing.JButton jbguardar;
+    private javax.swing.JComboBox<String> jcclientes;
+    private com.toedter.calendar.JDateChooser jdfecha;
+    private javax.swing.JSpinner jshora;
+    private javax.swing.JTextArea jtpreferencias;
     // End of variables declaration//GEN-END:variables
 }
+
+
+
+
+
+
+

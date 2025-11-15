@@ -2,6 +2,7 @@ package Modelo;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiaDeSpa {
@@ -10,31 +11,37 @@ public class DiaDeSpa {
     private Timestamp fechaHora;
     private String preferencias;
     private Cliente cliente;
-    private List<Sesion> sesion;
+    private List<Sesion> sesiones;
     private double monto;
     private boolean estado;
-   
+    
 
-    public DiaDeSpa(Timestamp fechaHora, String preferencias, Cliente cliente, List<Sesion> sesion, double monto, boolean estado) {
+    
+    public DiaDeSpa() {
+        sesiones = new ArrayList<>();
+    }
+
+   // un constructor por si creo una sesion con una lista cargada con instalaciones 
+    public DiaDeSpa(Timestamp fechaHora, String preferencias, Cliente cliente, List<Sesion> sesiones, double monto, boolean estado) {
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;
         this.cliente = cliente;
-        this.sesion = sesion;
+        this.sesiones =(sesiones != null) ? sesiones : new ArrayList<>();//“Si el parámetro sesiones que recibo no es null, entonces lo asigno.Si es null, creo una nueva lista vacía.”
         this.monto = monto;
         this.estado = estado;
     }
 
-    public DiaDeSpa(int idPack, Timestamp fechaHora, String preferencias, Cliente cliente, int Totalsesion, double monto, boolean estado) {
+    //  // un constructor al que lo creo sin sesiones y despues se las asigno a traves de un metodo 
+    public DiaDeSpa(int idPack, Timestamp fechaHora, String preferencias, Cliente cliente, double monto, boolean estado) {
         this.idPack = idPack;
         this.fechaHora = fechaHora;
         this.preferencias = preferencias;
         this.cliente = cliente;
-        //this.sesion = TotalSesion;
         this.monto = monto;
         this.estado = estado;
     }
-
     
+   
     public int getIdPack() {
         return idPack;
     }
@@ -66,21 +73,33 @@ public class DiaDeSpa {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
+    
+    //Agrega una Sesion a la lista 
+    public void agregarSesion(Sesion ses) {
+        if (sesiones != null && !sesiones.contains(ses)) 
+        sesiones.add(ses);
+    }
+    
+    // Quita una Sesion de la lista
+    public void eliminarSesion(Sesion sesion) {
+        sesiones.remove(sesion);
+    }
+    
+    
     public List<Sesion> getSesion() {
-        return sesion;
+        return sesiones;
     }
 
-    public void setSesion(List<Sesion> sesion) {
-        this.sesion = sesion;
+    public void setSesion(List<Sesion> sesiones) {
+        this.sesiones = sesiones;
     }
  /*este metodo me permite a mi obtener el numero total de las sesiones y guardar directamente
   un valor double en mi base de datos, algo representativo, ya que no puedo guardar una list en una columna*/
     public int getTotalSesion() {
-    if (sesion == null) {
+    if (sesiones == null) {
         return 0; // por seguridad, si no hay lista
     }
-    return sesion.size(); // cantidad de sesiones
+    return sesiones.size(); // cantidad de sesiones
 }
 
     public double getMonto() {
@@ -96,14 +115,13 @@ public class DiaDeSpa {
     }
 
 
-
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Override
     public String toString() {
-        return "DiaDeSpa{" + "idPack=" + idPack + ", fechaHora=" + fechaHora + ", preferencias=" + preferencias + ", cliente=" + cliente + ", sesion=" + sesion + ", monto=" + monto + ", estado=" + estado + '}';
+        return "DiaDeSpa{" + "idPack=" + idPack + ", fechaHora=" + fechaHora + ", preferencias=" + preferencias + ", cliente=" + cliente + ", sesiones=" + sesiones + ", monto=" + monto + ", estado=" + estado + '}';
     }
 
     

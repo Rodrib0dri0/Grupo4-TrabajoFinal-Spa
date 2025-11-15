@@ -40,6 +40,18 @@ public class Sesion {
         this.diaDeSpa = diaDeSpa;
         this.estado = estado;
     }
+
+    public Sesion(int idSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, List<Instalacion> instalaciones, boolean estado) {
+        this.idSesion = idSesion;
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
+        this.Tratamiento = Tratamiento;
+        this.masajista = masajista;
+        this.instalaciones = instalaciones;
+        this.estado = estado;
+    }
+    
+    
     
 
     public int getIdSesion() {
@@ -95,9 +107,7 @@ public class Sesion {
         if (instalaciones != null && !instalaciones.contains(instalaciones)) 
         instalaciones.add(ins);
     }
-    
-    
-    
+     
     // Quita una instalación de la lista
     public void eliminarInstalacion(Instalacion instalacion) {
         instalaciones.remove(instalacion);
