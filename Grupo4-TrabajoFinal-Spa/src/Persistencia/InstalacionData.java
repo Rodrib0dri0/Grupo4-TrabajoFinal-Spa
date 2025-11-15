@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
@@ -83,6 +85,31 @@ public class InstalacionData {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return insta;
+    }
+    
+    public List<Instalacion> traerProductos() {
+        List<Instalacion> instalaciones = new ArrayList();
+        try {
+            String sql = "SELECT * FROM instalacion";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("idInstalacion");
+                String nombre = rs.getString("nombre");
+                String uso = rs.getString("uso");
+                double precio = rs.getDouble("precio30m");
+                boolean estado = rs.getBoolean("estado");
+                Instalacion ins = new Instalacion(nombre, uso, precio, estado);
+                ins.setIdInstalacion(id);
+
+                instalaciones.add(ins);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al traer los productos.");
+        }
+        return instalaciones;
     }
 
     public void actualizar(Instalacion insA) {
