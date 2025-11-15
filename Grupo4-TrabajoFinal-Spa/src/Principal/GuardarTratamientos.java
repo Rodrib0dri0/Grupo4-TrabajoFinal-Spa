@@ -242,6 +242,9 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             inhabilitar();
             productosSele.clear();
             cargarTablaProdu();
+
+            total = 0;
+            jTTotal.setText(String.valueOf(total));
         }
     }//GEN-LAST:event_jCTipoItemStateChanged
 
@@ -271,10 +274,10 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         String nombre = jCProductos.getSelectedItem().toString();
         Producto produ = pd.buscarProductoporNombre(nombre);
         productosSele.add(produ);
-        
+
         total += produ.getCosto();
         jTTotal.setText(String.valueOf(total));
-        
+
         cargarTablaProdu();
     }//GEN-LAST:event_jBAgregarActionPerformed
 
