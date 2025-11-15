@@ -106,6 +106,25 @@ public class ProductosData {
         return productos;
     }
 
+    public Producto buscarProductoporNombre(String nombre) {
+        Producto produ = null;
+        String sql = "SELECT idProducto FROM productos WHERE nombre like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("idProducto");
+                produ = buscarProducto(id);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar id.");
+        }
+        return produ;
+    }
+
     public Producto buscarProducto(int id) {
         Producto produ = null;
         try {

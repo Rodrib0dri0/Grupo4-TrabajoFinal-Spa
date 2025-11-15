@@ -18,19 +18,32 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             return false;
         }
     };
+
+    private DefaultTableModel modelo2 = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
     List<Servicio> servicios = new ArrayList();
 
     ProductosData pd = new ProductosData();
     ServicioData sd = new ServicioData();
 
+    List<Producto> productosSele = new ArrayList();
+
+    double total = 0;
+
     public GuardarTratamientos() {
         initComponents();
         armarCabecera();
+        armarCabecera2();
         cargarTipos();
         servicios = sd.traerServicios();
         cargarTratamientos();
         inhabilitar();
         cargarProductos();
+        jTTotal.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,19 +55,19 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         jTTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jCEstetico = new javax.swing.JComboBox<>();
-        jCRelajacion = new javax.swing.JComboBox<>();
-        jCCorporal = new javax.swing.JComboBox<>();
-        jCFacial = new javax.swing.JComboBox<>();
+        jCProductos = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTDetalle = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTProductos = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        jTTratasele = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jBAgregar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jTTotal = new javax.swing.JTextField();
+        jTBloq = new javax.swing.JToggleButton();
 
         jCTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         jCTipo.addItemListener(new java.awt.event.ItemListener() {
@@ -85,20 +98,13 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo.png"))); // NOI18N
         jButton2.setText("Guardar");
-
-        jCEstetico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-
-        jCRelajacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-
-        jCCorporal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        jCCorporal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jCFacial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-        jCFacial.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCFacialActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
+
+        jCProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
 
         jTDetalle.setColumns(20);
         jTDetalle.setRows(5);
@@ -121,50 +127,67 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Producto/s seleccionado/s:");
 
-        jButton3.setText("jButton3");
+        jBAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-agregar.png"))); // NOI18N
+        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel3.setText("Total:");
+
+        jTBloq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tornillo.png"))); // NOI18N
+        jTBloq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTBloqActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCFacial, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCEstetico, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCRelajacion, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jCCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addGap(334, 334, 334)
+                        .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(61, 61, 61))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addGap(36, 36, 36)
                         .addComponent(jButton1)
-                        .addGap(20, 20, 20))))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jTTratasele, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTBloq, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(57, 57, 57))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,26 +203,29 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTTratasele, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTBloq, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCRelajacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCFacial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCEstetico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton1))
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCProductos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(86, 86, 86)
+                        .addComponent(jButton1)))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -211,45 +237,84 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
 
     private void jCTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCTipoItemStateChanged
         // TODO add your handling code here:
-        cargarTratamientos();
-        inhabilitar();
+        if (!jTBloq.isSelected()) {
+            cargarTratamientos();
+            inhabilitar();
+            productosSele.clear();
+            cargarTablaProdu();
+        }
     }//GEN-LAST:event_jCTipoItemStateChanged
 
     private void jTTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTableMousePressed
         // TODO add your handling code here:
-        porTipo();
+        if (!jTBloq.isSelected()) {
+            cargarProductos();
+            jTTratasele.setText(tratamientoSeleccionado().getNombre());
+            total += tratamientoSeleccionado().getCosto();
+            jTTotal.setText(String.valueOf(total));
+        }
     }//GEN-LAST:event_jTTableMousePressed
 
-    private void jCFacialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCFacialActionPerformed
+    private void jTBloqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTBloqActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCFacialActionPerformed
+        if (jTBloq.isSelected()) {
+            jTTratasele.setEnabled(false);
+            jCProductos.setEnabled(true);
+        } else {
+            jTTratasele.setEnabled(true);
+            jCProductos.setEnabled(false);
+        }
+    }//GEN-LAST:event_jTBloqActionPerformed
+
+    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        // TODO add your handling code here:
+        String nombre = jCProductos.getSelectedItem().toString();
+        Producto produ = pd.buscarProductoporNombre(nombre);
+        productosSele.add(produ);
+        
+        total += produ.getCosto();
+        jTTotal.setText(String.valueOf(total));
+        
+        cargarTablaProdu();
+    }//GEN-LAST:event_jBAgregarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        productosSele = null;
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jCCorporal;
-    private javax.swing.JComboBox<String> jCEstetico;
-    private javax.swing.JComboBox<String> jCFacial;
-    private javax.swing.JComboBox<String> jCRelajacion;
+    private javax.swing.JComboBox<String> jCProductos;
     private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JToggleButton jTBloq;
     private javax.swing.JTextArea jTDetalle;
     private javax.swing.JTable jTProductos;
     private javax.swing.JTable jTTable;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTTotal;
+    private javax.swing.JTextField jTTratasele;
     // End of variables declaration//GEN-END:variables
     private void armarCabecera() {
+        modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("Duración");
-        modelo.addColumn("Costo");
         jTTable.setModel(modelo);
+    }
+
+    private void armarCabecera2() {
+        modelo2.addColumn("Nombre");
+        modelo2.addColumn("Marca");
+        jTProductos.setModel(modelo2);
     }
 
     public void cargarTipos() {
@@ -259,6 +324,16 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         jCTipo.addItem("Estético");
     }
 
+    public void cargarTablaProdu() {
+        modelo2.setRowCount(0);
+
+        for (Producto p : productosSele) {
+            if (p.isEstado() == true) {
+                modelo2.addRow(new Object[]{p.getNombre(), p.getMarca()});
+            }
+        }
+    }
+
     public void cargarTratamientos() {
         modelo.setRowCount(0);
 
@@ -266,75 +341,48 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         for (Servicio s : servicios) {
             if (s.getTipo().equals(tipo)) {
                 if (s.isEstado() == true) {
-                    modelo.addRow(new Object[]{s.getNombre(),s.getDuracion(), s.getCosto()});
+                    modelo.addRow(new Object[]{s.getIdServicio(), s.getNombre(), s.getDuracion()});
                 }
             }
         }
     }
 
     public void inhabilitar() {
-        jCEstetico.setEnabled(false);
-        jCRelajacion.setEnabled(false);
-        jCFacial.setEnabled(false);
-        jCCorporal.setEnabled(false);
-    }
-
-    public void porTipo() {
-        String tipo = jCTipo.getSelectedItem().toString();
-
-        switch (tipo) {
-            case "Relajación":
-                jCEstetico.setEnabled(false);
-                jCRelajacion.setEnabled(true);
-                jCFacial.setEnabled(false);
-                jCCorporal.setEnabled(false);
-                break;
-            case "Facial":
-                jCEstetico.setEnabled(false);
-                jCRelajacion.setEnabled(false);
-                jCFacial.setEnabled(true);
-                jCCorporal.setEnabled(false);
-                break;
-            case "Corporal":
-                jCEstetico.setEnabled(false);
-                jCRelajacion.setEnabled(false);
-                jCFacial.setEnabled(false);
-                jCCorporal.setEnabled(true);
-                break;
-            case "Estético":
-                jCEstetico.setEnabled(true);
-                jCRelajacion.setEnabled(false);
-                jCFacial.setEnabled(false);
-                jCCorporal.setEnabled(false);
-                break;
-        }
-    }
-
-    public void habilitar() {
-        if (jTTable.getSelectedRow() >= 0) {
-            porTipo();
-        }
+        jCProductos.setEnabled(false);
     }
 
     public void cargarProductos() {
         List<Producto> productos = pd.traerProductos();
+        jCProductos.removeAllItems();
 
         for (Producto p : productos) {
             String nombre = p.getNombre();
-            switch (p.getTipo()) {
-                case "Estético":
-                    jCEstetico.addItem(nombre);
-                    break;
-                case "Facial":
-                    jCFacial.addItem(nombre);
-                    break;
-                case "Corporal":
-                    jCCorporal.addItem(nombre);
-                    break;
-                case "Relajación":
-                    jCRelajacion.addItem(nombre);
-                    break;
+            if (p.getTipo().equals(jCTipo.getSelectedItem().toString())) {
+                switch (p.getTipo()) {
+                    case "Estético":
+                        jCProductos.addItem(nombre);
+                        break;
+                    case "Facial":
+                        jCProductos.addItem(nombre);
+                        break;
+                    case "Corporal":
+                        jCProductos.addItem(nombre);
+                        break;
+                    case "Relajación":
+                        jCProductos.addItem(nombre);
+                        break;
+                }
             }
         }
+    }
+
+    public Servicio tratamientoSeleccionado() {
+        int fila = jTTable.getSelectedRow();
+
+        int id = Integer.parseInt(jTTable.getValueAt(fila, 0).toString());
+
+        Servicio servi = sd.buscarServicio(id);
+
+        return servi;
     }
 }
