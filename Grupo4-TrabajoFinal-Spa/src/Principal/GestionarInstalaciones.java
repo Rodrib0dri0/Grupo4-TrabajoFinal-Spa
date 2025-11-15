@@ -1,10 +1,12 @@
 package Principal;
 
+import Modelo.Instalacion;
 import Persistencia.InstalacionData;
 import javax.swing.table.DefaultTableModel;
 import java.util.*;
+import javax.swing.JOptionPane;
 
-public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
+public class GestionarInstalaciones extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -14,11 +16,12 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
     };
 
     InstalacionData insD = new InstalacionData();
-    
-    List<Instalacion> insta = new ArrayList();
 
-    public GestionarInsatalaciones() {
+    public GestionarInstalaciones() {
         initComponents();
+        armarCabecera();
+        cargarTabla();
+        noSeleccionar();
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +32,6 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTNombre = new javax.swing.JTextField();
-        jTUso = new javax.swing.JTextField();
         jTPrecio30 = new javax.swing.JTextField();
         jBEliminar = new javax.swing.JButton();
         jBActualizar = new javax.swing.JButton();
@@ -41,12 +43,14 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTUso = new javax.swing.JTextArea();
 
         jLabel1.setText("Nombre:");
 
         jLabel2.setText("Precio 30 minutos:");
 
-        jLabel3.setText("Uso:");
+        jLabel3.setText("Detalle de uso:");
 
         jBEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
         jBEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -118,67 +122,84 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTTableMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTTable);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jTUso.setColumns(20);
+        jTUso.setRows(5);
+        jScrollPane2.setViewportView(jTUso);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(179, 179, 179)
-                        .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(1, 1, 1)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTPrecio30, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                    .addComponent(jTUso))))))
-                .addGap(47, 47, 47)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(179, 179, 179)
+                                .addComponent(jBEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(122, 122, 122)
+                                .addComponent(jBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTPrecio30, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
                         .addComponent(jBBaja)
                         .addGap(29, 29, 29)
                         .addComponent(jBAlta)
-                        .addGap(107, 107, 107)))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBCancelar)
-                    .addComponent(jSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSalir)
+                            .addComponent(jBCancelar))
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(43, 43, 43)))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTPrecio30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,21 +209,22 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
                     .addComponent(jBGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jBActualizar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(63, 63, 63))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBAlta)
-                            .addComponent(jBBaja)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBCancelar)
-                        .addGap(291, 291, 291)
-                        .addComponent(jSalir)))
-                .addGap(19, 19, 19))
+                    .addComponent(jBCancelar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBAlta)
+                    .addComponent(jBBaja))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSalir)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jSeparator1)
+                .addContainerGap())
         );
 
         pack();
@@ -211,8 +233,8 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
         // TODO add your handling code here:
         try {
-            Producto producto = productoSeleccionado();
-            pd.eliminarProducto(producto.getIdProducto());
+            Instalacion insta = instaSeleccionada();
+            insD.eliminarInstalacion(insta.getIdInstalacion());
             cargarTabla();
             noSeleccionar();
             limpiar();
@@ -225,17 +247,17 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (validarVacios()) {
             try {
-                Producto producSeleccionado = productoSeleccionado();
+                Instalacion insta = instaSeleccionada();
 
                 String nombre = jTNombre.getText();
-                String marca = jTMarca.getText();
-                String tipo = jCTipo.getSelectedItem().toString();
-                double precio = Double.parseDouble(jTPrecio.getText());
-                boolean estado = producSeleccionado.isEstado();
+                String uso = jTUso.getText();
+                double precio = Double.parseDouble(jTPrecio30.getText());
+                boolean estado = insta.isEstado();
 
-                Producto producto = new Producto(nombre, marca, tipo, precio, estado);
-                producto.setIdProducto(producSeleccionado.getIdProducto());
-                pd.actualizarProducto(producto);
+                Instalacion ins = new Instalacion(nombre, uso, precio, estado);
+                ins.setIdInstalacion(insta.getIdInstalacion());
+
+                insD.actualizar(ins);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -258,8 +280,8 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
                 double precio = Double.parseDouble(jTPrecio30.getText());
                 boolean estado = true;
 
-                Instalacion producto = new Instalacion(nombre, uso, precio30, estado);
-                pd.agregarProducto(producto);
+                Instalacion insta = new Instalacion(nombre, uso, precio, estado);
+                insD.insertarInstalacion(insta);
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
@@ -276,7 +298,7 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
     private void jBBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBajaActionPerformed
         // TODO add your handling code here:
         try {
-            pd.darDeBaja(productoSeleccionado().getIdProducto());
+            insD.darDeBaja(instaSeleccionada().getIdInstalacion());
             cargarTabla();
 
             cargarTabla();
@@ -289,7 +311,7 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
 
     private void jBAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaActionPerformed
         // TODO add your handling code here:
-        pd.darDeAlta(productoSeleccionado().getIdProducto());
+        insD.darDeAlta(instaSeleccionada().getIdInstalacion());
         cargarTabla();
 
         cargarTabla();
@@ -310,6 +332,22 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
         noSeleccionar();
     }//GEN-LAST:event_jBCancelarActionPerformed
 
+    private void jTTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTableMousePressed
+        // TODO add your handling code here:
+        try {
+            Instalacion insta = instaSeleccionada();
+
+            jTNombre.setText(insta.getNombre());
+            jTUso.setText(insta.getDetalleDeUso());
+            String precio = String.valueOf(insta.getPrecio30m());
+            jTPrecio30.setText(precio);
+
+            seleccionar();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+        }
+    }//GEN-LAST:event_jTTableMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBActualizar;
@@ -323,11 +361,12 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTNombre;
     private javax.swing.JTextField jTPrecio30;
     private javax.swing.JTable jTTable;
-    private javax.swing.JTextField jTUso;
+    private javax.swing.JTextArea jTUso;
     // End of variables declaration//GEN-END:variables
 
     public void seleccionar() {
@@ -339,19 +378,22 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
     }
 
     public void armarCabecera() {
+        modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("Uso");
         modelo.addColumn("Precio por 30m");
+        modelo.addColumn("Estado");
         jTTable.setModel(modelo);
     }
 
     public void cargarTabla() {
-        insta = insD.traerProductos();
+        List<Instalacion> insta = new ArrayList();
+        insta = insD.traerInstalaciones();
 
         modelo.setRowCount(0);
 
-        for (Producto p : productos) {
-            modelo.addRow(new Object[]{p.getIdProducto(), p.getNombre(), p.getMarca(), p.getTipo(), p.getCosto(), p.isEstado()});
+        for (Instalacion i : insta) {
+            modelo.addRow(new Object[]{i.getIdInstalacion(), i.getNombre(), i.getDetalleDeUso(), i.getPrecio30m(), i.isEstado()});
         }
     }
 
@@ -361,6 +403,16 @@ public class GestionarInsatalaciones extends javax.swing.JInternalFrame {
         jBBaja.setEnabled(false);
         jBAlta.setEnabled(false);
         jBEliminar.setEnabled(false);
+    }
+
+    public Instalacion instaSeleccionada() {
+        int fila = jTTable.getSelectedRow();
+
+        int id = Integer.parseInt(jTTable.getValueAt(fila, 0).toString());
+
+        Instalacion insta = insD.buscarInstalacion(id);
+
+        return insta;
     }
 
     public boolean validarVacios() {

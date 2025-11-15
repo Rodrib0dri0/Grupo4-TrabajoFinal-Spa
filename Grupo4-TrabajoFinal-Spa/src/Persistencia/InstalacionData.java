@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
- 
+
 import javax.swing.JOptionPane;
 
 public class InstalacionData {
@@ -63,7 +63,7 @@ public class InstalacionData {
 
     public Instalacion buscarInstalacion(int id) {
         Instalacion insta = null;
-        try { 
+        try {
             String sql = "SELECT * FROM instalacion WHERE idInstalacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -78,7 +78,7 @@ public class InstalacionData {
                 boolean estado = rs.getBoolean("estado");
 
                 insta = new Instalacion(nombre, detalleDeUso, precio30m, estado);
-                insta.setIdInstalacion(ID); 
+                insta.setIdInstalacion(ID);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -86,8 +86,8 @@ public class InstalacionData {
         }
         return insta;
     }
-    
-    public List<Instalacion> traerProductos() {
+
+    public List<Instalacion> traerInstalaciones() {
         List<Instalacion> instalaciones = new ArrayList();
         try {
             String sql = "SELECT * FROM instalacion";
@@ -114,13 +114,13 @@ public class InstalacionData {
 
     public void actualizar(Instalacion insA) {
         try {
-            String sql = "UPDATE instalacion SET nombre= ?, uso= ?, precio30m = ?, estado = ? WHERE idInstalacion = ?";
+            String sql = "UPDATE instalacion SET nombre= ?, uso= ?, precio30m = ? WHERE idInstalacion = ?";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, insA.getNombre());
             ps.setString(2, insA.getDetalleDeUso());
             ps.setDouble(3, insA.getPrecio30m());
-            ps.setBoolean(4, insA.isEstado());
+            ps.setInt(4, insA.getIdInstalacion());
 
             int registro = ps.executeUpdate();
             if (registro > 0) {
@@ -132,40 +132,59 @@ public class InstalacionData {
         }
     }
 
-    public void darDeBaja(Instalacion ins) {
+    public boolean estadoActual(int id) {
+        boolean estado = true;
         try {
-            if (ins.isEstado()) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
-            } else {
+            String slq = "SELECT estado FROM instalacion WHERE idInstalacion = ?";
+            PreparedStatement ps = ps = con.prepareStatement(slq);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                boolean es = rs.getBoolean("estado");
+                estado = es;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return estado;
+
+    }
+
+    public void darDeBaja(int id) {
+        try {
+            if (estadoActual(id)) {
                 String slq = "UPDATE instalacion SET estado = false WHERE idInstalacion = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, ins.getIdInstalacion());
+                ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
                 }
                 ps.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
     }
 
-    public void darDeAlta(Instalacion ins) {
+    public void darDeAlta(int id) {
         try {
-            if (ins.isEstado()) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
-            } else {
+            if (!estadoActual(id)) {
                 String slq = "UPDATE instalacion SET estado = true WHERE idInstalacion = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, ins.getIdInstalacion());
+                ps.setInt(1, id);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
                 }
                 ps.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");

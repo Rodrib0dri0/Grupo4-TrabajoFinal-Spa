@@ -1,8 +1,7 @@
-
 package Principal;
 
 import Modelo.Cliente;
-import Modelo.DiaDeSpa;//no entiendo donde esta mi error
+
 import Persistencia.ClienteData;
 import java.util.Date;
 import java.sql.Timestamp;
@@ -27,11 +26,11 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
     public DiaDeSpa() {
         initComponents();
         cargarClientes();
-        
-        SpinnerDateModel modelohora= new SpinnerDateModel();
+
+        SpinnerDateModel modelohora = new SpinnerDateModel();
         jshora.setModel(modelohora);
-        
-       // JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
+
+        // JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
         //jspinnerhora.setEditor(editor);
     }
 
@@ -149,169 +148,163 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private boolean validarPreferencias() {
-    String texto = jtpreferencias.getText().trim();
+        String texto = jtpreferencias.getText().trim();
 
-    if (texto.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "El campo no puede estar vacío.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "El campo no puede estar vacío.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (texto.length() < 5) {
+            JOptionPane.showMessageDialog(this,
+                    "Las preferencias deben tener al menos 5 caracteres.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (texto.length() > 300) {
+            JOptionPane.showMessageDialog(this,
+                    "Las preferencias no pueden superar los 300 caracteres.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Solo letras, números, acentos y signos básicos
+        if (!texto.matches("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.()/-]*")) {
+            JOptionPane.showMessageDialog(this,
+                    "Las preferencias contienen caracteres inválidos.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
-
-    if (texto.length() < 5) {
-        JOptionPane.showMessageDialog(this,
-                "Las preferencias deben tener al menos 5 caracteres.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-
-    if (texto.length() > 300) {
-        JOptionPane.showMessageDialog(this,
-                "Las preferencias no pueden superar los 300 caracteres.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-
-    // Solo letras, números, acentos y signos básicos
-    if (!texto.matches("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ,.()/-]*")) {
-        JOptionPane.showMessageDialog(this,
-                "Las preferencias contienen caracteres inválidos.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
-    }
-
-    return true; 
-}
 
     private String obtenerPreferencias() {
-    return jtpreferencias.getText().trim();
-}
-
-private boolean validarFechaHora() {
-
-    // Validar fecha
-    if (jdfecha.getDate() == null) {
-        JOptionPane.showMessageDialog(this,
-                "Debe seleccionar una fecha.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
+        return jtpreferencias.getText().trim();
     }
 
-    // Validar hora (el spinner NO debería ser nulo nunca, pero por seguridad lo chequeamos)
-    if (jshora.getValue() == null) {
-        JOptionPane.showMessageDialog(this,
-                "Debe seleccionar una hora válida.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
+    private boolean validarFechaHora() {
+
+        // Validar fecha
+        if (jdfecha.getDate() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe seleccionar una fecha.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Validar hora (el spinner NO debería ser nulo nunca, pero por seguridad lo chequeamos)
+        if (jshora.getValue() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe seleccionar una hora válida.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
-    return true; 
-}
-private Timestamp obtenerFechaHora() {
+    private Timestamp obtenerFechaHora() {
 
-    // 1) Obtener fecha del JDateChooser
-    Date fechaSeleccionada = jdfecha.getDate();
+        // 1) Obtener fecha del JDateChooser
+        Date fechaSeleccionada = jdfecha.getDate();
 
-    // 2) Obtener hora del JSpinner
-    Date horaSeleccionada = (Date) jshora.getValue();
+        // 2) Obtener hora del JSpinner
+        Date horaSeleccionada = (Date) jshora.getValue();
 
-    // 3) Convertir fecha a LocalDate
-    LocalDate fecha = fechaSeleccionada.toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate();
+        // 3) Convertir fecha a LocalDate
+        LocalDate fecha = fechaSeleccionada.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
 
-    // 4) Convertir hora a LocalTime
-    LocalTime hora = horaSeleccionada.toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalTime();
+        // 4) Convertir hora a LocalTime
+        LocalTime hora = horaSeleccionada.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalTime();
 
-    // 5) Construir LocalDateTime
-    LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
+        // 5) Construir LocalDateTime
+        LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
 
-    // 6) Devolver como Timestamp
-    return Timestamp.valueOf(fechaHora);
-}
-
-
-private void cargarClientes() {
-    ClienteData clienteData = new ClienteData(); 
-    List<Cliente> lista = ClienteData.listarClientes(); //En mi clase Cliente Data deberia tener un metodo listar clientes verdad?
-
-    jcclientes.removeAllItems(); // Limpia el combo por las dudas
-    
-    for (Cliente c : lista) {
-        jcclientes.addItem(c);  // Gracias al toString mostrará nombre + apellido 
-        //CONSULTA: NO PUEDO CREAR UN METODO PARECIDO AL TOSTRING QUE MUESTRE SOLO NOMBRE Y APELLIDO Y LO INVOQUE?
+        // 6) Devolver como Timestamp
+        return Timestamp.valueOf(fechaHora);
     }
-}
+
+    private void cargarClientes() {
+        ClienteData clienteData = new ClienteData();
+        List<Cliente> lista = clienteData.traerClientes(); //En mi clase Cliente Data deberia tener un metodo listar clientes verdad?
+
+        jcclientes.removeAllItems(); // Limpia el combo por las dudas
+
+        for (Cliente c : lista) {
+            jcclientes.addItem(c.getNombre());  // Gracias al toString mostrará nombre + apellido 
+            //CONSULTA: NO PUEDO CREAR UN METODO PARECIDO AL TOSTRING QUE MUESTRE SOLO NOMBRE Y APELLIDO Y LO INVOQUE?
+        }
+    }
 
 
-    
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
 
- // === Validamos datos
-if (!validarPreferencias()) {return;}
-if (!validarFechaHora()){return;}
+        // === Validamos datos
+        if (!validarPreferencias()) {
+            return;
+        }
+        if (!validarFechaHora()) {
+            return;
+        }
 
 // === EXTRAER datos validados
-String preferencias = obtenerPreferencias();
-Timestamp fechaHora = obtenerFechaHora();
-Cliente cli = (Cliente) jcclientes.getSelectedItem();
+        String preferencias = obtenerPreferencias();
+        Timestamp fechaHora = obtenerFechaHora();
+        Cliente cli = (Cliente) jcclientes.getSelectedItem();
 
- if (cli == null) {
-        JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
-        return;
-    }
+        if (cli == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
+            return;
+        }
 
         // 5️⃣ Obtener otros datos del formulario
-       // String preferencias = txtPreferencias.getText();
-       // Cliente cliente = (Cliente) comboCliente.getSelectedItem();
-       // if (cliente == null) {
+        // String preferencias = txtPreferencias.getText();
+        // Cliente cliente = (Cliente) comboCliente.getSelectedItem();
+        // if (cliente == null) {
         //    JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
         //    return;
         //}
-
         //double monto = Double.parseDouble(txtMonto.getText());
-       // boolean estado = chkEstado.isSelected();
-
+        // boolean estado = chkEstado.isSelected();
         // 6️⃣ Crear objeto DiaDeSpa
         DiaDeSpa dia = new DiaDeSpa();
-        dia.setFechahora(fechaHora);
-        dia.setPreferencias(preferencias);
-        dia.setCliente(cli);
+      //  dia.setFechahora(fechaHora);
+       // dia.setPreferencias(preferencias);
+       // dia.setCliente(cli);
         //dia.setMonto(monto);
         //dia.setEstado(estado);
 
         // 7️⃣ Guardar en la base
-       // diadespaData.agregarDiaDeSpa(dia);
-      /* DiaDeSpaData ddd = new DiaDeSpaData();
+        // diadespaData.agregarDiaDeSpa(dia);
+        /* DiaDeSpaData ddd = new DiaDeSpaData();
     ddd.guardarDiaDeSpa(dia);
 
     JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");*/
-}
+    }
 
-       /* JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
+    /* JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
 
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Monto inválido.");
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
         ex.printStackTrace();*/
-
-
-
-
-
-
-        // TODO add your handling code here:
+    private void eso() {
     }//GEN-LAST:event_jbguardarActionPerformed
 
 
@@ -335,11 +328,5 @@ Cliente cli = (Cliente) jcclientes.getSelectedItem();
     private javax.swing.JSpinner jshora;
     private javax.swing.JTextArea jtpreferencias;
     // End of variables declaration//GEN-END:variables
+
 }
-
-
-
-
-
-
-
