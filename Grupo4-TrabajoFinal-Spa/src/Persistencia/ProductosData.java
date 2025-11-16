@@ -166,9 +166,7 @@ public class ProductosData {
         } catch (SQLException ex) {
             Logger.getLogger(ProductosData.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return estado;
-
     }
 
     public void darDeBaja(int id) {

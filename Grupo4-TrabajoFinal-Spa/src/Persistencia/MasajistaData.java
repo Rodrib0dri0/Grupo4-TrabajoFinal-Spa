@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class MasajistaData {
 
@@ -59,24 +60,55 @@ public class MasajistaData {
         }
     }
 
-    public void actualizarMasajista(Masajista masaAc) {
+    public boolean repetido(int matricula) {
+        boolean repetido = false;
+        List<Integer> matriculas = new ArrayList();
         try {
-            String sql = "UPDATE masajista SET nombre= ? ,apellido= ? ,telefono= ? ,especialidad= ? ,estado= ? WHERE matricula = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, masaAc.getNombre());
-            ps.setString(2, masaAc.getApellido());
-            ps.setInt(3, masaAc.getTelefono());
-            ps.setString(4, masaAc.getEspecialidad());
-            ps.setBoolean(5, masaAc.isEstado());
-            ps.setInt(6, masaAc.getMatricula());
+            String sql = "SELECT matricula FROM masajista";
+            PreparedStatement ps;
+            ps = con.prepareStatement(sql);
 
-            int registro = ps.executeUpdate();
-            if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int matri = rs.getInt("matricula");
+
+                matriculas.add(matri);
             }
-            ps.close();
+
+            for (Integer m : matriculas) {
+                if (matricula == m) {
+                    repetido = true;
+                }
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            Logger.getLogger(MasajistaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return repetido;
+    }
+
+    public void actualizarMasajista(Masajista masaAc) {
+        if (!repetido(masaAc.getMatricula())) {
+            try {
+                String sql = "UPDATE masajista SET nombre= ? ,apellido= ? ,telefono= ? ,especialidad= ? ,estado= ? WHERE matricula = ?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, masaAc.getNombre());
+                ps.setString(2, masaAc.getApellido());
+                ps.setInt(3, masaAc.getTelefono());
+                ps.setString(4, masaAc.getEspecialidad());
+                ps.setBoolean(5, masaAc.isEstado());
+                ps.setInt(6, masaAc.getMatricula());
+
+                int registro = ps.executeUpdate();
+                if (registro > 0) {
+                    JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Matricula ya existente.");
         }
     }
 
@@ -106,42 +138,83 @@ public class MasajistaData {
         return masa;
     }
 
-    public void darDeBaja(Masajista masa) {
+    public List<Masajista> traerMasajistas() {
+        List<Masajista> masajistas = new ArrayList();
         try {
-            if (!masa.isEstado() == false) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
-            } else if (masa.isEstado() == true) {
+            String sql = "SELECT * FROM masajista";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int matri = rs.getInt("matricula");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String especialidad = rs.getString("especialidad");
+                int tele = rs.getInt("telefono");
+                boolean estado = rs.getBoolean("estado");
+                Masajista masa = new Masajista(matri, nombre, apellido, tele, especialidad, estado);
+
+                masajistas.add(masa);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al traer a masajistas.");
+        }
+        return masajistas;
+    }
+
+    public boolean estadoActual(int matricula) {
+        boolean estado = true;
+        try {
+            String slq = "SELECT estado FROM masajista WHERE matricula = ?";
+            PreparedStatement ps = ps = con.prepareStatement(slq);
+            ps.setInt(1, matricula);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                boolean es = rs.getBoolean("estado");
+                estado = es;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductosData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return estado;
+    }
+
+    public void darDeBaja(int matricula) {
+        try {
+            if (estadoActual(matricula)) {
                 String slq = "UPDATE masajista SET estado = false WHERE matricula = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, masa.getMatricula());
+                ps.setInt(1, matricula);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de baja correctamente!");
                 }
                 ps.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
     }
 
-    public void darDeAlta(Masajista masa) {
+    public void darDeAlta(int matricula) {
         try {
-            if (masa.isEstado() == true) {
-                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
-            } else if (masa.isEstado() == false) {
+            if (!estadoActual(matricula)) {
                 String slq = "UPDATE masajista SET estado = true WHERE matricula = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
-                ps.setInt(1, masa.getMatricula());
+                ps.setInt(1, matricula);
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
                     JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
                 }
                 ps.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");
         }
