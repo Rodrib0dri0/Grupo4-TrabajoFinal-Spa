@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -85,46 +86,20 @@ public class ClienteData {
         }
     }
 
-    public ArrayList<Integer> obtenerDNI() {
-        ArrayList<Integer> todosDni = new ArrayList<>();
-        try {
-            String sql = "SELECT dni FROM cliente";
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                int dni = rs.getInt("dni");
-
-                todosDni.add(dni);
-            }
-            if (todosDni.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No hay clientes cargados.");
-            }
-
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar DNI.");
-        }
-        return todosDni;
-    }
-
     public void actualizarDNI(int dni, int id) {
-        ArrayList<Integer> DNIs = obtenerDNI();
-
-        for (int i : DNIs) {
-            if (i == dni) {
-                JOptionPane.showMessageDialog(null, "DNi ya existente, no se puede actualizar.");
-                return;
-            }
-        }
         try {
             String sql = "UPDATE cliente SET dni= ? WHERE idCliente = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ps.setInt(2, id);
-            ps.executeUpdate();
+            
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "DNI actualizado correctamente!");
+            }
             ps.close();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "DNI ya existente.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar DNI.");
         }

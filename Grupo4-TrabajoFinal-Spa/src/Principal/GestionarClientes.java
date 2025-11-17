@@ -7,23 +7,23 @@ import javax.swing.table.DefaultTableModel;
 import java.util.*;
 
 public class GestionarClientes extends javax.swing.JInternalFrame {
-    
+
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-    
+
     ClienteData cd = new ClienteData();
-    
+
     public GestionarClientes() {
         initComponents();
         armarCabecera();
         cargarTabla();
         noSeleccionar();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -313,14 +313,14 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         try {
             seleccionar();
             Cliente cli = clienteSeleccionado();
-            
+
             jTDNI.setText(String.valueOf(cli.getDni()));
             jTNombre.setText(cli.getNombre());
             jTApellido.setText(cli.getApellido());
             jTEdad.setText(String.valueOf(cli.getEdad()));
             jTAfe.setText(cli.getAfecciones());
             jTTelefono.setText(String.valueOf(cli.getTelefono()));
-            
+
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
         }
@@ -334,7 +334,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
     private void jBCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelarActionPerformed
         // TODO add your handling code here:
         jTTable.getSelectionModel().clearSelection();
-        
+
         noSeleccionar();
         limpiar();
         cargarTabla();
@@ -351,10 +351,10 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
                 int edad = Integer.parseInt(jTEdad.getText());
                 int tele = Integer.parseInt(jTTelefono.getText());
                 boolean estado = true;
-                
+
                 Cliente cli = new Cliente(dni, nombre, apellido, tele, edad, afe, estado);
                 cd.agregarCliente(cli);
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
             }
@@ -369,7 +369,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         if (validarVacios()) {
             try {
                 Cliente cliente = clienteSeleccionado();
-                
+
                 int dni = Integer.valueOf(jTDNI.getText());
                 String nombre = jTNombre.getText();
                 String apellido = jTApellido.getText();
@@ -377,17 +377,19 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
                 int edad = Integer.parseInt(jTEdad.getText());
                 int tele = Integer.parseInt(jTTelefono.getText());
                 boolean estado = true;
-                
+
                 Cliente cli = new Cliente(dni, nombre, apellido, tele, edad, afe, estado);
                 cli.setIdCliente(cliente.getIdCliente());
                 cd.actualizarCliente(cli, jTHabi.isSelected());
-                
+                if (jTHabi.isSelected()) {
+                    cd.actualizarDNI(dni, cliente.getDni());
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
             } catch (ArrayIndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
         }
@@ -414,7 +416,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         try {
             cd.darDeBaja(clienteSeleccionado().getIdCliente());
             cargarTabla();
-            
+
             cargarTabla();
             limpiar();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -427,7 +429,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             cd.darDeAlta(clienteSeleccionado().getIdCliente());
-            
+
             cargarTabla();
             limpiar();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -489,19 +491,19 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         }
         return valido;
     }
-    
+
     public Cliente clienteSeleccionado() {
-        
+
         int fila = jTTable.getSelectedRow();
-        
+
         int id = Integer.parseInt(jTTable.getValueAt(fila, 0).toString());
-        
+
         Cliente cliente = cd.buscarCliente(id);
-        
+
         return cliente;
-        
+
     }
-    
+
     public void limpiar() {
         jTDNI.setText("");
         jTNombre.setText("");
@@ -510,7 +512,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         jTAfe.setText("");
         jTTelefono.setText("");
     }
-    
+
     private void armarCabecera() {
         modelo.addColumn("ID");
         modelo.addColumn("DNI:");
@@ -520,22 +522,22 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         modelo.addColumn("Afecciones:");
         modelo.addColumn("Edad:");
         modelo.addColumn("Estado:");
-        
+
         jTTable.setModel(modelo);
     }
-    
+
     public void cargarTabla() {
         List<Cliente> clientes = new ArrayList();
-        
+
         clientes = cd.traerClientes();
-        
+
         modelo.setRowCount(0);
-        
+
         for (Cliente c : clientes) {
             modelo.addRow(new Object[]{c.getIdCliente(), c.getDni(), c.getNombre(), c.getApellido(), c.getTelefono(), c.getAfecciones(), c.getEdad(), c.getEstado()});
         }
     }
-    
+
     public void seleccionar() {
         jBActualizar.setEnabled(true);
         jBGuardar.setEnabled(false);
@@ -546,7 +548,7 @@ public class GestionarClientes extends javax.swing.JInternalFrame {
         jTHabi.setEnabled(true);
         jBLimpiar.setEnabled(false);
     }
-    
+
     public void noSeleccionar() {
         jBActualizar.setEnabled(false);
         jBGuardar.setEnabled(true);
