@@ -111,6 +111,11 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jButton1.setBackground(new java.awt.Color(171, 214, 214));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(171, 214, 214));
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
@@ -380,6 +385,11 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         }
 
     }//GEN-LAST:event_jBQuitarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -109,7 +109,7 @@ public class TratamientoMasajeData {
             JOptionPane.showMessageDialog(null, "Error al actualizar.");
         }
     }
-
+     
     public TratamientoMasaje buscarTratamiento(int id) {
         TratamientoMasaje tra = null;
         try {
@@ -120,19 +120,39 @@ public class TratamientoMasajeData {
 
             ResultSet rs = ps.executeQuery();
             int idTratamiento = rs.getInt("idTratamiento");
-            int idTProdu = rs.getInt("idTProducto");
             int idServi = rs.getInt("idServico");
             double precio = rs.getDouble("precio");
             String detalle = rs.getString("detalle");
             boolean estado = rs.getBoolean("estado");
 
-            tra = new TratamientoMasaje(, idServi, detalle, precio, estado);
+            tra = new TratamientoMasaje(idServi, detalle, precio, estado);
             tra.setIdTratamiento(idTratamiento);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return tra;
     }
+
+    public void traerProductos() {
+        try {
+            String sql = "SELECT * FROM tratamiento_masaje WHERE idTratamiento = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            int idTratamiento = rs.getInt("idTratamiento");
+            int idServi = rs.getInt("idServico");
+            double precio = rs.getDouble("precio");
+            String detalle = rs.getString("detalle");
+            boolean estado = rs.getBoolean("estado");
+
+            tra = new TratamientoMasaje(idServi, detalle, precio, estado);
+            tra.setIdTratamiento(idTratamiento);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar.");
+        }
+    }
     //Falta metodos de alta/baja
-     */
+*/
 }
