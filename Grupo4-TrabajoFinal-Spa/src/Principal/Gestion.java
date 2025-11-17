@@ -1,5 +1,6 @@
 package Principal;
 
+
 public class Gestion extends javax.swing.JFrame {
 
     public Gestion() {
@@ -34,6 +35,8 @@ public class Gestion extends javax.swing.JFrame {
         setIconImages(null);
 
         Escritorio.setBackground(new java.awt.Color(204, 204, 255));
+        Escritorio.setForeground(new java.awt.Color(204, 204, 255));
+        Escritorio.setOpaque(false);
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -43,11 +46,16 @@ public class Gestion extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
+            .addGap(0, 730, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(153, 153, 255));
+        jMenuBar1.setBorder(new javax.swing.border.MatteBorder(null));
+        jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        jMenu1.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/facial.png"))); // NOI18N
         jMenu1.setText("Tratamientos");
 
         jMenuItem6.setText("Gestionar Tratamientos");
@@ -79,6 +87,8 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/locion.png"))); // NOI18N
         jMenu2.setText("Productos");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +107,8 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/masaje (6).png"))); // NOI18N
         jMenu4.setText("Sesión");
 
         jMenuItem4.setText("sesion");
@@ -119,9 +131,13 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa-y-relax.png"))); // NOI18N
         jMenu5.setText("DiadeSpa");
         jMenuBar1.add(jMenu5);
 
+        jMenu6.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa (3).png"))); // NOI18N
         jMenu6.setText("Clientes");
 
         jMenuItem7.setText("Gestionar Clientes");
@@ -135,6 +151,8 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
+        jMenu3.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa (4).png"))); // NOI18N
         jMenu3.setText("Instalaciones");
 
         jMenuItem8.setText("Gestionar Instalaciones");
@@ -148,6 +166,9 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu7.setBackground(new java.awt.Color(153, 153, 255));
+        jMenu7.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente (1).png"))); // NOI18N
         jMenu7.setText("Masajistas");
 
         jMenuItem9.setText("Gestionar Masajistas");
