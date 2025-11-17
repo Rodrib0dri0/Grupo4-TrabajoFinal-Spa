@@ -62,8 +62,7 @@ public class ClienteData {
         }
     }
 
-    public void actualizarCliente(Cliente clienteAc, boolean actDNI) {
-        actualizarDNI(clienteAc.getDni(), clienteAc.getIdCliente());
+    public void actualizarCliente(Cliente clienteAc) {
         try {
             String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
             PreparedStatement ps = con.prepareStatement(sql);

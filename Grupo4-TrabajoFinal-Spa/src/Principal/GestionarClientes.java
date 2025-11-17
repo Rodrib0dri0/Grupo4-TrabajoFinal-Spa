@@ -449,7 +449,7 @@ public class GestionarClientes extends JInternalFrameImagen {
 
                 Cliente cli = new Cliente(dni, nombre, apellido, tele, edad, afe, estado);
                 cli.setIdCliente(cliente.getIdCliente());
-                cd.actualizarCliente(cli, jTHabi.isSelected());
+                cd.actualizarCliente(cli);
                 if (jTHabi.isSelected()) {
                     cd.actualizarDNI(dni, cliente.getDni());
                 }
@@ -458,7 +458,6 @@ public class GestionarClientes extends JInternalFrameImagen {
             } catch (ArrayIndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
         }

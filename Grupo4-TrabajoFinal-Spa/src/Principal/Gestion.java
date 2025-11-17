@@ -8,6 +8,8 @@ public class Gestion extends javax.swing.JFrame {
 
     public Gestion() {
         initComponents();
+        jMenu4.setEnabled(false);
+        jMenu5.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")

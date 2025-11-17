@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GuardarTratamientos extends javax.swing.JInternalFrame {
+public class GuardarTratamientos extends JInternalFrameImagen {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         @Override
@@ -40,6 +40,7 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
 
     public GuardarTratamientos() {
         initComponents();
+        this.SetImagen("/Imagenes/FondoGuardarT.jpg");
         armarCabecera();
         armarCabecera2();
         cargarTipos();
@@ -75,13 +76,19 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         jBQuitar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
+        jCTipo.setBackground(new java.awt.Color(204, 204, 255));
         jCTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jCTipo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jCTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCTipoItemStateChanged(evt);
             }
         });
 
+        jTTable.setBackground(new java.awt.Color(204, 255, 255));
+        jTTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTTable.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jTTable.setForeground(new java.awt.Color(0, 0, 0));
         jTTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -93,6 +100,7 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.setSelectionBackground(new java.awt.Color(153, 204, 255));
         jTTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTTableMousePressed(evt);
@@ -100,8 +108,12 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTTable);
 
+        jButton1.setBackground(new java.awt.Color(171, 214, 214));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
 
+        jButton2.setBackground(new java.awt.Color(171, 214, 214));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo.png"))); // NOI18N
         jButton2.setText("Guardar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -110,12 +122,18 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             }
         });
 
+        jCProductos.setBackground(new java.awt.Color(204, 204, 255));
         jCProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        jCProductos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jTDetalle.setColumns(20);
         jTDetalle.setRows(5);
         jScrollPane2.setViewportView(jTDetalle);
 
+        jTProductos.setBackground(new java.awt.Color(204, 255, 255));
+        jTProductos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTProductos.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        jTProductos.setForeground(new java.awt.Color(0, 0, 0));
         jTProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -127,12 +145,22 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTProductos.setSelectionBackground(new java.awt.Color(153, 204, 255));
         jScrollPane3.setViewportView(jTProductos);
 
+        jTTratasele.setBackground(new java.awt.Color(204, 204, 255));
+        jTTratasele.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Servicio seleccionado:");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Producto/s seleccionado/s:");
 
+        jBAgregar.setBackground(new java.awt.Color(171, 214, 214));
+        jBAgregar.setForeground(new java.awt.Color(0, 0, 0));
         jBAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-agregar.png"))); // NOI18N
         jBAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,8 +170,12 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Total:");
 
+        jTBloq.setBackground(new java.awt.Color(171, 214, 214));
+        jTBloq.setForeground(new java.awt.Color(0, 0, 0));
         jTBloq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tornillo.png"))); // NOI18N
         jTBloq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +183,8 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             }
         });
 
+        jBQuitar.setBackground(new java.awt.Color(171, 214, 214));
+        jBQuitar.setForeground(new java.awt.Color(0, 0, 0));
         jBQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/resta.png"))); // NOI18N
         jBQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +192,8 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Agregar productos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,7 +266,7 @@ public class GuardarTratamientos extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton2))))
-                        .addContainerGap(12, Short.MAX_VALUE))
+                        .addContainerGap(8, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
