@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class MasajistaData {
 
@@ -60,55 +61,47 @@ public class MasajistaData {
         }
     }
 
-    public boolean repetido(int matricula) {
-        boolean repetido = false;
-        List<Integer> matriculas = new ArrayList();
+    public void actualizarMatricula(int matriculaNueva, int matriculaOriginal) {
         try {
-            String sql = "SELECT matricula FROM masajista";
-            PreparedStatement ps;
-            ps = con.prepareStatement(sql);
+            String sql = "UPDATE masajista SET matricula= ? WHERE matricula = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, matriculaNueva);
+            ps.setInt(2, matriculaOriginal);
 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int matri = rs.getInt("matricula");
-
-                matriculas.add(matri);
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Matricula ctualizada correctamente!");
             }
+            ps.close();
 
-            for (Integer m : matriculas) {
-                if (matricula == m) {
-                    repetido = true;
-                }
-            }
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "Matricula ya existente.");
         } catch (SQLException ex) {
-            Logger.getLogger(MasajistaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al actualizar matricula.");
         }
-        return repetido;
     }
 
     public void actualizarMasajista(Masajista masaAc) {
-        if (!repetido(masaAc.getMatricula())) {
-            try {
-                String sql = "UPDATE masajista SET nombre= ? ,apellido= ? ,telefono= ? ,especialidad= ? ,estado= ? WHERE matricula = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, masaAc.getNombre());
-                ps.setString(2, masaAc.getApellido());
-                ps.setInt(3, masaAc.getTelefono());
-                ps.setString(4, masaAc.getEspecialidad());
-                ps.setBoolean(5, masaAc.isEstado());
-                ps.setInt(6, masaAc.getMatricula());
+        try {
+            String sql = "UPDATE masajista SET nombre= ? ,apellido= ? ,telefono= ? ,especialidad= ? ,estado= ? WHERE matricula = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, masaAc.getNombre());
+            ps.setString(2, masaAc.getApellido());
+            ps.setInt(3, masaAc.getTelefono());
+            ps.setString(4, masaAc.getEspecialidad());
+            ps.setBoolean(5, masaAc.isEstado());
+            ps.setInt(6, masaAc.getMatricula());
 
-                int registro = ps.executeUpdate();
-                if (registro > 0) {
-                    JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
-                }
-                ps.close();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente!");
             }
-        } else {
+            ps.close();
+
+        } catch (SQLIntegrityConstraintViolationException ex) {
             JOptionPane.showMessageDialog(null, "Matricula ya existente.");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
         }
     }
 

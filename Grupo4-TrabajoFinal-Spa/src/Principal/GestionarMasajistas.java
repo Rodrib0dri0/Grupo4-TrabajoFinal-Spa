@@ -307,11 +307,12 @@ public class GestionarMasajistas extends javax.swing.JInternalFrame {
 
     private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
         // TODO add your handling code here:
-        if (validarVacios()) {
-            try {
+        try {
+            if (validarVacios()) {
+
                 Masajista masaSele = masajistaSeleccionado();
 
-                int matri = masaSele.getMatricula();
+                int matri = Integer.parseInt(jTMatricula.getText());
                 String nombre = jTNombre.getText();
                 String apellido = jTApellido.getText();
                 String tipo = jCTipo.getSelectedItem().toString();
@@ -320,17 +321,23 @@ public class GestionarMasajistas extends javax.swing.JInternalFrame {
 
                 Masajista masa = new Masajista(matri, nombre, apellido, tele, tipo, estado);
                 md.actualizarMasajista(masa);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
+                if (jTHabi.isSelected()) {
+                    md.actualizarMatricula(matri, masaSele.getMatricula());
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No deben haber espacios vacios.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número válido.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
         }
+
         cargarTabla();
         noSeleccionar();
         limpiar();
+
     }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed

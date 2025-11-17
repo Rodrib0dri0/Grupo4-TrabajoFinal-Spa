@@ -62,49 +62,26 @@ public class ClienteData {
     }
 
     public void actualizarCliente(Cliente clienteAc, boolean actDNI) {
-        if (actDNI) {
-            actualizarDNI(clienteAc.getDni(), clienteAc.getIdCliente());
-            try {
-                String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, clienteAc.getNombre());
-                ps.setString(2, clienteAc.getApellido());
-                ps.setInt(3, clienteAc.getEdad());
-                ps.setString(4, clienteAc.getAfecciones());
-                ps.setBoolean(5, clienteAc.getEstado());
-                ps.setInt(6, clienteAc.getTelefono());
-                ps.setInt(7, clienteAc.getIdCliente());
+        actualizarDNI(clienteAc.getDni(), clienteAc.getIdCliente());
+        try {
+            String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, clienteAc.getNombre());
+            ps.setString(2, clienteAc.getApellido());
+            ps.setInt(3, clienteAc.getEdad());
+            ps.setString(4, clienteAc.getAfecciones());
+            ps.setBoolean(5, clienteAc.getEstado());
+            ps.setInt(6, clienteAc.getTelefono());
+            ps.setInt(7, clienteAc.getIdCliente());
 
-                int registro = ps.executeUpdate();
-                if (registro > 0) {
-                    JOptionPane.showMessageDialog(null, "Cliente actualizado!");
-                }
-                ps.close();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar.");
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente actualizado!");
             }
-        } else {
-            try {
-                String sql = "UPDATE cliente SET nombre= ? ,apellido= ? ,edad= ? ,afecciones= ? , estado= ? ,telefono= ? WHERE idCliente = ?";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setString(1, clienteAc.getNombre());
-                ps.setString(2, clienteAc.getApellido());
-                ps.setInt(3, clienteAc.getEdad());
-                ps.setString(4, clienteAc.getAfecciones());
-                ps.setBoolean(5, clienteAc.getEstado());
-                ps.setInt(6, clienteAc.getTelefono());
-                ps.setInt(7, clienteAc.getIdCliente());
+            ps.close();
 
-                int registro = ps.executeUpdate();
-                if (registro > 0) {
-                    JOptionPane.showMessageDialog(null, "Cliente actualizado!");
-                }
-                ps.close();
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar.");
-            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar.");
         }
     }
 
