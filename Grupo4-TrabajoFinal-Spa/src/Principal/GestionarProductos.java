@@ -106,13 +106,13 @@ public class GestionarProductos extends JInternalFrameImagen {
         jLabel4.setText("Costo:");
 
         jTNombre.setBackground(new java.awt.Color(213, 213, 141));
-        jTNombre.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jTNombre.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTNombre.setForeground(new java.awt.Color(0, 0, 0));
         jTNombre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jTMarca.setBackground(new java.awt.Color(213, 213, 141));
-        jTMarca.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jTMarca.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTMarca.setForeground(new java.awt.Color(0, 0, 0));
         jTMarca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTMarca.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -129,14 +129,14 @@ public class GestionarProductos extends JInternalFrameImagen {
         jLabel5.setText("Gestionar Productos");
 
         jCTipo.setBackground(new java.awt.Color(213, 213, 141));
-        jCTipo.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jCTipo.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jCTipo.setForeground(new java.awt.Color(0, 0, 0));
         jCTipo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jCTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jCTipo.setInheritsPopupMenu(true);
 
         jTPrecio.setBackground(new java.awt.Color(213, 213, 141));
-        jTPrecio.setFont(new java.awt.Font("Verdana", 0, 16)); // NOI18N
+        jTPrecio.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jTPrecio.setForeground(new java.awt.Color(0, 0, 0));
         jTPrecio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -296,19 +296,19 @@ public class GestionarProductos extends JInternalFrameImagen {
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel3)
+                            .addComponent(jTMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jCTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBEliminar, javax.swing.GroupLayout.Alignment.TRAILING)
