@@ -52,7 +52,7 @@ public class MasajistaData {
             int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Masajista eliminada correctamente!");
+                JOptionPane.showMessageDialog(null, "Masajista eliminada/o correctamente!");
             }
             ps.close();
         } catch (SQLException ex) {

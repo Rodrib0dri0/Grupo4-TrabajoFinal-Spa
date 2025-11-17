@@ -1,24 +1,22 @@
-
 package Modelo;
 
-public class TratamientoMasaje {
-    private int IdTratamiento;
-    private String nombre;
-    private String tipo;
-    private String detalle;
-    private Producto producto; 
-    private int duracion; 
-    private double costo;
-    private boolean activo;
+import java.util.List;
 
-    public TratamientoMasaje(int IdTratamiento,String nombre, String tipo, String detalle, int duracion, double costo, boolean activo) {
-        this.nombre = nombre;
-        this.IdTratamiento = IdTratamiento;
-        this.tipo = tipo;
+public class TratamientoMasaje {
+
+    private int IdTratamiento;
+    private List<Producto> productos;
+    private int idServicio;
+    private String detalle;
+    private double precio;
+    private boolean estado;
+
+    public TratamientoMasaje(List<Producto> productos, int idServicio, String detalle, double precio, boolean estado) {
+        this.productos = productos;
+        this.idServicio = idServicio;
         this.detalle = detalle;
-        this.duracion = duracion;
-        this.activo = activo;
-        this.costo = costo;
+        this.precio = precio;
+        this.estado = estado;
     }
 
     public int getIdTratamiento() {
@@ -29,20 +27,20 @@ public class TratamientoMasaje {
         this.IdTratamiento = IdTratamiento;
     }
 
-    public String getNombre() {
-        return nombre;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
-    public String getTipo() {
-        return tipo;
+    public int getIdServicio() {
+        return idServicio;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setIdServicio(int idServicio) {
+        this.idServicio = idServicio;
     }
 
     public String getDetalle() {
@@ -53,38 +51,25 @@ public class TratamientoMasaje {
         this.detalle = detalle;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setProductos(Producto productos) {
-        this.producto = producto;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
-    public int getDuracion() {
-        return duracion;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
-    public double getCosto() {
-        return costo;
+    @Override
+    public String toString() {
+        return "TratamientoMasaje{" + "IdTratamiento=" + IdTratamiento + ", idProducto=" + idServicio + ", detalle=" + detalle + ", precio=" + precio + '}';
     }
 
-    public void setCosto(double costo) {
-        this.costo = costo;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
- 
-    
-     
 }
