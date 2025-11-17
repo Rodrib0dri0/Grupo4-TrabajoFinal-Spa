@@ -504,7 +504,8 @@ public class GestionarMasajistas extends JInternalFrameImagen {
             jTApellido.setText(masa.getApellido());
             jCTipo.setSelectedItem(masa.getEspecialidad());
             jTTele.setText(String.valueOf(masa.getTelefono()));
-
+            
+            
             seleccionar();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "No hay fila seleccionada.");
@@ -620,6 +621,7 @@ public class GestionarMasajistas extends JInternalFrameImagen {
         jTMatricula.setEnabled(false);
         jTHabi.setEnabled(true);
         jBLimpiar.setEnabled(false);
+        jTHabi.setSelected(false);
     }
 
     public void noSeleccionar() {

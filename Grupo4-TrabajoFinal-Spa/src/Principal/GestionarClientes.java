@@ -616,6 +616,7 @@ public class GestionarClientes extends JInternalFrameImagen {
         jTDNI.setEnabled(false);
         jTHabi.setEnabled(true);
         jBLimpiar.setEnabled(false);
+        jTHabi.setSelected(false);
     }
 
     public void noSeleccionar() {
