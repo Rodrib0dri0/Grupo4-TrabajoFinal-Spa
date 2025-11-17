@@ -1,6 +1,5 @@
 package Principal;
 
-
 public class Gestion extends javax.swing.JFrame {
 
     public Gestion() {
@@ -36,7 +35,6 @@ public class Gestion extends javax.swing.JFrame {
 
         Escritorio.setBackground(new java.awt.Color(204, 204, 255));
         Escritorio.setForeground(new java.awt.Color(204, 204, 255));
-        Escritorio.setOpaque(false);
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
