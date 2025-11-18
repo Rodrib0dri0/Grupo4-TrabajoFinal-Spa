@@ -96,6 +96,7 @@ public class GestionarServicios extends JInternalFrameImagen {
 
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Filtrar");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -175,6 +176,7 @@ public class GestionarServicios extends JInternalFrameImagen {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jTTableMousePressed(evt);
@@ -298,26 +300,27 @@ public class GestionarServicios extends JInternalFrameImagen {
                 .addComponent(jSeparator1))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 25, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jPData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBEliminar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(50, 50, 50))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBCancelar))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBAlta)
-                    .addComponent(jBBaja)
-                    .addComponent(jSalir))
-                .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBActualizar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBGuardar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBEliminar, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBCancelar))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBAlta)
+                            .addComponent(jBBaja)
+                            .addComponent(jSalir))
+                        .addGap(20, 20, 20))))
         );
 
         pack();

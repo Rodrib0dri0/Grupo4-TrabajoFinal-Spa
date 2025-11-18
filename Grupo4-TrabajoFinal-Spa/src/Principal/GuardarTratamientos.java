@@ -79,6 +79,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jCTipo.setBackground(new java.awt.Color(204, 204, 255));
         jCTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         jCTipo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jCTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jCTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCTipoItemStateChanged(evt);
@@ -100,6 +101,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTTable.setSelectionBackground(new java.awt.Color(153, 204, 255));
         jTTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -111,6 +113,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jButton1.setBackground(new java.awt.Color(171, 214, 214));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -121,6 +124,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo.png"))); // NOI18N
         jButton2.setText("Guardar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -130,6 +134,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jCProductos.setBackground(new java.awt.Color(204, 204, 255));
         jCProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         jCProductos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jCProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jTDetalle.setColumns(20);
         jTDetalle.setRows(5);
@@ -167,6 +172,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jBAgregar.setBackground(new java.awt.Color(171, 214, 214));
         jBAgregar.setForeground(new java.awt.Color(0, 0, 0));
         jBAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/boton-agregar.png"))); // NOI18N
+        jBAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAgregarActionPerformed(evt);
@@ -182,6 +188,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jTBloq.setBackground(new java.awt.Color(171, 214, 214));
         jTBloq.setForeground(new java.awt.Color(0, 0, 0));
         jTBloq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tornillo.png"))); // NOI18N
+        jTBloq.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTBloq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTBloqActionPerformed(evt);
@@ -191,6 +198,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jBQuitar.setBackground(new java.awt.Color(171, 214, 214));
         jBQuitar.setForeground(new java.awt.Color(0, 0, 0));
         jBQuitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/resta.png"))); // NOI18N
+        jBQuitar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBQuitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBQuitarActionPerformed(evt);

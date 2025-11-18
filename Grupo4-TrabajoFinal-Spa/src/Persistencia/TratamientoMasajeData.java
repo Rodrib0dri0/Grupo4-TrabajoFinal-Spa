@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,9 +110,10 @@ public class TratamientoMasajeData {
             JOptionPane.showMessageDialog(null, "Error al actualizar.");
         }
     }
-     
+     */
     public TratamientoMasaje buscarTratamiento(int id) {
         TratamientoMasaje tra = null;
+        List<Producto> productos = traerProductosTrata(id);
         try {
             String sql = "SELECT * FROM tratamiento_masaje WHERE idTratamiento = ?";
 
@@ -125,7 +127,7 @@ public class TratamientoMasajeData {
             String detalle = rs.getString("detalle");
             boolean estado = rs.getBoolean("estado");
 
-            tra = new TratamientoMasaje(idServi, detalle, precio, estado);
+            tra = new TratamientoMasaje(productos, idServi, detalle, precio, estado);
             tra.setIdTratamiento(idTratamiento);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
@@ -133,26 +135,31 @@ public class TratamientoMasajeData {
         return tra;
     }
 
-    public void traerProductos() {
+    public List<Producto> traerProductosTrata(int idTrata) {
+        List<Producto> productos = new ArrayList();
         try {
-            String sql = "SELECT * FROM tratamiento_masaje WHERE idTratamiento = ?";
+            String sql = "SELECT * FROM productos p JOIN tratamiento_producto tp ON p.idProducto = tp.idProducto WHERE idTratamiento = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, idTrata);
 
             ResultSet rs = ps.executeQuery();
-            int idTratamiento = rs.getInt("idTratamiento");
-            int idServi = rs.getInt("idServico");
-            double precio = rs.getDouble("precio");
-            String detalle = rs.getString("detalle");
-            boolean estado = rs.getBoolean("estado");
 
-            tra = new TratamientoMasaje(idServi, detalle, precio, estado);
-            tra.setIdTratamiento(idTratamiento);
+            int idP = rs.getInt("idProducto");
+            String nombre = rs.getString("nombre");
+            String marca = rs.getString("marca");
+            String tipo = rs.getString("tipo");
+            double costo = rs.getDouble("precio");
+            boolean estado = rs.getBoolean("estado");
+            Producto produ = new Producto(nombre, marca, tipo, costo, estado);
+            produ.setIdProducto(idP);
+
+            productos.add(produ);
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
+        return productos;
     }
     //Falta metodos de alta/baja
-*/
 }
