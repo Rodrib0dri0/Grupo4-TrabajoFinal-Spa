@@ -49,6 +49,8 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         inhabilitar();
         cargarProductos();
         jTTotal.setEditable(false);
+        jTTratasele.setEditable(false);
+        jBGuardar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,7 +61,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBGuardar = new javax.swing.JButton();
         jCProductos = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTDetalle = new javax.swing.JTextArea();
@@ -120,14 +122,14 @@ public class GuardarTratamientos extends JInternalFrameImagen {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(171, 214, 214));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo.png"))); // NOI18N
-        jButton2.setText("Guardar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBGuardar.setBackground(new java.awt.Color(171, 214, 214));
+        jBGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        jBGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo.png"))); // NOI18N
+        jBGuardar.setText("Guardar");
+        jBGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBGuardarActionPerformed(evt);
             }
         });
 
@@ -251,7 +253,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
                         .addGap(18, 18, 18)
                         .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jBGuardar)
                         .addGap(42, 42, 42)
                         .addComponent(jButton1)
                         .addGap(16, 16, 16))))
@@ -278,7 +280,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
                                     .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2))))
+                                    .addComponent(jBGuardar))))
                         .addContainerGap(8, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -339,6 +341,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
             jTDetalle.setEnabled(false);
             jBAgregar.setEnabled(true);
             jBQuitar.setEnabled(true);
+            jBGuardar.setEnabled(true);
         } else {
             jTTratasele.setEnabled(true);
             jCProductos.setEnabled(false);
@@ -347,6 +350,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
             jTDetalle.setEnabled(true);
             jBAgregar.setEnabled(false);
             jBQuitar.setEnabled(false);
+            jBGuardar.setEnabled(false);
         }
     }//GEN-LAST:event_jTBloqActionPerformed
 
@@ -362,7 +366,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         cargarTablaProdu();
     }//GEN-LAST:event_jBAgregarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
 
         String detalle = jTDetalle.getText();
@@ -373,7 +377,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         tmd.guardarTratamiento(trataSele);
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitarActionPerformed
         // TODO add your handling code here:
@@ -402,9 +406,9 @@ public class GuardarTratamientos extends JInternalFrameImagen {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBQuitar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCProductos;
     private javax.swing.JComboBox<String> jCTipo;
     private javax.swing.JLabel jLabel1;
