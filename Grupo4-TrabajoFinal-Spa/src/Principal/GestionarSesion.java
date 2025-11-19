@@ -1,5 +1,6 @@
 package Principal;
 
+import Modelo.DiaDeSpa;
 import Persistencia.InstalacionData;
 import Modelo.Instalacion;
 import Persistencia.MasajistaData;
@@ -10,13 +11,16 @@ import Modelo.TratamientoMasaje;
 import Persistencia.ServicioData;
 import Modelo.Servicio;
 import Persistencia.SesionData;
+import Persistencia.MasajistaData;
 import java.util.*;
 import javax.swing.SpinnerDateModel;
 import Principal.Gestion;
 import javax.swing.JDesktopPane;
 import Principal.GuardarTratamientos;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,9 +32,13 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
     SesionData sed = new SesionData();
     private JDesktopPane desk;
     private TratamientoMasaje trata;
+    private VistaDiaDeSpa padre;
+    private DiaDeSpa diaactual; //la sesion necesita saber a que diadespa pertenece, guardamos el dia de spa actual
+
 
     double total = 0;
 
+    
     List<Instalacion> instalaciones = new ArrayList();
 
     //Modelo de tabla Instalaciones
@@ -46,9 +54,11 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         }
     };
 
-    public GestionarSesion(JDesktopPane desk) {
+    public GestionarSesion(JDesktopPane desk,VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
         this.desk = desk;
+        this.padre=padre;
+        this.diaactual = diaactual;
         SpinnerDateModel modelohora = new SpinnerDateModel();
         armarCabecera();
         armarCabeceraMasajista();
@@ -60,6 +70,8 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         jBBuscar.setEnabled(false);
         jTTotal.setEditable(false);
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -387,6 +399,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+        
         if (trata == null) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
             return;
@@ -395,10 +408,18 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         LocalDateTime fechaI = tsi.toLocalDateTime();
         Timestamp tsf = (Timestamp) jSFechaF.getValue();
         LocalDateTime fechaF = tsf.toLocalDateTime();
+        
 
-        int matricula = masajistaSeleccionado().getMatricula();
+       
+        Masajista masa= masajistaSeleccionado();
+        
+        DiaDeSpa dds = diaactual;
+        
 
-        Sesion sesi = new Sesion(fechaI, fechaF, trata, matricula, instalaciones, true);
+        Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones,dds, true);
+        
+        padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
+
 
     }//GEN-LAST:event_jBGuardarActionPerformed
 

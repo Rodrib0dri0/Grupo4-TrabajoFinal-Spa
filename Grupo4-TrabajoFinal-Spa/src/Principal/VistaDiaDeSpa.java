@@ -1,10 +1,12 @@
 package Principal;
 
 import Modelo.Cliente;
+import Modelo.DiaDeSpa;
 import Modelo.Sesion;
 
 import Persistencia.ClienteData;
 import Persistencia.DiadeSpaData;
+import java.sql.Connection;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
@@ -25,10 +27,13 @@ import javax.swing.SpinnerDateModel;
  */
 public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     
+   
+    
     private ArrayList<Sesion> listaSesiones = new ArrayList<>();
-    private VistaSesion ventanaSesion;
+    private GestionarSesion ventanaSesion;
     private VistaTablaSesiones tablasesiones;
     private DiadeSpaData diaDeSpaData = new DiadeSpaData();
+    private DiaDeSpa diaactual;
   
 
 
@@ -40,6 +45,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         initComponents(); 
         cargarClientes();
         inicializaMonto();
+        this.diaactual=diaactual;
 
         
         SpinnerDateModel modelo = new SpinnerDateModel();
@@ -306,7 +312,7 @@ private boolean obtenerEstadoPago() {
 
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
-
+try{
         // === Validamos datos
         if (!validarPreferencias()) {
             return;
@@ -330,53 +336,44 @@ private boolean obtenerEstadoPago() {
 
         
         double monto = Double.parseDouble(jtmonto.getText());
-        boolean estado = obtenerEstadoPago();
-
-        // 6️⃣ Crear objeto VistaDiaDeSpa
-        VistaDiaDeSpa dia = new VistaDiaDeSpa();
-      
         
-        // 7️⃣ Guardar en la base
-        // diadespaData.agregarDiaDeSpa(dia);
-        /* DiaDeSpaData ddd = new DiaDeSpaData();
-    ddd.guardarDiaDeSpa(dia);
+        
+        boolean estado = obtenerEstadoPago();
+ 
+        // 6️⃣ Crear objeto DiaDeSpa
+        DiaDeSpa dia = new DiaDeSpa(fechaHora,preferencias,cli,listaSesiones,monto,estado);
+        
+         DiadeSpaData diaData = new DiadeSpaData(); // tu conexión
+         diaData.agregarDiadeSpa(dia);
+         
+      
 
-    JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");*/
-    }
-
-    /* JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
-
-    } catch (NumberFormatException ex) {
+    JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
+    
+ } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(this, "Monto inválido.");
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
-        ex.printStackTrace();*/
-    {
+        ex.printStackTrace();
+
+}
+
+   
     }//GEN-LAST:event_jbguardarActionPerformed
 
     private void jagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jagregarActionPerformed
 
-
-                                       
-
+                                        
     // Si la ventana está cerrada o nunca se abrió → crearla
     if (ventanaSesion == null || ventanaSesion.isClosed()) {
-
-        // Le paso ESTA ventana como referencia (para devolver la sesión creada)
-        ventanaSesion = new VistaSesion(this);
-
+        ventanaSesion = new GestionarSesion(getDesktopPane(),this,diaactual); // pasar el objeto DiaDeSpa
         getDesktopPane().add(ventanaSesion);
         ventanaSesion.setVisible(true);
-
     } else {
-        try {
-            ventanaSesion.setSelected(true);
-        } catch (Exception e) {}
+        ventanaSesion.toFront(); // si ya está abierta, la traemos al frente
     }
 
 
-
-        // TODO add your handling code here:
     }//GEN-LAST:event_jagregarActionPerformed
 
     private void jversesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jversesionesActionPerformed
@@ -413,7 +410,7 @@ private boolean obtenerEstadoPago() {
     private javax.swing.JRadioButton jabonado;
     private javax.swing.JButton jagregar;
     private javax.swing.JButton jbguardar;
-    private javax.swing.JComboBox<Ciente> jcclientes;
+    private javax.swing.JComboBox<Cliente> jcclientes;
     private javax.swing.JSpinner jshora;
     private javax.swing.JTextField jtmonto;
     private javax.swing.JTextArea jtpreferencias;

@@ -80,7 +80,7 @@ public class SesionData {
             JOptionPane.showMessageDialog(null, "Error al guardar instalaciones: " + ex.getMessage());
         }
     }
-    /*
+    
     
   public void eliminarSesion(int id) {
     try {
@@ -316,5 +316,5 @@ public void darDeAlta(Sesion sesion) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");
         }
     }
-     */
+     
 }
