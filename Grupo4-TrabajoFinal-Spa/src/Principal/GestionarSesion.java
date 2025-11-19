@@ -374,19 +374,21 @@ public class GestionarSesion extends JInternalFrameImagen {
     private void jBQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitarActionPerformed
         // TODO add your handling code here:
 
-        if (instalaciones.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No hay instalaciones agregadas!");
-        } else {
+        if (!instalaciones.isEmpty()) {
 
-            int fila = jTInstalaciones.getSelectedRow();
+            Instalacion quitar = instalaciones.get(instalaciones.size() - 1);
 
-            double precio = Double.parseDouble(jTMasa.getValueAt(fila, 1).toString());
+            total -= quitar.getPrecio30m();
+
             instalaciones.remove(instalaciones.size() - 1);
-            total -= precio;
-
+            
             jTTotal.setText(String.valueOf(total));
 
-            cargarInstalaciones();
+            cargarInsta();
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "No hay instalaciones agregadas!");
         }
 
     }//GEN-LAST:event_jBQuitarActionPerformed
@@ -466,7 +468,9 @@ public class GestionarSesion extends JInternalFrameImagen {
         List<Instalacion> instalaciones = insD.traerInstalaciones();
 
         for (Instalacion i : instalaciones) {
-            jCInsta.addItem(i.getNombre());
+            if (i.isEstado()) {
+                jCInsta.addItem(i.getNombre());
+            }
         }
     }
 
@@ -474,9 +478,9 @@ public class GestionarSesion extends JInternalFrameImagen {
         List<Masajista> masajistas = md.traerMasajistas();
 
         for (Masajista m : masajistas) {
-
-            modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
-
+            if (m.isEstado()) {
+                modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
+            }
         }
     }
 
