@@ -168,7 +168,7 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
 
     private void EnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarActionPerformed
        String comentario = Area.getText();
-      data.guardar(exp);
+      //data.guardar(exp);
     }//GEN-LAST:event_EnviarActionPerformed
 
 
