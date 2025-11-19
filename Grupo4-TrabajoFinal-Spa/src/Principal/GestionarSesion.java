@@ -122,6 +122,11 @@ public class GestionarSesion extends JInternalFrameImagen {
         jLabel5.setText("Instalacion/es:");
 
         jTTratamiento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jTTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTTratamientoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel6.setText("Productos:");
@@ -381,7 +386,7 @@ public class GestionarSesion extends JInternalFrameImagen {
             total -= quitar.getPrecio30m();
 
             instalaciones.remove(instalaciones.size() - 1);
-            
+
             jTTotal.setText(String.valueOf(total));
 
             cargarInsta();
@@ -429,6 +434,13 @@ public class GestionarSesion extends JInternalFrameImagen {
             JOptionPane.showMessageDialog(null, "Error al seleccionar.");
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jTTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTratamientoActionPerformed
+        // TODO add your handling code here:
+        total += trata.getPrecio();
+
+        jTTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_jTTratamientoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
