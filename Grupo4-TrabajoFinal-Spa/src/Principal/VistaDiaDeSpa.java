@@ -51,7 +51,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         SpinnerDateModel modelo = new SpinnerDateModel();
         jshora.setModel(modelo);
 
-        JSpinner.DateEditor editor= new JSpinner.DateEditor(jshora,"HH:mm");
+        JSpinner.DateEditor editor= new JSpinner.DateEditor(jshora,"dd/MM/yyyy HH:mm");
         jshora.setEditor(editor);
     }
 
