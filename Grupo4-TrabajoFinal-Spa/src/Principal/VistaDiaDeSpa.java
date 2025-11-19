@@ -18,12 +18,12 @@ import javax.swing.SpinnerDateModel;
  *
  * @author franc
  */
-public class DiaDeSpa extends javax.swing.JInternalFrame {
+public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form DiaDeSpa
      */
-    public DiaDeSpa() {
+    public VistaDiaDeSpa() {
         initComponents();
         cargarClientes();
 
@@ -52,6 +52,8 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jshora = new javax.swing.JSpinner();
         jRadioButton1 = new javax.swing.JRadioButton();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jbguardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -85,6 +87,12 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         jRadioButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jRadioButton1.setText("Activo");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
+
+        jButton3.setText("Agregar Sesion");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 560, -1, -1));
+
+        jButton1.setText("Ver Sesiones");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
 
         jbguardar.setText("Guardar");
         jbguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +136,7 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 70, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 790));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 730, 790));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -273,7 +281,7 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         }
 
         // 5️⃣ Obtener otros datos del formulario
-        // String preferencias = txtPreferencias.getText();
+        //String preferencias = txtPreferencias.getText();
         // Cliente cliente = (Cliente) comboCliente.getSelectedItem();
         // if (cliente == null) {
         //    JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
@@ -281,8 +289,8 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
         //}
         //double monto = Double.parseDouble(txtMonto.getText());
         // boolean estado = chkEstado.isSelected();
-        // 6️⃣ Crear objeto DiaDeSpa
-        DiaDeSpa dia = new DiaDeSpa();
+        // 6️⃣ Crear objeto VistaDiaDeSpa
+        VistaDiaDeSpa dia = new VistaDiaDeSpa();
       //  dia.setFechahora(fechaHora);
        // dia.setPreferencias(preferencias);
        // dia.setCliente(cli);
@@ -309,7 +317,9 @@ public class DiaDeSpa extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

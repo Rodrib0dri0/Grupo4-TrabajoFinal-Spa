@@ -8,12 +8,12 @@ package Principal;
  *
  * @author franc
  */
-public class Sesion extends javax.swing.JInternalFrame {
+public class VistaSesion extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Sesion
      */
-    public Sesion() {
+    public VistaSesion() {
         initComponents();
     }
 

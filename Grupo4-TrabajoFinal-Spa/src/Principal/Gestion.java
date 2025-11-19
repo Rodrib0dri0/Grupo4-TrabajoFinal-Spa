@@ -233,7 +233,7 @@ public class Gestion extends javax.swing.JFrame {
 
         Escritorio.removeAll();
         Escritorio.repaint();
-        Sesion ses = new Sesion();
+        VistaSesion ses = new VistaSesion();
         ses.setVisible(true);
         Escritorio.add(ses);
         Escritorio.moveToFront(ses);
@@ -243,7 +243,7 @@ public class Gestion extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        DiaDeSpa dds = new DiaDeSpa();
+        VistaDiaDeSpa dds = new VistaDiaDeSpa();
         dds.setVisible(true);
         Escritorio.add(dds);
         Escritorio.moveToFront(dds);
