@@ -66,13 +66,13 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jR1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="52" max="32767" attributes="0"/>
-                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jR2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jR3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jRadioButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jR4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -86,11 +86,11 @@
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jR1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jR3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jR2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jRadioButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jR4" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
@@ -109,7 +109,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa1;CALIFICA NUESTRO SERVICIO!"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+            <Component class="javax.swing.JRadioButton" name="jR1">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup2"/>
@@ -123,10 +123,10 @@
                 <Property name="text" type="java.lang.String" value="Malo"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jR1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+            <Component class="javax.swing.JRadioButton" name="jR3">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup2"/>
@@ -140,7 +140,7 @@
                 <Property name="text" type="java.lang.String" value="Bueno"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+            <Component class="javax.swing.JRadioButton" name="jR2">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup2"/>
@@ -154,7 +154,7 @@
                 <Property name="text" type="java.lang.String" value="Regular"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jR2ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButton4">
@@ -171,7 +171,7 @@
                 <Property name="text" type="java.lang.String" value="Excelente"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="jRadioButton5">
+            <Component class="javax.swing.JRadioButton" name="jR4">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="buttonGroup2"/>
@@ -185,7 +185,7 @@
                 <Property name="text" type="java.lang.String" value="Muy bueno"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jR4ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

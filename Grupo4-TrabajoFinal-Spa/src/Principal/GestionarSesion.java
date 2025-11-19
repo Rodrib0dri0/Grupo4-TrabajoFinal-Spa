@@ -35,10 +35,8 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
     private VistaDiaDeSpa padre;
     private DiaDeSpa diaactual; //la sesion necesita saber a que diadespa pertenece, guardamos el dia de spa actual
 
-
     double total = 0;
 
-    
     List<Instalacion> instalaciones = new ArrayList();
 
     //Modelo de tabla Instalaciones
@@ -54,10 +52,10 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         }
     };
 
-    public GestionarSesion(JDesktopPane desk,VistaDiaDeSpa padre, DiaDeSpa diaactual) {
+    public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
         this.desk = desk;
-        this.padre=padre;
+        this.padre = padre;
         this.diaactual = diaactual;
         SpinnerDateModel modelohora = new SpinnerDateModel();
         armarCabecera();
@@ -69,9 +67,8 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         jR30.setSelected(true);
         jBBuscar.setEnabled(false);
         jTTotal.setEditable(false);
+        cargarMasajistas();
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -381,7 +378,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
             double precio = Double.parseDouble(jTMasa.getValueAt(fila, 1).toString());
             instalaciones.remove(instalaciones.size() - 1);
             total -= precio;
-            
+
             jTTotal.setText(String.valueOf(total));
 
             cargarInstalaciones();
@@ -399,7 +396,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
-        
+
         if (trata == null) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
             return;
@@ -408,16 +405,13 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         LocalDateTime fechaI = tsi.toLocalDateTime();
         Timestamp tsf = (Timestamp) jSFechaF.getValue();
         LocalDateTime fechaF = tsf.toLocalDateTime();
-        
 
-       
-        Masajista masa= masajistaSeleccionado();
-        
+        Masajista masa = masajistaSeleccionado();
+
         DiaDeSpa dds = diaactual;
-        
 
-        Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones,dds, true);
-        
+        Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones, dds, true);
+
         padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
 
 
@@ -425,7 +419,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
-        cargarMasajistas();
+
     }//GEN-LAST:event_jBBuscarActionPerformed
 
 
@@ -475,9 +469,9 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         List<Masajista> masajistas = md.traerMasajistas();
 
         for (Masajista m : masajistas) {
-            if (m.getEspecialidad().equals(sd.buscarServicio(trata.getIdServicio()).getTipo())) {
-                modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
-            }
+
+            modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
+
         }
     }
 

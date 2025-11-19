@@ -84,7 +84,7 @@ public class TratamientosMasSesionados extends JInternalFrameImagen {
     // End of variables declaration//GEN-END:variables
 public void armarCabecera() {
         modelo.addColumn("Tratamiento");
-        modelo.addColumn("Usos");
+        modelo.addColumn("Veces elegidos");
         jTTabla.setModel(modelo);
     }
 

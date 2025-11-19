@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ExperienciaData {
     private Connection con;
@@ -24,6 +25,8 @@ public class ExperienciaData {
             ps.setInt(1, exp.getPuntuacion());
             ps.setString(2, exp.getComentario());
             ps.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
     }
 
