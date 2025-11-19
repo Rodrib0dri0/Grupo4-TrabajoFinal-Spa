@@ -29,16 +29,19 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -55,7 +58,7 @@ public class Gestion extends javax.swing.JFrame {
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
+            .addGap(0, 732, Short.MAX_VALUE)
         );
 
         jMenuBar1.setBackground(new java.awt.Color(153, 153, 255));
@@ -116,35 +119,6 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setForeground(new java.awt.Color(0, 0, 0));
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa-y-relax.png"))); // NOI18N
-        jMenu5.setText("DiadeSpa");
-
-        jMenuItem11.setText("Gestionar Paquete");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem11);
-
-        jMenuBar1.add(jMenu5);
-
-        jMenu6.setForeground(new java.awt.Color(0, 0, 0));
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa (3).png"))); // NOI18N
-        jMenu6.setText("Clientes");
-
-        jMenuItem7.setText("Gestionar Clientes");
-        jMenuItem7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem7);
-
-        jMenuBar1.add(jMenu6);
-
         jMenu3.setForeground(new java.awt.Color(0, 0, 0));
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa (4).png"))); // NOI18N
         jMenu3.setText("Instalaciones");
@@ -159,6 +133,20 @@ public class Gestion extends javax.swing.JFrame {
         jMenu3.add(jMenuItem8);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu5.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa-y-relax.png"))); // NOI18N
+        jMenu5.setText("DiadeSpa");
+
+        jMenuItem11.setText("Gestionar Paquete");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem11);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu7.setBackground(new java.awt.Color(153, 153, 255));
         jMenu7.setForeground(new java.awt.Color(0, 0, 0));
@@ -176,6 +164,22 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu6.setForeground(new java.awt.Color(0, 0, 0));
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/spa (3).png"))); // NOI18N
+        jMenu6.setText("Clientes");
+
+        jMenuItem7.setText("Gestionar Clientes");
+        jMenuItem7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/publicacion.png"))); // NOI18N
         jMenu8.setText("Informes");
 
         jMenuItem10.setText("Tratamientos más usados");
@@ -187,6 +191,27 @@ public class Gestion extends javax.swing.JFrame {
         jMenu8.add(jMenuItem10);
 
         jMenuBar1.add(jMenu8);
+
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/resenas.png"))); // NOI18N
+        jMenu4.setText("Reseñas");
+
+        jMenuItem4.setText("Formulario de reseñas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem4);
+
+        jMenuItem5.setText("Ver Reseñas");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -299,6 +324,26 @@ public class Gestion extends javax.swing.JFrame {
         Escritorio.moveToFront(dds);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaExperiencia ve = new VistaExperiencia();
+        ve.setVisible(true);
+        Escritorio.add(ve);
+        Escritorio.moveToFront(ve);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        VerReseñas vr = new VerReseñas();
+        vr.setVisible(true);
+        Escritorio.add(vr);
+        Escritorio.moveToFront(vr);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,6 +384,7 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
@@ -349,6 +395,8 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;

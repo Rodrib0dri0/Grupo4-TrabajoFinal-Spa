@@ -24,7 +24,7 @@ import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GestionarSesion extends javax.swing.JInternalFrame {
+public class GestionarSesion extends JInternalFrameImagen {
 
     InstalacionData insD = new InstalacionData();
     MasajistaData md = new MasajistaData();
@@ -54,6 +54,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
 
     public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
+        this.SetImagen("/Imagenes/FondoSesion.jpg");
         this.desk = desk;
         this.padre = padre;
         this.diaactual = diaactual;
@@ -65,9 +66,9 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         cargarInstalaciones();
         cargarInsta();
         jR30.setSelected(true);
-        jBBuscar.setEnabled(false);
         jTTotal.setEditable(false);
         cargarMasajistas();
+        jTTratamiento.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -102,22 +103,30 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         jBGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTMasa = new javax.swing.JTable();
-        jBBuscar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTTotal = new javax.swing.JTextField();
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setText("Fecha-Hora inicio:");
 
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel2.setText("Fecha-Hora fin:");
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel3.setText("Tratamiento:");
 
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel4.setText("Masajistas disponibles:");
 
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel5.setText("Instalacion/es:");
 
+        jTTratamiento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel6.setText("Productos:");
 
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel7.setText("Sesiones");
 
         jBSelec.setText("Seleccionar");
@@ -141,7 +150,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
             }
         });
 
-        jTInstalaciones.setForeground(new java.awt.Color(0, 0, 0));
+        jTInstalaciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTInstalaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -156,15 +165,19 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jTInstalaciones);
 
         buttonGroup1.add(jR30);
+        jR30.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jR30.setText("30m");
 
         buttonGroup1.add(jR60);
+        jR60.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jR60.setText("60m");
 
         buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jRadioButton3.setText("120m");
 
         buttonGroup1.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jRadioButton4.setText("90m");
 
         jBGuardar.setText("Guardar");
@@ -174,6 +187,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
             }
         });
 
+        jTMasa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTMasa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -187,14 +201,10 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTMasa);
 
-        jBBuscar.setText("Buscar");
-        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBuscarActionPerformed(evt);
-            }
-        });
-
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel8.setText("Total:");
+
+        jTTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,7 +239,7 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
                             .addComponent(jBAgregar))
                         .addGap(23, 23, 23)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(55, Short.MAX_VALUE))))
+                        .addContainerGap(48, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
@@ -260,30 +270,28 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(280, 280, 280)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(61, 61, 61)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jBBuscar))
+                                .addComponent(jLabel4)
                                 .addGap(106, 106, 106)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator1))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(276, 276, 276)
+                .addComponent(jLabel7)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel7)
-                .addGap(52, 52, 52)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,12 +311,9 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBBuscar))
+                    .addComponent(jLabel4)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -391,42 +396,42 @@ public class GestionarSesion extends javax.swing.JInternalFrame {
         GuardarTratamientos t = new GuardarTratamientos(this);
         desk.add(t);
         t.setVisible(true);
-        jBBuscar.setEnabled(true);
     }//GEN-LAST:event_jBSelecActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+        try {
+            Masajista masa;
+            masa = masajistaSeleccionado();
+            if (trata == null) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
+                return;
+            }
+            if (masa == null) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un/a masajista.");
+            }
+            Timestamp tsi = (Timestamp) jSFechaI.getValue();
+            LocalDateTime fechaI = tsi.toLocalDateTime();
+            Timestamp tsf = (Timestamp) jSFechaF.getValue();
+            LocalDateTime fechaF = tsf.toLocalDateTime();
 
-        if (trata == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
-            return;
+            masa = masajistaSeleccionado();
+
+            DiaDeSpa dds = diaactual;
+
+            Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones, dds, true);
+
+            padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Error al seleccionar.");
         }
-        Timestamp tsi = (Timestamp) jSFechaI.getValue();
-        LocalDateTime fechaI = tsi.toLocalDateTime();
-        Timestamp tsf = (Timestamp) jSFechaF.getValue();
-        LocalDateTime fechaF = tsf.toLocalDateTime();
-
-        Masajista masa = masajistaSeleccionado();
-
-        DiaDeSpa dds = diaactual;
-
-        Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones, dds, true);
-
-        padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
-
-
     }//GEN-LAST:event_jBGuardarActionPerformed
-
-    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jBBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBAgregar;
-    private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBQuitar;
     private javax.swing.JButton jBSelec;

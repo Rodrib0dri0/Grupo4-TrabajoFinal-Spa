@@ -31,8 +31,9 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
         jR4 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Area = new javax.swing.JTextArea();
+        jTComen = new javax.swing.JTextArea();
         Enviar = new javax.swing.JButton();
+        jSalir = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(153, 102, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,7 +95,7 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jR1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jR2)
                 .addGap(51, 51, 51)
                 .addComponent(jR3)
@@ -119,17 +120,17 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 130));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 130));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Tu opinion nos interesa");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
-        Area.setBackground(new java.awt.Color(204, 204, 204));
-        Area.setColumns(20);
-        Area.setRows(5);
-        jScrollPane1.setViewportView(Area);
+        jTComen.setBackground(new java.awt.Color(204, 204, 204));
+        jTComen.setColumns(20);
+        jTComen.setRows(5);
+        jScrollPane1.setViewportView(jTComen);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 630, -1));
 
@@ -142,17 +143,28 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
                 EnviarActionPerformed(evt);
             }
         });
-        jPanel2.add(Enviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, -1, -1));
+        jPanel2.add(Enviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
+
+        jSalir.setBackground(new java.awt.Color(213, 213, 141));
+        jSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salida.png"))); // NOI18N
+        jSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSalirActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
         );
 
         pack();
@@ -178,27 +190,29 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
             puntaje = 2;
         } else if (jR3.isSelected()) {
             puntaje = 3;
-        } else if (jR1.isSelected()) {
+        } else if (jR4.isSelected()) {
             puntaje = 4;
-        } else if (jR1.isSelected()) {
+        } else if (jRadioButton4.isSelected()) {
             puntaje = 5;
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una puntuación antes de enviar");
         }
         
-        String comentario = Area.getText();
+        String comentario = jTComen.getText();
         
         Experiencia exp = new Experiencia(puntaje, comentario);
-        try {
-            data.guardar(exp);
-        } catch (SQLException ex) {
-            Logger.getLogger(VistaExperiencia.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        data.guardar(exp);
+        limpiar();
     }//GEN-LAST:event_EnviarActionPerformed
+
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea Area;
     private javax.swing.JButton Enviar;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
@@ -210,6 +224,17 @@ public class VistaExperiencia extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jR3;
     private javax.swing.JRadioButton jR4;
     private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTComen;
     // End of variables declaration//GEN-END:variables
+    public void limpiar(){
+        jR1.setSelected(false);
+        jR2.setSelected(false);
+        jR3.setSelected(false);
+        jR4.setSelected(false);
+        jRadioButton4.setSelected(false);
+        
+        jTComen.setText("");
+    }
 }
