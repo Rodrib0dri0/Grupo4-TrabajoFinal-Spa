@@ -24,7 +24,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
     public VistaTablaSesiones(List<Sesion> lista) {
         this.listaSesiones = lista;
         initComponents();
-        inicializarTabla();) 
+        inicializarTabla();
     }
 
     
