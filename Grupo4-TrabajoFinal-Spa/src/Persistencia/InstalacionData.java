@@ -87,6 +87,25 @@ public class InstalacionData {
         return insta;
     }
 
+    public Instalacion buscarInstaporNombre(String nombre) {
+        Instalacion insta = null;
+        String sql = "SELECT idInstalacion FROM instalacion WHERE nombre like ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("idInstalacion");
+                insta = buscarInstalacion(id);
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar id.");
+        }
+        return insta;
+    }
+
     public List<Instalacion> traerInstalaciones() {
         List<Instalacion> instalaciones = new ArrayList();
         try {

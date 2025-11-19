@@ -7,7 +7,7 @@ import Modelo.Masajista;
 import Modelo.Sesion;
 import Modelo.TratamientoMasaje;
 import Persistencia.MasajistaData;
-import Persistencia.DiadeSpaData;
+//import Persistencia.DiadeSpaData;
 import Persistencia.TratamientoMasajeData;
 import Persistencia.InstalacionData;
 import java.sql.Connection;
@@ -21,27 +21,25 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-
 public class SesionData {
+
     private Connection con;
-    
-    public SesionData(){
+
+    public SesionData() {
         Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-trabajofinal-spa", "root", "");
         con = conexion.buscarconexion();
     }
-    
+
     public void agregarSesion(Sesion sesion) {
         try {
             String sql = "INSERT INTO sesion(fecha_hora_inicio,fecha_hora_fin,idTratamiento,matricula,idPack,estado) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(sesion.getFechaHoraInicio()));
             ps.setTimestamp(2, Timestamp.valueOf(sesion.getFechaHoraFin()));
-            ps.setInt(3,sesion.getTratamiento().getIdTratamiento());
+            ps.setInt(3, sesion.getTratamiento().getIdTratamiento());
             ps.setInt(4, sesion.getMasajista().getMatricula());
-            ps.setInt(5,sesion.getDiaDeSpa().getIdPack());
+            ps.setInt(5, sesion.getDiaDeSpa().getIdPack());
             ps.setBoolean(6, sesion.isEstado());
-          
-
 
             int registro = ps.executeUpdate();
 
@@ -53,11 +51,11 @@ public class SesionData {
                         sesion.setIdSesion(idSesionGenerado); // guardamos el id en el objeto
                     }
                 }
-                 
-               // Si la sesión tiene una lista de instalaciones cargada (no es null ni está vacía), entonces guardo esa lista en la tabla intermedia sesion_instalacion
-        if (sesion.getInstalacion() != null && !sesion.getInstalacion().isEmpty()) {
-            agregarInstalacionesASesion(sesion.getIdSesion(), sesion.getInstalacion());
-        }
+
+                // Si la sesión tiene una lista de instalaciones cargada (no es null ni está vacía), entonces guardo esa lista en la tabla intermedia sesion_instalacion
+                if (sesion.getInstalacion() != null && !sesion.getInstalacion().isEmpty()) {
+                    agregarInstalacionesASesion(sesion.getIdSesion(), sesion.getInstalacion());
+                }
 
                 JOptionPane.showMessageDialog(null, "¡Sesión guardada correctamente!");
             }
@@ -65,24 +63,24 @@ public class SesionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar sesión: " + ex.getMessage());
         }
-    
-    }
-    
-    public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalaciones) {
-    String sql = "INSERT INTO sesion_instalacion (idSesion, idInstalacion) VALUES (?, ?)";
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        for (Instalacion inst : instalaciones) {
-            ps.setInt(1, idSesion);
-            ps.setInt(2, inst.getIdInstalacion());
-            ps.addBatch();//Agrupa todas las inserciones y las hace de una sola vez
-        }
-        ps.executeBatch();
-        System.out.println("instalaciones vinculadas correctamente a la sesion ");
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al guardar instalaciones: " + ex.getMessage());
-    }
-}
 
+    }
+
+    public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalaciones) {
+        String sql = "INSERT INTO sesion_instalacion (idSesion, idInstalacion) VALUES (?, ?)";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            for (Instalacion inst : instalaciones) {
+                ps.setInt(1, idSesion);
+                ps.setInt(2, inst.getIdInstalacion());
+                ps.addBatch();//Agrupa todas las inserciones y las hace de una sola vez
+            }
+            ps.executeBatch();
+            System.out.println("instalaciones vinculadas correctamente a la sesion ");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar instalaciones: " + ex.getMessage());
+        }
+    }
+    /*
     
   public void eliminarSesion(int id) {
     try {
@@ -318,6 +316,5 @@ public void darDeAlta(Sesion sesion) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");
         }
     }
+     */
 }
-    
-

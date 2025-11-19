@@ -1,0 +1,49 @@
+############################
+# Java / NetBeans project  #
+############################
+
+# Build outputs
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+
+# NetBeans generated/private files
+/nbproject/private/
+/nbproject/build-impl.xml
+/nbproject/genfiles.properties
+
+# IDE specific
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Java compiled/bundles
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# Logs
+logs/
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp files
+*.tmp
+~$*
+*.swp
+*.swo
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+

@@ -36,10 +36,28 @@ public class GuardarTratamientos extends JInternalFrameImagen {
 
     TratamientoMasaje trataSele;
 
+    private GestionarSesion gs;
+
     double total = 0;
 
     public GuardarTratamientos() {
         initComponents();
+        this.SetImagen("/Imagenes/FondoGuardarT.jpg");
+        armarCabecera();
+        armarCabecera2();
+        cargarTipos();
+        servicios = sd.traerServicios();
+        cargarTratamientos();
+        inhabilitar();
+        cargarProductos();
+        jTTotal.setEditable(false);
+        jTTratasele.setEditable(false);
+        jBGuardar.setEnabled(false);
+    }
+
+    public GuardarTratamientos(GestionarSesion sesion) {
+        initComponents();
+        this.gs = sesion;
         this.SetImagen("/Imagenes/FondoGuardarT.jpg");
         armarCabecera();
         armarCabecera2();
@@ -373,10 +391,10 @@ public class GuardarTratamientos extends JInternalFrameImagen {
         double precio = Double.parseDouble(jTTotal.getText());
 
         trataSele = new TratamientoMasaje(productosSele, tratamientoSeleccionado().getIdServicio(), detalle, precio, true);
-
+        gs.recibirTratamiento(trataSele);
         tmd.guardarTratamiento(trataSele);
 
-
+        this.dispose();
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBQuitarActionPerformed
