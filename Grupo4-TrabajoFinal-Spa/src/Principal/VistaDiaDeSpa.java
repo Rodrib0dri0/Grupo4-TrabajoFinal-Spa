@@ -1,15 +1,20 @@
 package Principal;
 
 import Modelo.Cliente;
+import Modelo.Sesion;
 
 import Persistencia.ClienteData;
+import Persistencia.DiadeSpaData;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -19,19 +24,29 @@ import javax.swing.SpinnerDateModel;
  * @author franc
  */
 public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
+    
+    private ArrayList<Sesion> listaSesiones = new ArrayList<>();
+    private VistaSesion ventanaSesion;
+    private VistaTablaSesiones tablasesiones;
+    private DiadeSpaData diaDeSpaData = new DiadeSpaData();
+  
+
+
 
     /**
      * Creates new form DiaDeSpa
      */
     public VistaDiaDeSpa() {
-        initComponents();
+        initComponents(); 
         cargarClientes();
+        inicializaMonto();
 
-        SpinnerDateModel modelohora = new SpinnerDateModel();
-        jshora.setModel(modelohora);
+        
+        SpinnerDateModel modelo = new SpinnerDateModel();
+        jshora.setModel(modelo);
 
-        // JSpinner.DateEditor editor= new JSpinner.DateEditor(jspinnerhora,"HH:mm");
-        //jspinnerhora.setEditor(editor);
+        JSpinner.DateEditor editor= new JSpinner.DateEditor(jshora,"HH:mm");
+        jshora.setEditor(editor);
     }
 
     /**
@@ -43,17 +58,18 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jdfecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtpreferencias = new javax.swing.JTextArea();
-        jTextField2 = new javax.swing.JTextField();
+        jtmonto = new javax.swing.JTextField();
         jcclientes = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jshora = new javax.swing.JSpinner();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jabonado = new javax.swing.JRadioButton();
+        jagregar = new javax.swing.JButton();
+        jversesiones = new javax.swing.JButton();
         jbguardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -61,38 +77,51 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(736, 1104));
 
         jPanel1.setMinimumSize(new java.awt.Dimension(736, 1104));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jdfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 140, -1));
 
         jtpreferencias.setColumns(20);
         jtpreferencias.setRows(5);
         jScrollPane1.setViewportView(jtpreferencias);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 340, 100));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 460, -1, -1));
+        jPanel1.add(jtmonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 520, -1, -1));
 
-        jcclientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jcclientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 140, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 140, -1));
         jPanel1.add(jshora, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 140, -1));
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jRadioButton1.setText("Activo");
+        jRadioButton1.setText("Pago pendiente");
         jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
 
-        jButton3.setText("Agregar Sesion");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 560, -1, -1));
+        buttonGroup1.add(jabonado);
+        jabonado.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jabonado.setText("Abonado");
+        jPanel1.add(jabonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, -1, -1));
 
-        jButton1.setText("Ver Sesiones");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
+        jagregar.setText("Agregar Sesion");
+        jagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jagregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 560, -1, -1));
+
+        jversesiones.setText("Ver Sesiones");
+        jversesiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jversesionesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jversesiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
 
         jbguardar.setText("Guardar");
         jbguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +137,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Total");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,11 +158,6 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Hora");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Fecha");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 70, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 730, 790));
@@ -156,6 +180,9 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+   
+    
     private boolean validarPreferencias() {
         String texto = jtpreferencias.getText().trim();
 
@@ -194,70 +221,88 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         return true;
     }
+    
+    // MÉTODO RECIBIR SESIÓN
+    public void agregarSesion(Sesion sesion) {
+        listaSesiones.add(sesion);
+    }
 
     private String obtenerPreferencias() {
         return jtpreferencias.getText().trim();
     }
 
-    private boolean validarFechaHora() {
+   private boolean validarFechaHora() {
 
-        // Validar fecha
-        if (jdfecha.getDate() == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Debe seleccionar una fecha.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+    // Verifica que el spinner tenga un valor Date válido
+    Object valor = jshora.getValue();
 
-        // Validar hora (el spinner NO debería ser nulo nunca, pero por seguridad lo chequeamos)
-        if (jshora.getValue() == null) {
-            JOptionPane.showMessageDialog(this,
-                    "Debe seleccionar una hora válida.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
+    if (valor == null || !(valor instanceof Date)) {
+        JOptionPane.showMessageDialog(this,
+                "Debe seleccionar una fecha y hora válidas.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
     }
 
-    private Timestamp obtenerFechaHora() {
+    return true;
+}
+   
+   private Timestamp obtenerFechaHora() {
+    Date valor = (Date) jshora.getValue();
 
-        // 1) Obtener fecha del JDateChooser
-        Date fechaSeleccionada = jdfecha.getDate();
 
-        // 2) Obtener hora del JSpinner
-        Date horaSeleccionada = (Date) jshora.getValue();
+     LocalDateTime fechaHora = valor.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime();
 
-        // 3) Convertir fecha a LocalDate
-        LocalDate fecha = fechaSeleccionada.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
+    return Timestamp.valueOf(fechaHora);
 
-        // 4) Convertir hora a LocalTime
-        LocalTime hora = horaSeleccionada.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalTime();
 
-        // 5) Construir LocalDateTime
-        LocalDateTime fechaHora = LocalDateTime.of(fecha, hora);
+}
 
-        // 6) Devolver como Timestamp
-        return Timestamp.valueOf(fechaHora);
-    }
 
     private void cargarClientes() {
         ClienteData clienteData = new ClienteData();
-        List<Cliente> lista = clienteData.traerClientes(); //En mi clase Cliente Data deberia tener un metodo listar clientes verdad?
+        List<Cliente> lista = clienteData.traerClientes();
 
         jcclientes.removeAllItems(); // Limpia el combo por las dudas
 
         for (Cliente c : lista) {
-            jcclientes.addItem(c.getNombre());  // Gracias al toString mostrará nombre + apellido 
-            //CONSULTA: NO PUEDO CREAR UN METODO PARECIDO AL TOSTRING QUE MUESTRE SOLO NOMBRE Y APELLIDO Y LO INVOQUE?
+            jcclientes.addItem(c);
+          
         }
     }
+    
+    private void inicializaMonto() {
+    NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+    String montoFormateado = formato.format(0);
+    jtmonto.setText(montoFormateado);
+}
+    
+    private double obtenerMonto() {
+    String texto = jtmonto.getText()
+            .replace("$", "")      // quita el símbolo $
+            .replace(".", "")      // quita separadores de miles
+            .replace(",", ".")     // convierte coma decimal a punto
+            .trim();
+
+    if (texto.isEmpty()) {
+        return 0;
+    }
+
+    try {
+        return Double.parseDouble(texto);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Monto inválido.");
+        return 0;
+    }
+}
+
+private boolean obtenerEstadoPago() {
+    return jabonado.isSelected();
+}
+
+
 
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
@@ -271,8 +316,11 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         }
 
 // === EXTRAER datos validados
-        String preferencias = obtenerPreferencias();
+       
         Timestamp fechaHora = obtenerFechaHora();
+        
+        String preferencias = obtenerPreferencias();
+        
         Cliente cli = (Cliente) jcclientes.getSelectedItem();
 
         if (cli == null) {
@@ -280,23 +328,14 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
             return;
         }
 
-        // 5️⃣ Obtener otros datos del formulario
-        //String preferencias = txtPreferencias.getText();
-        // Cliente cliente = (Cliente) comboCliente.getSelectedItem();
-        // if (cliente == null) {
-        //    JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
-        //    return;
-        //}
-        //double monto = Double.parseDouble(txtMonto.getText());
-        // boolean estado = chkEstado.isSelected();
+        
+        double monto = Double.parseDouble(jtmonto.getText());
+        boolean estado = obtenerEstadoPago();
+
         // 6️⃣ Crear objeto VistaDiaDeSpa
         VistaDiaDeSpa dia = new VistaDiaDeSpa();
-      //  dia.setFechahora(fechaHora);
-       // dia.setPreferencias(preferencias);
-       // dia.setCliente(cli);
-        //dia.setMonto(monto);
-        //dia.setEstado(estado);
-
+      
+        
         // 7️⃣ Guardar en la base
         // diadespaData.agregarDiaDeSpa(dia);
         /* DiaDeSpaData ddd = new DiaDeSpaData();
@@ -312,17 +351,57 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
         ex.printStackTrace();*/
-    private void eso() {
+    {
     }//GEN-LAST:event_jbguardarActionPerformed
+
+    private void jagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jagregarActionPerformed
+
+
+                                       
+
+    // Si la ventana está cerrada o nunca se abrió → crearla
+    if (ventanaSesion == null || ventanaSesion.isClosed()) {
+
+        // Le paso ESTA ventana como referencia (para devolver la sesión creada)
+        ventanaSesion = new VistaSesion(this);
+
+        getDesktopPane().add(ventanaSesion);
+        ventanaSesion.setVisible(true);
+
+    } else {
+        try {
+            ventanaSesion.setSelected(true);
+        } catch (Exception e) {}
+    }
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jagregarActionPerformed
+
+    private void jversesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jversesionesActionPerformed
+
+
+
+    if (tablasesiones == null || tablasesiones.isClosed()) {
+        tablasesiones = new VistaTablaSesiones(listaSesiones);
+        getDesktopPane().add(tablasesiones);
+        tablasesiones.setVisible(true);
+    } else {
+        try { tablasesiones.setSelected(true); } catch (Exception e) {}
+    }
+
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jversesionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -331,12 +410,14 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JRadioButton jabonado;
+    private javax.swing.JButton jagregar;
     private javax.swing.JButton jbguardar;
-    private javax.swing.JComboBox<String> jcclientes;
-    private com.toedter.calendar.JDateChooser jdfecha;
+    private javax.swing.JComboBox<Ciente> jcclientes;
     private javax.swing.JSpinner jshora;
+    private javax.swing.JTextField jtmonto;
     private javax.swing.JTextArea jtpreferencias;
+    private javax.swing.JButton jversesiones;
     // End of variables declaration//GEN-END:variables
 
 }
