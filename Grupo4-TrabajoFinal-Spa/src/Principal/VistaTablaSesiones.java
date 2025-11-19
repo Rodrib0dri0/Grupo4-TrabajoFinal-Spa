@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Principal;
 
 import Modelo.Instalacion;
@@ -10,52 +6,55 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author franc
- */
 public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
     private List<Sesion> listaSesiones;  // atributo interno
-    private DefaultTableModel modelo;
-    /**
-     * Creates new form VistaTablaSesiones
-     */
+    private DefaultTableModel modelo = new DefaultTableModel();
+
     public VistaTablaSesiones(List<Sesion> lista) {
         this.listaSesiones = lista;
         initComponents();
-        inicializarTabla();
+        armarCabecera();
     }
 
-    
     private void inicializarTabla() {
         modelo = (DefaultTableModel) jtsesiones.getModel();
         actualizarTabla();
-        
-    }
-    
-    
-    
-    public void actualizarTabla() {
-    modelo.setRowCount(0); // limpia la tabla
-    for (Sesion s : listaSesiones) {
-        // Concatenar nombres de instalaciones si querés mostrar todos
-        String nombresInstalaciones = s.getInstalacion()
-                                        .stream()
-                                        .map(Instalacion::getNombre)
-                                        .collect(Collectors.joining(" - "));
 
-        modelo.addRow(new Object[] {
-            s.getIdSesion(),
-            s.getTratamiento().getDetalle(), // o getNombre() según tu clase
-            s.getMasajista().getNombre(),
-            s.getFechaHoraInicio(),
-            s.getFechaHoraFin(),
-            nombresInstalaciones,
-            s.isEstado() ? "Activa" : "Inactiva"
-        });
     }
-}
+
+    public void armarCabecera() {
+        modelo.addColumn("IDsesion");
+        modelo.addColumn("tratamiendo");
+        modelo.addColumn("Masajista");
+        modelo.addColumn("fechahorainicio");
+        modelo.addColumn("fechahorafin");
+        modelo.addColumn("instalaciones");
+        modelo.addColumn("Estado");
+        jtsesiones.setModel(modelo);
+    
+    }
+
+    public void actualizarTabla() {
+        modelo.setRowCount(0); // limpia la tabla
+        for (Sesion s : listaSesiones) {
+            // Concatenar nombres de instalaciones si querés mostrar todos
+            String nombresInstalaciones = s.getInstalacion()
+                    .stream()
+                    .map(Instalacion::getNombre)
+                    .collect(Collectors.joining(" - "));
+
+            modelo.addRow(new Object[]{
+                s.getIdSesion(),
+                s.getTratamiento().getDetalle(), // o getNombre() según tu clase
+                s.getMasajista().getNombre(),
+                s.getFechaHoraInicio(),
+                s.getFechaHoraFin(),
+                nombresInstalaciones,
+                s.isEstado() ? "Activa" : "Inactiva"
+            });
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
