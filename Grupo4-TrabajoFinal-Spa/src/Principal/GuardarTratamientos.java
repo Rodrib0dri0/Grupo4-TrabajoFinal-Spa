@@ -392,7 +392,7 @@ public class GuardarTratamientos extends JInternalFrameImagen {
 
         trataSele = new TratamientoMasaje(productosSele, tratamientoSeleccionado().getIdServicio(), detalle, precio, true);
         gs.recibirTratamiento(trataSele);
-        tmd.guardarTratamiento(trataSele);
+        //tmd.guardarTratamiento(trataSele);
 
         this.dispose();
     }//GEN-LAST:event_jBGuardarActionPerformed

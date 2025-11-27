@@ -44,6 +44,7 @@ public class TratamientoMasajeData {
                     int idT = rs.getInt(1);
                     if (!trata.getProductos().isEmpty()) {
                         guardarProductos(idT, trata.getProductos());
+                        trata.setIdTratamiento(idT);
                     }
                 }
                 JOptionPane.showMessageDialog(null, "Tratamiento guardado correctamente!");

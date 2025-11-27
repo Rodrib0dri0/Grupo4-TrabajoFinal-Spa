@@ -3,40 +3,38 @@ package Principal;
 import Modelo.DiaDeSpa;
 import Persistencia.InstalacionData;
 import Modelo.Instalacion;
-import Persistencia.MasajistaData;
 import Modelo.Masajista;
 import Modelo.Producto;
-import Modelo.Sesion;
 import Modelo.TratamientoMasaje;
 import Persistencia.ServicioData;
 import Modelo.Servicio;
+import Modelo.Sesion;
 import Persistencia.SesionData;
 import Persistencia.MasajistaData;
 import java.util.*;
 import javax.swing.SpinnerDateModel;
-import Principal.Gestion;
 import javax.swing.JDesktopPane;
-import Principal.GuardarTratamientos;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Persistencia.TratamientoMasajeData;
+import java.time.ZoneId;
 
 public class GestionarSesion extends JInternalFrameImagen {
-
+    
     InstalacionData insD = new InstalacionData();
     MasajistaData md = new MasajistaData();
     ServicioData sd = new ServicioData();
     SesionData sed = new SesionData();
+    TratamientoMasajeData tmd = new TratamientoMasajeData();
     private JDesktopPane desk;
     private TratamientoMasaje trata;
     private VistaDiaDeSpa padre;
     private DiaDeSpa diaactual; //la sesion necesita saber a que diadespa pertenece, guardamos el dia de spa actual
 
     double total = 0;
-
+    
     List<Instalacion> instalaciones = new ArrayList();
 
     //Modelo de tabla Instalaciones
@@ -51,7 +49,9 @@ public class GestionarSesion extends JInternalFrameImagen {
             return false;
         }
     };
-
+    
+    Masajista masa = null;
+    
     public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
         this.SetImagen("/Imagenes/FondoSesion.jpg");
@@ -70,7 +70,7 @@ public class GestionarSesion extends JInternalFrameImagen {
         cargarMasajistas();
         jTTratamiento.setEditable(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,13 +98,15 @@ public class GestionarSesion extends JInternalFrameImagen {
         jSeparator3 = new javax.swing.JSeparator();
         jR30 = new javax.swing.JRadioButton();
         jR60 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jR120 = new javax.swing.JRadioButton();
+        jR90 = new javax.swing.JRadioButton();
         jBGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTMasa = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jTTotal = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jTMSeleccionado = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setText("Fecha-Hora inicio:");
@@ -177,13 +179,13 @@ public class GestionarSesion extends JInternalFrameImagen {
         jR60.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jR60.setText("60m");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jRadioButton3.setText("120m");
+        buttonGroup1.add(jR120);
+        jR120.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jR120.setText("120m");
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
-        jRadioButton4.setText("90m");
+        buttonGroup1.add(jR90);
+        jR90.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
+        jR90.setText("90m");
 
         jBGuardar.setText("Guardar");
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,12 +206,20 @@ public class GestionarSesion extends JInternalFrameImagen {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTMasa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTMasaMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTMasa);
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel8.setText("Total:");
 
         jTTotal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel9.setText("Masajista seleccionada/o:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,17 +244,17 @@ public class GestionarSesion extends JInternalFrameImagen {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jR60)
-                                    .addComponent(jRadioButton4)
+                                    .addComponent(jR90)
                                     .addComponent(jR30))
                                 .addGap(10, 10, 10))
-                            .addComponent(jRadioButton3))
+                            .addComponent(jR120))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jBQuitar)
                             .addComponent(jBAgregar))
                         .addGap(23, 23, 23)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(48, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
@@ -276,8 +286,11 @@ public class GestionarSesion extends JInternalFrameImagen {
                                         .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(61, 61, 61)
-                                .addComponent(jLabel4)
-                                .addGap(106, 106, 106)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(52, 52, 52)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -316,9 +329,14 @@ public class GestionarSesion extends JInternalFrameImagen {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,9 +357,9 @@ public class GestionarSesion extends JInternalFrameImagen {
                         .addGap(2, 2, 2)
                         .addComponent(jR60)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(jR90)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)))
+                        .addComponent(jR120)))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGuardar)
@@ -358,20 +376,29 @@ public class GestionarSesion extends JInternalFrameImagen {
         //Según la opción de tiempo se cambia el precio
         String nombre = jCInsta.getSelectedItem().toString();
         Instalacion insta = insD.buscarInstaporNombre(nombre);
-        if (jR30.isSelected()) {
-            instalaciones.add(insta);
-        } else if (jR60.isSelected()) {
-            insta.setPrecio30m(insta.getPrecio30m() * 2);
-            instalaciones.add(insta);
-        } else if (jRadioButton4.isSelected()) {
-            insta.setPrecio30m(insta.getPrecio30m() * 3);
-            instalaciones.add(insta);
-        } else if (jR60.isSelected()) {
-            insta.setPrecio30m(insta.getPrecio30m() * 4);
-            instalaciones.add(insta);
+        
+        for (Instalacion i : instalaciones) {
+            if (i.getIdInstalacion() == insta.getIdInstalacion()) {
+                JOptionPane.showMessageDialog(null, "instalación ya agregada!");
+            }
         }
-        total += insta.getPrecio30m();
+        
+        double precio = insta.getPrecio30m();
+        if (jR30.isSelected()) {
+            
+        } else if (jR60.isSelected()) {
+            precio *= 2;
+        } else if (jR90.isSelected()) {
+            precio *= 3;
+        } else if (jR120.isSelected()) {
+            precio *= 4;
+        }
+        insta.setPrecio30m(precio);
+        instalaciones.add(insta);
+        
+        total += precio;
         jTTotal.setText(String.valueOf(total));
+        
         cargarInsta();
 
     }//GEN-LAST:event_jBAgregarActionPerformed
@@ -380,19 +407,19 @@ public class GestionarSesion extends JInternalFrameImagen {
         // TODO add your handling code here:
 
         if (!instalaciones.isEmpty()) {
-
+            
             Instalacion quitar = instalaciones.get(instalaciones.size() - 1);
-
+            
             total -= quitar.getPrecio30m();
-
+            
             instalaciones.remove(instalaciones.size() - 1);
-
+            
             jTTotal.setText(String.valueOf(total));
-
+            
             cargarInsta();
-
+            
         } else {
-
+            
             JOptionPane.showMessageDialog(null, "No hay instalaciones agregadas!");
         }
 
@@ -408,39 +435,51 @@ public class GestionarSesion extends JInternalFrameImagen {
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
         try {
-            Masajista masa;
-            masa = masajistaSeleccionado();
+            tmd.guardarTratamiento(trata);
             if (trata == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
                 return;
             }
             if (masa == null) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un/a masajista.");
+                return;
             }
-            Timestamp tsi = (Timestamp) jSFechaI.getValue();
-            LocalDateTime fechaI = tsi.toLocalDateTime();
-            Timestamp tsf = (Timestamp) jSFechaF.getValue();
-            LocalDateTime fechaF = tsf.toLocalDateTime();
-
-            masa = masajistaSeleccionado();
-
-            DiaDeSpa dds = diaactual;
-
-            Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, instalaciones, dds, true);
-
+            
+            Date dIni = (Date) jSFechaI.getValue();
+            LocalDateTime fechaI = dIni.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            
+            Date dFin = (Date) jSFechaF.getValue();
+            LocalDateTime fechaF = dFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            
+            List<Instalacion> copiaInst = new ArrayList<>();
+            for (Instalacion i : instalaciones) {
+                copiaInst.add(new Instalacion(i.getIdInstalacion(), i.getNombre(), i.getDetalleDeUso(), i.getPrecio30m(), i.isEstado()));
+            }
+            
+            Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, copiaInst, true);
+            
             padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
+            sed.agregarSesion(sesi);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Error al seleccionar.");
+        } catch (java.lang.ClassCastException e) {
+            JOptionPane.showMessageDialog(null, "Error en fechas.");
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jTTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTratamientoActionPerformed
         // TODO add your handling code here:
         total += trata.getPrecio();
-
+        
         jTTotal.setText(String.valueOf(total));
     }//GEN-LAST:event_jTTratamientoActionPerformed
+
+    private void jTMasaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMasaMousePressed
+        // TODO add your handling code here:
+        masa = masajistaSeleccionado();
+        jTMSeleccionado.setText(masa.getNombre() + " " + masa.getApellido());
+    }//GEN-LAST:event_jTMasaMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -459,10 +498,11 @@ public class GestionarSesion extends JInternalFrameImagen {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JRadioButton jR120;
     private javax.swing.JRadioButton jR30;
     private javax.swing.JRadioButton jR60;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jR90;
     private javax.swing.JSpinner jSFechaF;
     private javax.swing.JSpinner jSFechaI;
     private javax.swing.JScrollPane jScrollPane1;
@@ -471,73 +511,77 @@ public class GestionarSesion extends JInternalFrameImagen {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTable jTInstalaciones;
+    private javax.swing.JTextField jTMSeleccionado;
     private javax.swing.JTable jTMasa;
     private javax.swing.JTextField jTTotal;
     private javax.swing.JTextField jTTratamiento;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarInstalaciones() {
-        List<Instalacion> instalaciones = insD.traerInstalaciones();
-
-        for (Instalacion i : instalaciones) {
-            if (i.isEstado()) {
-                jCInsta.addItem(i.getNombre());
-            }
-        }
-    }
-
     public void cargarMasajistas() {
         List<Masajista> masajistas = md.traerMasajistas();
-
+        
         for (Masajista m : masajistas) {
             if (m.isEstado()) {
                 modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
             }
         }
     }
-
+    
     public void armarCabeceraMasajista() {
         modeloM.addColumn("Matricula");
         modeloM.addColumn("Nombre");
         modeloM.addColumn("Apellido");
         jTMasa.setModel(modeloM);
     }
-
+    
     public void recibirTratamiento(TratamientoMasaje t) {
         trata = t;
-
+        
         Servicio servi = sd.buscarServicio(trata.getIdServicio());
-
+        
         jTTratamiento.setText(servi.getNombre());
-
+        
+        jCProductos.removeAllItems();
         for (Producto p : trata.getProductos()) {
             jCProductos.addItem(p.getNombre());
         }
     }
-
+    
     public void armarCabecera() {
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio 30m");
         jTInstalaciones.setModel(modelo);
     }
-
+    
     public void cargarInsta() {
         modelo.setRowCount(0);
-
+        
         for (Instalacion i : instalaciones) {
             if (i.isEstado() == true) {
                 modelo.addRow(new Object[]{i.getNombre(), i.getPrecio30m()});
             }
         }
     }
-
+    
+    public void cargarInstalaciones() {
+        List<Instalacion> instalacionesDispo = insD.traerInstalaciones();
+        
+        jCInsta.removeAllItems();
+        
+        for (Instalacion i : instalacionesDispo) {
+            if (i.isEstado()) {
+                jCInsta.addItem(i.getNombre());
+            }
+        }
+    }
+    
     public Masajista masajistaSeleccionado() {
         int fila = jTMasa.getSelectedRow();
-
+        
         int matri = Integer.parseInt(jTMasa.getValueAt(fila, 0).toString());
-
+        
         Masajista produ = md.buscarMasajista(matri);
-
+        
         return produ;
     }
 }
