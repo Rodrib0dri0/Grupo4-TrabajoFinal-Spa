@@ -135,10 +135,10 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
                 jbguardarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 720, -1, -1));
+        jPanel1.add(jbguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 630, -1, -1));
 
         jButton2.setText("Salir");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 720, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 630, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,7 +166,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 730, 790));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 730, 710));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
