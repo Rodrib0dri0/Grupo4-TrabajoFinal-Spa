@@ -26,32 +26,26 @@ import javax.swing.SpinnerDateModel;
  * @author franc
  */
 public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
-    
-   
-    
+
     private ArrayList<Sesion> listaSesiones = new ArrayList<>();
     private GestionarSesion ventanaSesion;
     private VistaTablaSesiones tablasesiones;
     private DiadeSpaData diaDeSpaData = new DiadeSpaData();
     private DiaDeSpa diaactual;
-  
-
-
 
     /**
      * Creates new form DiaDeSpa
      */
     public VistaDiaDeSpa() {
-        initComponents(); 
+        initComponents();
         cargarClientes();
         inicializaMonto();
-        this.diaactual=diaactual;
+        this.diaactual = diaactual;
 
-        
         SpinnerDateModel modelo = new SpinnerDateModel();
         jshora.setModel(modelo);
 
-        JSpinner.DateEditor editor= new JSpinner.DateEditor(jshora,"dd/MM/yyyy HH:mm");
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(jshora, "dd/MM/yyyy HH:mm");
         jshora.setEditor(editor);
     }
 
@@ -186,9 +180,6 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-   
-    
     private boolean validarPreferencias() {
         String texto = jtpreferencias.getText().trim();
 
@@ -227,7 +218,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         return true;
     }
-    
+
     // MÉTODO RECIBIR SESIÓN
     public void agregarSesion(Sesion sesion) {
         listaSesiones.add(sesion);
@@ -237,35 +228,32 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         return jtpreferencias.getText().trim();
     }
 
-   private boolean validarFechaHora() {
+    private boolean validarFechaHora() {
 
-    // Verifica que el spinner tenga un valor Date válido
-    Object valor = jshora.getValue();
+        // Verifica que el spinner tenga un valor Date válido
+        Object valor = jshora.getValue();
 
-    if (valor == null || !(valor instanceof Date)) {
-        JOptionPane.showMessageDialog(this,
-                "Debe seleccionar una fecha y hora válidas.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        return false;
+        if (valor == null || !(valor instanceof Date)) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe seleccionar una fecha y hora válidas.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
-    return true;
-}
-   
-   private Timestamp obtenerFechaHora() {
-    Date valor = (Date) jshora.getValue();
+    private Timestamp obtenerFechaHora() {
+        Date valor = (Date) jshora.getValue();
 
+        LocalDateTime fechaHora = valor.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
 
-     LocalDateTime fechaHora = valor.toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDateTime();
+        return Timestamp.valueOf(fechaHora);
 
-    return Timestamp.valueOf(fechaHora);
-
-
-}
-
+    }
 
     private void cargarClientes() {
         ClienteData clienteData = new ClienteData();
@@ -275,120 +263,111 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         for (Cliente c : lista) {
             jcclientes.addItem(c);
-          
+
         }
     }
-    
+
     private void inicializaMonto() {
-    NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
-    String montoFormateado = formato.format(0);
-    jtmonto.setText(montoFormateado);
-}
-    
+        NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+        String montoFormateado = formato.format(0);
+        jtmonto.setText(montoFormateado);
+    }
+
     private double obtenerMonto() {
-    String texto = jtmonto.getText()
-            .replace("$", "")      // quita el símbolo $
-            .replace(".", "")      // quita separadores de miles
-            .replace(",", ".")     // convierte coma decimal a punto
-            .trim();
+        String texto = jtmonto.getText()
+                .replace("$", "") // quita el símbolo $
+                .replace(".", "") // quita separadores de miles
+                .replace(",", ".") // convierte coma decimal a punto
+                .trim();
 
-    if (texto.isEmpty()) {
-        return 0;
+        if (texto.isEmpty()) {
+            return 0;
+        }
+
+        try {
+            return Double.parseDouble(texto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Monto inválido.");
+            return 0;
+        }
     }
 
-    try {
-        return Double.parseDouble(texto);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Monto inválido.");
-        return 0;
+    private boolean obtenerEstadoPago() {
+        return jabonado.isSelected();
     }
-}
-
-private boolean obtenerEstadoPago() {
-    return jabonado.isSelected();
-}
-
-
 
 
     private void jbguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbguardarActionPerformed
-try{
-        // === Validamos datos
-        if (!validarPreferencias()) {
-            return;
-        }
-        if (!validarFechaHora()) {
-            return;
-        }
+        try {
+            // === Validamos datos
+            if (!validarPreferencias()) {
+                return;
+            }
+            if (!validarFechaHora()) {
+                return;
+            }
 
 // === EXTRAER datos validados
-       
-        Timestamp fechaHora = obtenerFechaHora();
-        
-        String preferencias = obtenerPreferencias();
-        
-        Cliente cli = (Cliente) jcclientes.getSelectedItem();
+            Timestamp fechaHora = obtenerFechaHora();
 
-        if (cli == null) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
-            return;
+            String preferencias = obtenerPreferencias();
+
+            Cliente cli = (Cliente) jcclientes.getSelectedItem();
+
+            if (cli == null) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
+                return;
+            }
+
+            double monto = Double.parseDouble(jtmonto.getText());
+
+            boolean estado = obtenerEstadoPago();
+
+            // 6️⃣ Crear objeto DiaDeSpa
+            DiaDeSpa dia = new DiaDeSpa(fechaHora, preferencias, cli, listaSesiones, monto, estado);
+
+            DiadeSpaData diaData = new DiadeSpaData(); // tu conexión
+            diaData.agregarDiadeSpa(dia);
+
+            JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Monto inválido.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+            ex.printStackTrace();
+
         }
 
-        
-        double monto = Double.parseDouble(jtmonto.getText());
-        
-        
-        boolean estado = obtenerEstadoPago();
- 
-        // 6️⃣ Crear objeto DiaDeSpa
-        DiaDeSpa dia = new DiaDeSpa(fechaHora,preferencias,cli,listaSesiones,monto,estado);
-        
-         DiadeSpaData diaData = new DiadeSpaData(); // tu conexión
-         diaData.agregarDiadeSpa(dia);
-         
-      
 
-    JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
-    
- } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Monto inválido.");
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
-        ex.printStackTrace();
-
-}
-
-   
     }//GEN-LAST:event_jbguardarActionPerformed
 
     private void jagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jagregarActionPerformed
 
-                                        
-    // Si la ventana está cerrada o nunca se abrió → crearla
-    if (ventanaSesion == null || ventanaSesion.isClosed()) {
-        ventanaSesion = new GestionarSesion(getDesktopPane(),this,diaactual); // pasar el objeto DiaDeSpa
-        getDesktopPane().add(ventanaSesion);
-        ventanaSesion.setVisible(true);
-    } else {
-        ventanaSesion.toFront(); // si ya está abierta, la traemos al frente
-    }
+        // Si la ventana está cerrada o nunca se abrió → crearla
+        if (ventanaSesion == null || ventanaSesion.isClosed()) {
+            ventanaSesion = new GestionarSesion(getDesktopPane(), this, diaactual); // pasar el objeto DiaDeSpa
+            getDesktopPane().add(ventanaSesion);
+            ventanaSesion.setVisible(true);
+        } else {
+            ventanaSesion.toFront(); // si ya está abierta, la traemos al frente
+        }
 
 
     }//GEN-LAST:event_jagregarActionPerformed
 
     private void jversesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jversesionesActionPerformed
 
-
-
-    if (tablasesiones == null || tablasesiones.isClosed()) {
-        tablasesiones = new VistaTablaSesiones(listaSesiones);
-        getDesktopPane().add(tablasesiones);
-        tablasesiones.setVisible(true);
-    } else {
-        try { tablasesiones.setSelected(true); } catch (Exception e) {}
-    }
-
-
+        if (tablasesiones == null || tablasesiones.isClosed()) {
+            tablasesiones = new VistaTablaSesiones(listaSesiones);
+            getDesktopPane().add(tablasesiones);
+            tablasesiones.setVisible(true);
+        } else {
+            try {
+                tablasesiones.setSelected(true);
+            } catch (Exception e) {
+            }
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jversesionesActionPerformed

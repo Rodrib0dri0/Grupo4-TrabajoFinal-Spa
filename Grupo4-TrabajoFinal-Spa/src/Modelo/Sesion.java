@@ -11,38 +11,11 @@ public class Sesion {
     private LocalDateTime fechaHoraFin;
     private TratamientoMasaje Tratamiento;
     private Masajista masajista;
-    private List<Instalacion> instalaciones; //relacion muchos a muchos
+    private List<Instalacion> instalaciones;
     private DiaDeSpa diaDeSpa;
     private boolean estado;
-    
-    
-     public Sesion() {
-        instalaciones = new ArrayList<>(); // Siempre inicializamos la lista
-    }
-    
-     // un constructor por si creo una sesion con una lista cargada con instalaciones 
-    public Sesion(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, List<Instalacion> Instalacion, DiaDeSpa diaDeSpa, boolean estado) {
-        this.fechaHoraInicio = fechaHoraInicio;
-        this.fechaHoraFin = fechaHoraFin;
-        this.Tratamiento = Tratamiento;
-        this.masajista = masajista;
-        this.instalaciones =(instalaciones != null) ? instalaciones : new ArrayList<>(); //“Si el parámetro instalaciones que recibo no es null, entonces lo asigno.Si es null, creo una nueva lista vacía.”
-        this.diaDeSpa = diaDeSpa;
-        this.estado = estado;
-    }
-    // un constructor al que lo creo sin instalaciones y despues se las asigno a traves de un metodo 
-    public Sesion(int idSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, DiaDeSpa diaDeSpa, boolean estado) {
-        this.idSesion = idSesion;
-        this.fechaHoraInicio = fechaHoraInicio;
-        this.fechaHoraFin = fechaHoraFin;
-        this.Tratamiento = Tratamiento;
-        this.masajista = masajista;
-        this.diaDeSpa = diaDeSpa;
-        this.estado = estado;
-    }
 
-    public Sesion(int idSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, List<Instalacion> instalaciones, boolean estado) {
-        this.idSesion = idSesion;
+    public Sesion(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, List<Instalacion> instalaciones, boolean estado) {
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.Tratamiento = Tratamiento;
@@ -51,9 +24,6 @@ public class Sesion {
         this.estado = estado;
     }
     
-    
-    
-
     public int getIdSesion() {
         return idSesion;
     }
@@ -101,18 +71,7 @@ public class Sesion {
     public void setInstalacion(List<Instalacion> instalacion) {
         this.instalaciones = instalacion;
     }
- 
-    //Agrega una instalacion a la lista 
-    public void agregarInstalacion(Instalacion ins) {
-        if (instalaciones != null && !instalaciones.contains(instalaciones)) 
-        instalaciones.add(ins);
-    }
      
-    // Quita una instalación de la lista
-    public void eliminarInstalacion(Instalacion instalacion) {
-        instalaciones.remove(instalacion);
-    }
-    
     public DiaDeSpa getDiaDeSpa() {
         return diaDeSpa;
     }

@@ -32,14 +32,13 @@ public class SesionData {
 
     public void agregarSesion(Sesion sesion) {
         try {
-            String sql = "INSERT INTO sesion(fecha_hora_inicio,fecha_hora_fin,idTratamiento,matricula,idPack,estado) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO sesion(fecha_hora_inicio,fecha_hora_fin,idTratamiento,matricula,estado) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setTimestamp(1, Timestamp.valueOf(sesion.getFechaHoraInicio()));
             ps.setTimestamp(2, Timestamp.valueOf(sesion.getFechaHoraFin()));
             ps.setInt(3, sesion.getTratamiento().getIdTratamiento());
             ps.setInt(4, sesion.getMasajista().getMatricula());
-            ps.setInt(5, sesion.getDiaDeSpa().getIdPack());
-            ps.setBoolean(6, sesion.isEstado());
+            ps.setBoolean(5, sesion.isEstado());
 
             int registro = ps.executeUpdate();
 
@@ -48,22 +47,17 @@ public class SesionData {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         int idSesionGenerado = rs.getInt(1);
-                        sesion.setIdSesion(idSesionGenerado); // guardamos el id en el objeto
+                        if (!sesion.getInstalacion().isEmpty()) {
+                            agregarInstalacionesASesion(idSesionGenerado, sesion.getInstalacion());
+                        }
                     }
                 }
-
-                // Si la sesión tiene una lista de instalaciones cargada (no es null ni está vacía), entonces guardo esa lista en la tabla intermedia sesion_instalacion
-                if (sesion.getInstalacion() != null && !sesion.getInstalacion().isEmpty()) {
-                    agregarInstalacionesASesion(sesion.getIdSesion(), sesion.getInstalacion());
-                }
-
                 JOptionPane.showMessageDialog(null, "¡Sesión guardada correctamente!");
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar sesión: " + ex.getMessage());
         }
-
     }
 
     public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalaciones) {
@@ -80,41 +74,37 @@ public class SesionData {
             JOptionPane.showMessageDialog(null, "Error al guardar instalaciones: " + ex.getMessage());
         }
     }
-    
-    
-  public void eliminarSesion(int id) {
-    try {
-        // Primero eliminamos instalaciones asociadas
-        String deleteSQL = "DELETE FROM sesion_instalacion WHERE idSesion = ?";
-        try (PreparedStatement psDelete = con.prepareStatement(deleteSQL)) {
-            psDelete.setInt(1, id);
-            psDelete.executeUpdate();
-        }
 
-        // Luego eliminamos la sesión
-        String sql = "DELETE FROM sesion WHERE idSesion = ?";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            int registro = ps.executeUpdate();
-
-            if (registro > 0) {
-                JOptionPane.showMessageDialog(null, "Sesión eliminada correctamente!");
+    public void eliminarSesion(int id) {
+        try {
+            // Primero eliminamos instalaciones asociadas
+            String deleteSQL = "DELETE FROM sesion_instalacion WHERE idSesion = ?";
+            try (PreparedStatement psDelete = con.prepareStatement(deleteSQL)) {
+                psDelete.setInt(1, id);
+                psDelete.executeUpdate();
             }
+
+            // Luego eliminamos la sesión
+            String sql = "DELETE FROM sesion WHERE idSesion = ?";
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                int registro = ps.executeUpdate();
+
+                if (registro > 0) {
+                    JOptionPane.showMessageDialog(null, "Sesión eliminada correctamente!");
+                }
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
         }
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
     }
-}
 
-    
-    
-    
     public void actualizarSesion(Sesion sesionAc) {
         String sql = "UPDATE sesion SET fecha_hora_inicio = ?, fecha_hora_fin = ?, "
-                   + "idTratamiento = ?, matricula = ?, idPack = ?, estado = ? "
-                   + "WHERE idSesion = ?";
-        
+                + "idTratamiento = ?, matricula = ?, idPack = ?, estado = ? "
+                + "WHERE idSesion = ?";
+
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setTimestamp(1, Timestamp.valueOf(sesionAc.getFechaHoraInicio()));
             ps.setTimestamp(2, Timestamp.valueOf(sesionAc.getFechaHoraFin()));
@@ -126,9 +116,8 @@ public class SesionData {
 
             int actualizado = ps.executeUpdate();
             if (actualizado > 0) {
-                
+
                 // Actualizamos instalaciones si hay una lista cargada
-                
                 //CORROBORAR SI EN MIS METODOS DE INSTALACION ES INSTALACION O INSTALACIONES como esta declarado en la clase SESION
                 if (sesionAc.getInstalacion() != null) {
                     actualizarInstalacionesDeSesion(sesionAc.getIdSesion(), sesionAc.getInstalacion());
@@ -142,9 +131,8 @@ public class SesionData {
             JOptionPane.showMessageDialog(null, "Error al actualizar sesión: " + ex.getMessage());
         }
     }
-     
 
-     public void actualizarInstalacionesDeSesion(int idSesion, List<Instalacion> nuevasInstalaciones) {
+    public void actualizarInstalacionesDeSesion(int idSesion, List<Instalacion> nuevasInstalaciones) {
         try {
             // 1️⃣ Eliminamos todas las asociaciones actuales
             String deleteSQL = "DELETE FROM sesion_instalacion WHERE idSesion = ?";
@@ -160,69 +148,64 @@ public class SesionData {
             JOptionPane.showMessageDialog(null, "Error al actualizar instalaciones: " + ex.getMessage());
         }
     }
-     
-public Sesion buscarSesion(int id) {
-    Sesion sesion = null;
-    try {
-        String sql = "SELECT * FROM sesion WHERE idSesion = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
 
-        ResultSet rs = ps.executeQuery();
+    public Sesion buscarSesion(int id) {
+        Sesion sesion = null;
+        try {
+            String sql = "SELECT * FROM sesion WHERE idSesion = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
 
-        if (rs.next()) {
+            ResultSet rs = ps.executeQuery();
 
-            // 1️⃣ Extraer los datos de la base y guardarlos en variables
-            int ID = rs.getInt("idSesion");
-            LocalDateTime fechaHoraInicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
-            LocalDateTime fechaHoraFin = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
-            int idTratamiento = rs.getInt("idTratamiento");
-            int Matricula = rs.getInt("matricula");
-            int idPack = rs.getInt("idPack");
-            boolean estado = rs.getBoolean("estado");
-            
-            
-             // 2️⃣ Crear los objetos Data para buscar los relacionados
-            TratamientoMasajeData tratData = new TratamientoMasajeData();
-            MasajistaData masData = new MasajistaData();
-            DiadeSpaData diaData = new DiadeSpaData();
+            if (rs.next()) {
 
-            // 3️⃣ Usar los métodos de cada Data para obtener los objetos reales
-            TratamientoMasaje tratamiento = tratData.buscarTratamiento(idTratamiento);
-            Masajista masajista = masData.buscarMasajista(Matricula);
-            DiaDeSpa diaDeSpa = diaData.buscarDiaDeSpa(idPack);
-            
-            // Nueva sesión con sus instalaciones
-              List<Instalacion> instalaciones = buscarInstalacionesDeSesion(ID);
-            // 2️⃣ Crear una nueva sesión con los datos extraídos
-            sesion = new Sesion(fechaHoraInicio,fechaHoraFin, tratamiento, masajista,instalaciones, diaDeSpa, estado);
+                // 1️⃣ Extraer los datos de la base y guardarlos en variables
+                int ID = rs.getInt("idSesion");
+                LocalDateTime fechaHoraInicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
+                LocalDateTime fechaHoraFin = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
+                int idTratamiento = rs.getInt("idTratamiento");
+                int Matricula = rs.getInt("matricula");
+                int idPack = rs.getInt("idPack");
+                boolean estado = rs.getBoolean("estado");
 
-            // 3️⃣ Asignar el id de la sesión
-            sesion.setIdSesion(ID);
-            
-            //necesitamos reconstruir la lista de instalaciones
-        
-}
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al buscar sesión: " + ex.getMessage());
+                // 2️⃣ Crear los objetos Data para buscar los relacionados
+                TratamientoMasajeData tratData = new TratamientoMasajeData();
+                MasajistaData masData = new MasajistaData();
+                DiadeSpaData diaData = new DiadeSpaData();
+
+                // 3️⃣ Usar los métodos de cada Data para obtener los objetos reales
+                TratamientoMasaje tratamiento = tratData.buscarTratamiento(idTratamiento);
+                Masajista masajista = masData.buscarMasajista(Matricula);
+                DiaDeSpa diaDeSpa = diaData.buscarDiaDeSpa(idPack);
+
+                // Nueva sesión con sus instalaciones
+                List<Instalacion> instalaciones = buscarInstalacionesDeSesion(ID);
+                // 2️⃣ Crear una nueva sesión con los datos extraídos
+                sesion = new Sesion(fechaHoraInicio, fechaHoraFin, tratamiento, masajista, instalaciones, estado);
+
+                // 3️⃣ Asignar el id de la sesión
+                sesion.setIdSesion(ID);
+
+                //necesitamos reconstruir la lista de instalaciones
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar sesión: " + ex.getMessage());
+        }
+
+        return sesion;
     }
 
-    return sesion;
-}
-
-
-
-
- private List<Instalacion> buscarInstalacionesDeSesion(int idSesion) {
+    private List<Instalacion> buscarInstalacionesDeSesion(int idSesion) {
         List<Instalacion> lista = new ArrayList<>();
         String sql = "SELECT i.* FROM instalacion i JOIN sesion_instalacion si ON i.idInstalacion = si.idInstalacion WHERE si.idSesion = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idSesion);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
-                Instalacion inst = new Instalacion(); 
+                Instalacion inst = new Instalacion();
                 inst.setIdInstalacion(rs.getInt("idInstalacion"));
                 inst.setNombre(rs.getString("nombre"));
                 inst.setDetalleDeUso(rs.getString("uso"));
@@ -235,47 +218,45 @@ public Sesion buscarSesion(int id) {
         }
         return lista;
     }
- 
- 
- public List<Sesion> buscarSesionesPorDia(int idPack) {
-    List<Sesion> lista = new ArrayList<>();
-    String sql = "SELECT * FROM sesion WHERE idPack = ?";
 
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, idPack);
-        ResultSet rs = ps.executeQuery();
+    public List<Sesion> buscarSesionesPorDia(int idPack) {
+        List<Sesion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM sesion WHERE idPack = ?";
 
-        while (rs.next()) {
-            int idSesion = rs.getInt("idSesion");
-            LocalDateTime inicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
-            LocalDateTime fin = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
-            int idTratamiento = rs.getInt("idTratamiento");
-            int matricula = rs.getInt("matricula");
-            boolean estado = rs.getBoolean("estado");
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idPack);
+            ResultSet rs = ps.executeQuery();
 
-            // Buscar tratamiento y masajista
-            TratamientoMasajeData tData = new TratamientoMasajeData();
-            TratamientoMasaje t = tData.buscarTratamiento(idTratamiento);
+            while (rs.next()) {
+                int idSesion = rs.getInt("idSesion");
+                LocalDateTime inicio = rs.getTimestamp("fecha_hora_inicio").toLocalDateTime();
+                LocalDateTime fin = rs.getTimestamp("fecha_hora_fin").toLocalDateTime();
+                int idTratamiento = rs.getInt("idTratamiento");
+                int matricula = rs.getInt("matricula");
+                boolean estado = rs.getBoolean("estado");
 
-            MasajistaData mData = new MasajistaData();
-            Masajista m = mData.buscarMasajista(matricula);
+                // Buscar tratamiento y masajista
+                TratamientoMasajeData tData = new TratamientoMasajeData();
+                TratamientoMasaje t = tData.buscarTratamiento(idTratamiento);
 
-            // Recuperar instalaciones
-            List<Instalacion> instalaciones = buscarInstalacionesDeSesion(idSesion);
+                MasajistaData mData = new MasajistaData();
+                Masajista m = mData.buscarMasajista(matricula);
 
-            // Crear la sesión
-            Sesion sesion = new Sesion(idSesion, inicio, fin, t, m, instalaciones, estado);
-            lista.add(sesion);
+                // Recuperar instalaciones
+                List<Instalacion> instalaciones = buscarInstalacionesDeSesion(idSesion);
+
+                // Crear la sesión
+                Sesion sesion = new Sesion(inicio, fin, t, m, instalaciones, estado);
+                lista.add(sesion);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar sesiones por Día de Spa: " + ex.getMessage());
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al buscar sesiones por Día de Spa: " + ex.getMessage());
+
+        return lista;
     }
 
-    return lista;
-}
-
-
- public void darDeBaja(Sesion sesion) {
+    public void darDeBaja(Sesion sesion) {
         try {
             if (sesion.isEstado()) {
                 String slq = "UPDATE sesion SET estado = false WHERE idSesion = ?";
@@ -296,7 +277,7 @@ public Sesion buscarSesion(int id) {
         }
     }
 
-public void darDeAlta(Sesion sesion) {
+    public void darDeAlta(Sesion sesion) {
         try {
             if (sesion.isEstado()) {
                 JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
@@ -316,5 +297,5 @@ public void darDeAlta(Sesion sesion) {
             JOptionPane.showMessageDialog(null, "Error al dar de alta.");
         }
     }
-     
+
 }
