@@ -51,6 +51,8 @@ public class GestionarSesion extends JInternalFrameImagen {
     };
 
     Masajista masa = null;
+    SpinnerDateModel modeloI = new SpinnerDateModel();
+    SpinnerDateModel modeloF = new SpinnerDateModel();
 
     public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
@@ -58,16 +60,15 @@ public class GestionarSesion extends JInternalFrameImagen {
         this.desk = desk;
         this.padre = padre;
         this.diaactual = diaactual;
-        SpinnerDateModel modelohora = new SpinnerDateModel();
+
         armarCabecera();
         armarCabeceraMasajista();
-        jSFechaI.setModel(modelohora);
-        jSFechaF.setModel(modelohora);
+        jSFechaI.setModel(modeloI);
+        jSFechaF.setModel(modeloF);
         cargarInstalaciones();
         cargarInsta();
         jR30.setSelected(true);
         jTTotal.setEditable(false);
-        cargarMasajistas();
         jTTratamiento.setEditable(false);
     }
 
@@ -107,6 +108,8 @@ public class GestionarSesion extends JInternalFrameImagen {
         jTTotal = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTMSeleccionado = new javax.swing.JTextField();
+        jBBuscar = new javax.swing.JButton();
+        jBCalcular = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel1.setText("Fecha-Hora inicio:");
@@ -221,6 +224,20 @@ public class GestionarSesion extends JInternalFrameImagen {
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel9.setText("Masajista seleccionada/o:");
 
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jBCalcular.setText("Calcular precio");
+        jBCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCalcularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,6 +249,8 @@ public class GestionarSesion extends JInternalFrameImagen {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jBCalcular)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBGuardar)
                         .addGap(28, 28, 28))
@@ -256,66 +275,71 @@ public class GestionarSesion extends JInternalFrameImagen {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jBSelec)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(80, 80, 80)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel6)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jCProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel2)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jSFechaF, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(52, 52, 52)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addComponent(jSeparator1))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(276, 276, 276)
+                .addGap(291, 291, 291)
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(73, 73, 73)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSFechaF, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43))
+                            .addComponent(jSeparator3))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(126, 126, 126))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(77, 77, 77))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jBBuscar)
+                                        .addGap(61, 61, 61)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jBSelec)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(51, 51, 51)
+                                        .addComponent(jLabel6)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jCProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel7)
-                .addGap(49, 49, 49)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jSFechaI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jSFechaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -327,16 +351,18 @@ public class GestionarSesion extends JInternalFrameImagen {
                 .addComponent(jBSelec)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jTMSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBBuscar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -364,7 +390,8 @@ public class GestionarSesion extends JInternalFrameImagen {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGuardar)
                     .addComponent(jLabel8)
-                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBCalcular))
                 .addContainerGap())
         );
 
@@ -380,6 +407,7 @@ public class GestionarSesion extends JInternalFrameImagen {
         for (Instalacion i : instalaciones) {
             if (i.getIdInstalacion() == insta.getIdInstalacion()) {
                 JOptionPane.showMessageDialog(null, "instalación ya agregada!");
+                return;
             }
         }
 
@@ -397,7 +425,6 @@ public class GestionarSesion extends JInternalFrameImagen {
         instalaciones.add(insta);
 
         total += precio;
-        jTTotal.setText(String.valueOf(total));
 
         cargarInsta();
 
@@ -413,8 +440,6 @@ public class GestionarSesion extends JInternalFrameImagen {
             total -= quitar.getPrecio30m();
 
             instalaciones.remove(instalaciones.size() - 1);
-
-            jTTotal.setText(String.valueOf(total));
 
             cargarInsta();
 
@@ -444,7 +469,7 @@ public class GestionarSesion extends JInternalFrameImagen {
             return;
         }
         try {
-            
+
             trata = tmd.guardarTratamiento(trata);
 
             System.out.println("ID Tratamiento generado: " + trata.getIdTratamiento());
@@ -466,22 +491,19 @@ public class GestionarSesion extends JInternalFrameImagen {
 
             padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
             sed.agregarSesion(sesi);
-            
+
             dispose();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Error al seleccionar.");
         } catch (java.lang.ClassCastException e) {
             JOptionPane.showMessageDialog(null, "Error en fechas.");
-        } catch(Exception c){
-            JOptionPane.showMessageDialog(null, "Error "+ c);
+        } catch (Exception c) {
+            JOptionPane.showMessageDialog(null, "Error " + c);
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jTTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTratamientoActionPerformed
         // TODO add your handling code here:
-        total += trata.getPrecio();
-
-        jTTotal.setText(String.valueOf(total));
     }//GEN-LAST:event_jTTratamientoActionPerformed
 
     private void jTMasaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTMasaMousePressed
@@ -490,10 +512,27 @@ public class GestionarSesion extends JInternalFrameImagen {
         jTMSeleccionado.setText(masa.getNombre() + " " + masa.getApellido());
     }//GEN-LAST:event_jTMasaMousePressed
 
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        // TODO add your handling code here:
+        if (!jTTratamiento.getText().equals("")) {
+            cargarMasajistas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe elegir un tratamiento antes.");
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
+        // TODO add your handling code here:
+        total += trata.getPrecio();
+        jTTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_jBCalcularActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBCalcular;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBQuitar;
     private javax.swing.JButton jBSelec;
@@ -528,10 +567,14 @@ public class GestionarSesion extends JInternalFrameImagen {
 
     public void cargarMasajistas() {
         List<Masajista> masajistas = md.traerMasajistas();
+        modeloM.setRowCount(0);
 
+        Servicio servi = sd.buscarServicio(trata.getIdServicio());
         for (Masajista m : masajistas) {
             if (m.isEstado()) {
-                modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
+                if (m.getEspecialidad().equals(servi.getTipo())) {
+                    modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
+                }
             }
         }
     }
