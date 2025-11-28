@@ -22,7 +22,7 @@ import Persistencia.TratamientoMasajeData;
 import java.time.ZoneId;
 
 public class GestionarSesion extends JInternalFrameImagen {
-    
+
     InstalacionData insD = new InstalacionData();
     MasajistaData md = new MasajistaData();
     ServicioData sd = new ServicioData();
@@ -34,7 +34,7 @@ public class GestionarSesion extends JInternalFrameImagen {
     private DiaDeSpa diaactual; //la sesion necesita saber a que diadespa pertenece, guardamos el dia de spa actual
 
     double total = 0;
-    
+
     List<Instalacion> instalaciones = new ArrayList();
 
     //Modelo de tabla Instalaciones
@@ -49,9 +49,9 @@ public class GestionarSesion extends JInternalFrameImagen {
             return false;
         }
     };
-    
+
     Masajista masa = null;
-    
+
     public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
         initComponents();
         this.SetImagen("/Imagenes/FondoSesion.jpg");
@@ -70,7 +70,7 @@ public class GestionarSesion extends JInternalFrameImagen {
         cargarMasajistas();
         jTTratamiento.setEditable(false);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -376,16 +376,16 @@ public class GestionarSesion extends JInternalFrameImagen {
         //Según la opción de tiempo se cambia el precio
         String nombre = jCInsta.getSelectedItem().toString();
         Instalacion insta = insD.buscarInstaporNombre(nombre);
-        
+
         for (Instalacion i : instalaciones) {
             if (i.getIdInstalacion() == insta.getIdInstalacion()) {
                 JOptionPane.showMessageDialog(null, "instalación ya agregada!");
             }
         }
-        
+
         double precio = insta.getPrecio30m();
         if (jR30.isSelected()) {
-            
+
         } else if (jR60.isSelected()) {
             precio *= 2;
         } else if (jR90.isSelected()) {
@@ -395,10 +395,10 @@ public class GestionarSesion extends JInternalFrameImagen {
         }
         insta.setPrecio30m(precio);
         instalaciones.add(insta);
-        
+
         total += precio;
         jTTotal.setText(String.valueOf(total));
-        
+
         cargarInsta();
 
     }//GEN-LAST:event_jBAgregarActionPerformed
@@ -407,19 +407,19 @@ public class GestionarSesion extends JInternalFrameImagen {
         // TODO add your handling code here:
 
         if (!instalaciones.isEmpty()) {
-            
+
             Instalacion quitar = instalaciones.get(instalaciones.size() - 1);
-            
+
             total -= quitar.getPrecio30m();
-            
+
             instalaciones.remove(instalaciones.size() - 1);
-            
+
             jTTotal.setText(String.valueOf(total));
-            
+
             cargarInsta();
-            
+
         } else {
-            
+
             JOptionPane.showMessageDialog(null, "No hay instalaciones agregadas!");
         }
 
@@ -434,44 +434,53 @@ public class GestionarSesion extends JInternalFrameImagen {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
+
+        if (trata == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
+            return;
+        }
+        if (masa == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un/a masajista.");
+            return;
+        }
         try {
-            tmd.guardarTratamiento(trata);
-            if (trata == null) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un tratamiento.");
-                return;
-            }
-            if (masa == null) {
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un/a masajista.");
-                return;
-            }
             
+            trata = tmd.guardarTratamiento(trata);
+
+            System.out.println("ID Tratamiento generado: " + trata.getIdTratamiento());
+            TratamientoMasaje tratamiento = tmd.buscarTratamiento(trata.getIdTratamiento());
+            System.out.println(tratamiento.toString());
+
             Date dIni = (Date) jSFechaI.getValue();
             LocalDateTime fechaI = dIni.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            
+
             Date dFin = (Date) jSFechaF.getValue();
             LocalDateTime fechaF = dFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-            
+
             List<Instalacion> copiaInst = new ArrayList<>();
             for (Instalacion i : instalaciones) {
                 copiaInst.add(new Instalacion(i.getIdInstalacion(), i.getNombre(), i.getDetalleDeUso(), i.getPrecio30m(), i.isEstado()));
             }
-            
-            Sesion sesi = new Sesion(fechaI, fechaF, trata, masa, copiaInst, true);
-            
+
+            Sesion sesi = new Sesion(fechaI, fechaF, tmd.buscarTratamiento(trata.getIdTratamiento()), masa, copiaInst, true);
+
             padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
             sed.agregarSesion(sesi);
-
+            
+            dispose();
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(null, "Error al seleccionar.");
         } catch (java.lang.ClassCastException e) {
             JOptionPane.showMessageDialog(null, "Error en fechas.");
+        } catch(Exception c){
+            JOptionPane.showMessageDialog(null, "Error "+ c);
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jTTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTratamientoActionPerformed
         // TODO add your handling code here:
         total += trata.getPrecio();
-        
+
         jTTotal.setText(String.valueOf(total));
     }//GEN-LAST:event_jTTratamientoActionPerformed
 
@@ -519,69 +528,69 @@ public class GestionarSesion extends JInternalFrameImagen {
 
     public void cargarMasajistas() {
         List<Masajista> masajistas = md.traerMasajistas();
-        
+
         for (Masajista m : masajistas) {
             if (m.isEstado()) {
                 modeloM.addRow(new Object[]{m.getMatricula(), m.getNombre(), m.getApellido()});
             }
         }
     }
-    
+
     public void armarCabeceraMasajista() {
         modeloM.addColumn("Matricula");
         modeloM.addColumn("Nombre");
         modeloM.addColumn("Apellido");
         jTMasa.setModel(modeloM);
     }
-    
+
     public void recibirTratamiento(TratamientoMasaje t) {
         trata = t;
-        
+
         Servicio servi = sd.buscarServicio(trata.getIdServicio());
-        
+
         jTTratamiento.setText(servi.getNombre());
-        
+
         jCProductos.removeAllItems();
         for (Producto p : trata.getProductos()) {
             jCProductos.addItem(p.getNombre());
         }
     }
-    
+
     public void armarCabecera() {
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio 30m");
         jTInstalaciones.setModel(modelo);
     }
-    
+
     public void cargarInsta() {
         modelo.setRowCount(0);
-        
+
         for (Instalacion i : instalaciones) {
             if (i.isEstado() == true) {
                 modelo.addRow(new Object[]{i.getNombre(), i.getPrecio30m()});
             }
         }
     }
-    
+
     public void cargarInstalaciones() {
         List<Instalacion> instalacionesDispo = insD.traerInstalaciones();
-        
+
         jCInsta.removeAllItems();
-        
+
         for (Instalacion i : instalacionesDispo) {
             if (i.isEstado()) {
                 jCInsta.addItem(i.getNombre());
             }
         }
     }
-    
+
     public Masajista masajistaSeleccionado() {
         int fila = jTMasa.getSelectedRow();
-        
+
         int matri = Integer.parseInt(jTMasa.getValueAt(fila, 0).toString());
-        
+
         Masajista produ = md.buscarMasajista(matri);
-        
+
         return produ;
     }
 }

@@ -25,7 +25,7 @@ public class TratamientoMasajeData {
     }
     ProductosData pd = new ProductosData();
 
-    public void guardarTratamiento(TratamientoMasaje trata) {
+    public TratamientoMasaje guardarTratamiento(TratamientoMasaje trata) {
         try {
 
             String sql = "INSERT INTO tratamiento_masaje(idServicio ,detalle, precio, estado) VALUES (?,?,?,?)";
@@ -42,9 +42,9 @@ public class TratamientoMasajeData {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int idT = rs.getInt(1);
+                    trata.setIdTratamiento(idT);
                     if (!trata.getProductos().isEmpty()) {
                         guardarProductos(idT, trata.getProductos());
-                        trata.setIdTratamiento(idT);
                     }
                 }
                 JOptionPane.showMessageDialog(null, "Tratamiento guardado correctamente!");
@@ -53,6 +53,7 @@ public class TratamientoMasajeData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar.");
         }
+        return trata;
     }
 
     public void guardarProductos(int idTrata, List<Producto> productos) {
@@ -122,14 +123,22 @@ public class TratamientoMasajeData {
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
-            int idTratamiento = rs.getInt("idTratamiento");
-            int idServi = rs.getInt("idServico");
-            double precio = rs.getDouble("precio");
-            String detalle = rs.getString("detalle");
-            boolean estado = rs.getBoolean("estado");
 
-            tra = new TratamientoMasaje(productos, idServi, detalle, precio, estado);
-            tra.setIdTratamiento(idTratamiento);
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el tratamiento.");
+                return null;
+            }
+            
+                int idTratamiento = rs.getInt("idTratamiento");
+                int idServi = rs.getInt("idServicio");
+                double precio = rs.getDouble("precio");
+                String detalle = rs.getString("detalle");
+                boolean estado = rs.getBoolean("estado");
+
+                tra = new TratamientoMasaje(productos, idServi, detalle, precio, estado);
+                tra.setIdTratamiento(idTratamiento);
+            
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
@@ -145,20 +154,21 @@ public class TratamientoMasajeData {
             ps.setInt(1, idTrata);
 
             ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int idP = rs.getInt("idProducto");
+                String nombre = rs.getString("nombre");
+                String marca = rs.getString("marca");
+                String tipo = rs.getString("tipo");
+                double costo = rs.getDouble("precio");
+                boolean estado = rs.getBoolean("estado");
+                Producto produ = new Producto(nombre, marca, tipo, costo, estado);
+                produ.setIdProducto(idP);
 
-            int idP = rs.getInt("idProducto");
-            String nombre = rs.getString("nombre");
-            String marca = rs.getString("marca");
-            String tipo = rs.getString("tipo");
-            double costo = rs.getDouble("precio");
-            boolean estado = rs.getBoolean("estado");
-            Producto produ = new Producto(nombre, marca, tipo, costo, estado);
-            produ.setIdProducto(idP);
-
-            productos.add(produ);
-
+                productos.add(produ);
+            }
+            ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar.");
+            JOptionPane.showMessageDialog(null, "Error al buscar productos.");
         }
         return productos;
     }
