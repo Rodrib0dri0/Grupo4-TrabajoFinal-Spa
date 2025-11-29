@@ -30,8 +30,8 @@ public class GestionarSesion extends JInternalFrameImagen {
     TratamientoMasajeData tmd = new TratamientoMasajeData();
     private JDesktopPane desk;
     private TratamientoMasaje trata;
-    private VistaDiaDeSpa padre;
-    private DiaDeSpa diaactual; //la sesion necesita saber a que diadespa pertenece, guardamos el dia de spa actual
+    private VistaDiaDeSpa vista;
+    
 
     double total = 0;
 
@@ -54,12 +54,27 @@ public class GestionarSesion extends JInternalFrameImagen {
     SpinnerDateModel modeloI = new SpinnerDateModel();
     SpinnerDateModel modeloF = new SpinnerDateModel();
 
-    public GestionarSesion(JDesktopPane desk, DiaDeSpa diaactual) {
+    public GestionarSesion() {
         initComponents();
         this.SetImagen("/Imagenes/FondoSesion.jpg");
+        
+        armarCabecera();
+        armarCabeceraMasajista();
+        jSFechaI.setModel(modeloI);
+        jSFechaF.setModel(modeloF);
+        cargarInstalaciones();
+        cargarInsta();
+        jR30.setSelected(true);
+        jTTotal.setEditable(false);
+        jTTratamiento.setEditable(false);
+    }
+    
+    public GestionarSesion(JDesktopPane desk,VistaDiaDeSpa vdds) {
+        initComponents();
+        this.SetImagen("/Imagenes/FondoSesion.jpg");
+        this.vista = vdds;
         this.desk = desk;
-        this.diaactual = diaactual;
-
+        
         armarCabecera();
         armarCabeceraMasajista();
         jSFechaI.setModel(modeloI);
@@ -488,8 +503,10 @@ public class GestionarSesion extends JInternalFrameImagen {
 
             Sesion sesi = new Sesion(fechaI, fechaF, tmd.buscarTratamiento(trata.getIdTratamiento()), masa, copiaInst, true);
 
-            diaactual.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
-            sed.agregarSesion(sesi);
+            
+            sesi = sed.agregarSesion(sesi);
+            
+            vista.recibirSesion(sesi);
 
             dispose();
         } catch (ArrayIndexOutOfBoundsException e) {

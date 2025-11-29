@@ -30,7 +30,7 @@ public class SesionData {
         con = conexion.buscarconexion();
     }
 
-    public void agregarSesion(Sesion sesion) {
+    public Sesion agregarSesion(Sesion sesion) {
         try {
             String sql = "INSERT INTO sesion(fecha_hora_inicio,fecha_hora_fin,idTratamiento,matricula,estado) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -47,6 +47,7 @@ public class SesionData {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         int idSesionGenerado = rs.getInt(1);
+                        sesion.setIdSesion(idSesionGenerado);
                         if (!sesion.getInstalacion().isEmpty()) {
                             agregarInstalacionesASesion(idSesionGenerado, sesion.getInstalacion());
                         }
@@ -58,6 +59,7 @@ public class SesionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar sesión: " + ex.getMessage());
         }
+        return sesion;
     }
 
     public void agregarInstalacionesASesion(int idSesion, List<Instalacion> instalaciones) {
