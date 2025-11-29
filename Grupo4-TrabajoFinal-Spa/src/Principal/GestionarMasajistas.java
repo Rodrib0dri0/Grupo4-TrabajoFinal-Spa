@@ -19,7 +19,7 @@ public class GestionarMasajistas extends JInternalFrameImagen {
 
     public GestionarMasajistas() {
         initComponents();
-        this.SetImagen("/Imagenes/pxfuel.jpg");
+        this.SetImagen("/Imagenes/FondoPiedras.png");
         armarCabecera();
         cargarTabla();
         cargarTipos();

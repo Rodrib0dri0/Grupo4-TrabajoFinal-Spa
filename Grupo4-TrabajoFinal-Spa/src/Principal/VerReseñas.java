@@ -17,7 +17,7 @@ public class VerReseñas extends JInternalFrameImagen {
 
     public VerReseñas() {
         initComponents();
-        this.SetImagen("/Imagenes/FondoReseña.jpg");
+        this.SetImagen("/Imagenes/fondopapel.jpg");
         armarCabecera();
         cargarTabla();
     }
@@ -36,14 +36,14 @@ public class VerReseñas extends JInternalFrameImagen {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTC = new javax.swing.JTextPane();
 
-        jTCa.setBackground(new java.awt.Color(153, 122, 62));
-        jTCa.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        jTCa.setForeground(new java.awt.Color(255, 255, 255));
+        jTCa.setBackground(new java.awt.Color(255, 237, 255));
+        jTCa.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 18)); // NOI18N
+        jTCa.setForeground(new java.awt.Color(0, 0, 0));
         jTCa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jTTable.setBackground(new java.awt.Color(204, 167, 59));
+        jTTable.setBackground(new java.awt.Color(255, 237, 255));
         jTTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jTTable.setForeground(new java.awt.Color(255, 255, 255));
+        jTTable.setForeground(new java.awt.Color(0, 0, 0));
         jTTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -79,7 +79,7 @@ public class VerReseñas extends JInternalFrameImagen {
             }
         });
 
-        jTC.setBackground(new java.awt.Color(153, 122, 62));
+        jTC.setBackground(new java.awt.Color(255, 237, 255));
         jTC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTC.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
         jScrollPane2.setViewportView(jTC);
@@ -91,10 +91,10 @@ public class VerReseñas extends JInternalFrameImagen {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTCa, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTCa, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -117,8 +117,8 @@ public class VerReseñas extends JInternalFrameImagen {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTCa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
+                                .addComponent(jTCa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -142,7 +142,7 @@ public class VerReseñas extends JInternalFrameImagen {
         // TODO add your handling code here:
         int fila = jTTable.getSelectedRow();
         
-        jTCa.setText(jTTable.getValueAt(fila, 0).toString());
+        jTCa.setText(jTTable.getValueAt(fila, 0).toString()+"/5");
         jTC.setText(jTTable.getValueAt(fila, 1).toString());
     }//GEN-LAST:event_jTTableMousePressed
 

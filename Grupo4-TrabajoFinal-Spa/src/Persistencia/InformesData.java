@@ -33,8 +33,8 @@ public class InformesData {
                     + "FROM tratamiento_masaje tm \n"
                     + "JOIN servicio s ON tm.idServicio = s.idServicio \n"
                     + "GROUP by s.idServicio \n"
-                    + "ORDER BY usos \n"
-                    + "DESC LIMIT 5";
+                    + "ORDER BY usos DESC \n"
+                    + "LIMIT 5";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
