@@ -91,7 +91,7 @@ public void armarCabecera() {
     public void cargarTabla() {
         modelo.setRowCount(0);
         
-        insta = ifd.instaUsadas();
+        insta = ifd.serviUsadas();
         
         for(Map.Entry<Servicio, Integer> entry : insta.entrySet()){
             Servicio ins  = entry.getKey();

@@ -39,6 +39,7 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -189,6 +190,14 @@ public class Gestion extends javax.swing.JFrame {
             }
         });
         jMenu8.add(jMenuItem10);
+
+        jMenuItem12.setText("Instalaciones usadas");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem12);
 
         jMenuBar1.add(jMenu8);
 
@@ -344,6 +353,16 @@ public class Gestion extends javax.swing.JFrame {
         Escritorio.moveToFront(vr);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        InstalacionesMasUsadas ims = new InstalacionesMasUsadas();
+        ims.setVisible(true);
+        Escritorio.add(ims);
+        Escritorio.moveToFront(ims);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -393,6 +412,7 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

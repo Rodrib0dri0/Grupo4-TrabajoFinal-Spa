@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
@@ -16,13 +18,14 @@ public class InformesData {
 
     private Connection con;
     private ServicioData sd = new ServicioData();
+    private InstalacionData insd = new InstalacionData();
 
     public InformesData() {
         Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-trabajofinal-spa", "root", "");
         con = conexion.buscarconexion();
     }
 
-    public Map<Servicio, Integer> instaUsadas() {
+    public Map<Servicio, Integer> serviUsadas() {
         Map<Servicio, Integer> servicio = new HashMap();
         Servicio servi = null;
         try {
@@ -49,5 +52,64 @@ public class InformesData {
             JOptionPane.showMessageDialog(null, "Error al buscar.");
         }
         return servicio;
+    }
+
+    public Map<Instalacion, Integer> instaMasUsadas(LocalDateTime feI, LocalDateTime feF) {
+        Map<Instalacion, Integer> instalaciones = new HashMap();
+        Instalacion insta = null;
+        try {
+            String sql = "SELECT COUNT(si.idInstalacion) AS usos, i.idInstalacion\n"
+                    + "FROM sesion s \n"
+                    + "JOIN sesion_instalacion si ON s.idSesion = si.idSesion \n"
+                    + "JOIN instalacion i ON si.idInstalacion = i.idInstalacion\n"
+                    + "WHERE fecha_hora_inicio BETWEEN ? AND ?\n"
+                    + "GROUP BY i.idInstalacion";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setTimestamp(1, Timestamp.valueOf(feI));
+            ps.setTimestamp(2, Timestamp.valueOf(feF));
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("idInstalacion");
+                int usos = rs.getInt("usos");
+
+                insta = insd.buscarInstalacion(id);
+
+                instalaciones.put(insta, usos);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar instalación-más-usadas.");
+        }
+        return instalaciones;
+    }
+
+    public Map<Instalacion, Integer> instaUsadas() {
+        Map<Instalacion, Integer> instalaciones = new HashMap();
+        Instalacion insta = null;
+        try {
+            String sql = "SELECT COUNT(si.idInstalacion) AS usos, i.idInstalacion\n"
+                    + "FROM sesion s \n"
+                    + "JOIN sesion_instalacion si ON s.idSesion = si.idSesion \n"
+                    + "JOIN instalacion i ON si.idInstalacion = i.idInstalacion\n"
+                    + "GROUP BY i.idInstalacion";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("idInstalacion");
+                int usos = rs.getInt("usos");
+
+                insta = insd.buscarInstalacion(id);
+
+                instalaciones.put(insta, usos);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar instalación-usadas:" + ex);
+        }
+        return instalaciones;
     }
 }
