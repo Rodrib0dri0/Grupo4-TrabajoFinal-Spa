@@ -54,11 +54,10 @@ public class GestionarSesion extends JInternalFrameImagen {
     SpinnerDateModel modeloI = new SpinnerDateModel();
     SpinnerDateModel modeloF = new SpinnerDateModel();
 
-    public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa padre, DiaDeSpa diaactual) {
+    public GestionarSesion(JDesktopPane desk, DiaDeSpa diaactual) {
         initComponents();
         this.SetImagen("/Imagenes/FondoSesion.jpg");
         this.desk = desk;
-        this.padre = padre;
         this.diaactual = diaactual;
 
         armarCabecera();
@@ -489,7 +488,7 @@ public class GestionarSesion extends JInternalFrameImagen {
 
             Sesion sesi = new Sesion(fechaI, fechaF, tmd.buscarTratamiento(trata.getIdTratamiento()), masa, copiaInst, true);
 
-            padre.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
+            diaactual.agregarSesion(sesi);  // agrega la sesión a listaSesiones de VistaDiaDeSpa
             sed.agregarSesion(sesi);
 
             dispose();

@@ -29,7 +29,7 @@ import javax.swing.SpinnerDateModel;
  */
 public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
-    private ArrayList<Sesion> listaSesiones = new ArrayList<>();
+    
     private GestionarSesion ventanaSesion;
     private VistaTablaSesiones tablasesiones;
     private DiadeSpaData diaDeSpaData = new DiadeSpaData();
@@ -42,7 +42,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         initComponents();
         cargarClientes();
         inicializaMonto();
-        this.diaactual = diaactual;
+        diaactual = new DiaDeSpa();
 
         SpinnerDateModel modelo = new SpinnerDateModel();
         jshora.setModel(modelo);
@@ -226,10 +226,21 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         return true;
     }
+    
+    
+    
+private void actualizarTotal() {
+    double total = diaactual.getTotal();
+
+    // lo formateás como moneda
+    NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+    jtmonto.setText(formato.format(total));
+}
+
 
     // MÉTODO RECIBIR SESIÓN
     public void agregarSesion(Sesion sesion) {
-        listaSesiones.add(sesion);
+        diaactual.getSesion().add(sesion);
     }
 
     private String obtenerPreferencias() {
@@ -326,16 +337,19 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente.");
                 return;
             }
+            
+             List<Sesion> sesiones = diaactual.getSesion();
 
             double monto = Double.parseDouble(jtmonto.getText());
 
             boolean estado = obtenerEstadoPago();
 
             // 6️⃣ Crear objeto DiaDeSpa
-            DiaDeSpa dia = new DiaDeSpa(fechaHora, preferencias, cli, listaSesiones, monto, estado);
+             diaactual = new DiaDeSpa(fechaHora, preferencias, cli,sesiones
+, monto, estado);
 
             DiadeSpaData diaData = new DiadeSpaData(); // tu conexión
-            diaData.agregarDiadeSpa(dia);
+            diaData.agregarDiadeSpa(diaactual);
 
             JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
 
@@ -354,7 +368,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         // Si la ventana está cerrada o nunca se abrió → crearla
         if (ventanaSesion == null || ventanaSesion.isClosed()) {
-            ventanaSesion = new GestionarSesion(getDesktopPane(), this, diaactual); // pasar el objeto DiaDeSpa
+            ventanaSesion = new GestionarSesion(getDesktopPane(), diaactual); // pasar el objeto DiaDeSpa
             getDesktopPane().add(ventanaSesion);
             ventanaSesion.setVisible(true);
         } else {
@@ -367,7 +381,8 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
     private void jversesionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jversesionesActionPerformed
 
         if (tablasesiones == null || tablasesiones.isClosed()) {
-            tablasesiones = new VistaTablaSesiones(listaSesiones);
+            tablasesiones = new VistaTablaSesiones(diaactual.getSesion()
+);
             getDesktopPane().add(tablasesiones);
             tablasesiones.setVisible(true);
         } else {

@@ -1,5 +1,6 @@
 package Modelo;
 
+import Modelo.Sesion;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -118,6 +119,16 @@ public class DiaDeSpa {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public double getTotal() {
+    double total = 0;
+
+    for (Sesion se : sesiones) {
+        total += se.getMonto();
+    }
+
+    return total;
+}
 
     @Override
     public String toString() {

@@ -87,6 +87,25 @@ public class Sesion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public double getMonto() {
+    double total = 0;
+
+    // Precio del tratamiento
+    if (Tratamiento != null) {
+        total += Tratamiento.getPrecio();
+    }
+
+    // Sumar precios de instalaciones
+    if (instalaciones != null) {
+        for (Instalacion inst : instalaciones) {
+            total += inst.getPrecio30m();
+        }
+    }
+
+    return total;
+}
+
 
     @Override
     public String toString() {
