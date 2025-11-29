@@ -6,6 +6,7 @@ import Modelo.Sesion;
 
 import Persistencia.ClienteData;
 import Persistencia.DiadeSpaData;
+import java.awt.Color;
 import java.sql.Connection;
 import java.util.Date;
 import java.sql.Timestamp;
@@ -17,6 +18,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -47,6 +49,12 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
 
         JSpinner.DateEditor editor = new JSpinner.DateEditor(jshora, "dd/MM/yyyy HH:mm");
         jshora.setEditor(editor);
+        
+        // Hacer que el campo del spinner NO sea editable
+        JFormattedTextField txt = editor.getTextField();
+        txt.setEditable(false);
+        txt.setBackground(Color.WHITE);  // opcional: para que no quede gris
+
     }
 
     /**
@@ -254,7 +262,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         return Timestamp.valueOf(fechaHora);
 
     }
-
+ 
     private void cargarClientes() {
         ClienteData clienteData = new ClienteData();
         List<Cliente> lista = clienteData.traerClientes();
@@ -262,7 +270,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         jcclientes.removeAllItems(); // Limpia el combo por las dudas
 
         for (Cliente c : lista) {
-            jcclientes.addItem(c);
+            jcclientes.addItem(c); 
 
         }
     }
@@ -283,7 +291,7 @@ public class VistaDiaDeSpa extends javax.swing.JInternalFrame {
         if (texto.isEmpty()) {
             return 0;
         }
-
+ 
         try {
             return Double.parseDouble(texto);
         } catch (NumberFormatException e) {
