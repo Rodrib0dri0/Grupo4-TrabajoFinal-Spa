@@ -31,6 +31,8 @@ public class GestionarSesion extends JInternalFrameImagen {
     private JDesktopPane desk;
     private TratamientoMasaje trata;
     private VistaDiaDeSpa vista;
+    //agregue esto rodri 30/11 14:44 hs
+    private DiaDeSpa diaactual;
     
 
     double total = 0;
@@ -56,6 +58,8 @@ public class GestionarSesion extends JInternalFrameImagen {
 
     public GestionarSesion() {
         initComponents();
+        //agregue esto rodri 30/11 14:44 hs
+        this.diaactual=diaactual;
         this.SetImagen("/Imagenes/FondoSesion.jpg");
         
         armarCabecera();
@@ -505,6 +509,9 @@ public class GestionarSesion extends JInternalFrameImagen {
 
             
             sesi = sed.agregarSesion(sesi);
+           //agregue esto rodri 30/11 14:44 hs
+            diaactual.getSesion().add(sesi);
+
             
             vista.recibirSesion(sesi);
 
