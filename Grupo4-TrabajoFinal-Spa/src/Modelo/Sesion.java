@@ -13,6 +13,7 @@ public class Sesion {
     private Masajista masajista;
     private List<Instalacion> instalaciones;
     private DiaDeSpa diaDeSpa;
+    private double total;
     private boolean estado;
 
     public Sesion(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, TratamientoMasaje Tratamiento, Masajista masajista, List<Instalacion> instalaciones, boolean estado) {
@@ -87,26 +88,15 @@ public class Sesion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
     
-    public double getMonto() {
-    double total = 0;
-
-    // Precio del tratamiento
-    if (Tratamiento != null) {
-        total += Tratamiento.getPrecio();
-    }
-
-    // Sumar precios de instalaciones
-    if (instalaciones != null) {
-        for (Instalacion inst : instalaciones) {
-            total += inst.getPrecio30m();
-        }
-    }
-
-    return total;
-}
-
-
     @Override
     public String toString() {
         return "Sesion{" + "idSesion=" + idSesion + ", fechaHoraInicio=" + fechaHoraInicio + ", fechaHoraFin=" + fechaHoraFin + ", Tratamiento=" + Tratamiento + ", masajista=" + masajista + ", instalacion=" + instalaciones + ", diaDeSpa=" + diaDeSpa + ", estado=" + estado + '}';

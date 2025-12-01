@@ -179,7 +179,7 @@ public class SesionData {
                 // 3️⃣ Usar los métodos de cada Data para obtener los objetos reales
                 TratamientoMasaje tratamiento = tratData.buscarTratamiento(idTratamiento);
                 Masajista masajista = masData.buscarMasajista(Matricula);
-                DiaDeSpa diaDeSpa = diaData.buscarDiaDeSpa(idPack);
+                //DiaDeSpa diaDeSpa = diaData.buscarDiaDeSpa(idPack);
 
                 // Nueva sesión con sus instalaciones
                 List<Instalacion> instalaciones = buscarInstalacionesDeSesion(ID);

@@ -33,7 +33,6 @@ public class GestionarSesion extends JInternalFrameImagen {
     private VistaDiaDeSpa vista;
     //agregue esto rodri 30/11 14:44 hs
     private DiaDeSpa diaactual;
-    
 
     double total = 0;
 
@@ -59,9 +58,9 @@ public class GestionarSesion extends JInternalFrameImagen {
     public GestionarSesion() {
         initComponents();
         //agregue esto rodri 30/11 14:44 hs
-        this.diaactual=diaactual;
+        this.diaactual = diaactual;
         this.SetImagen("/Imagenes/FondoSesion.jpg");
-        
+
         armarCabecera();
         armarCabeceraMasajista();
         jSFechaI.setModel(modeloI);
@@ -72,13 +71,14 @@ public class GestionarSesion extends JInternalFrameImagen {
         jTTotal.setEditable(false);
         jTTratamiento.setEditable(false);
     }
-    
-    public GestionarSesion(JDesktopPane desk,VistaDiaDeSpa vdds) {
+
+    public GestionarSesion(JDesktopPane desk, VistaDiaDeSpa vdds) {
         initComponents();
         this.SetImagen("/Imagenes/FondoSesion.jpg");
         this.vista = vdds;
         this.desk = desk;
-        
+
+        this.diaactual = vista.getDiaActual();
         armarCabecera();
         armarCabeceraMasajista();
         jSFechaI.setModel(modeloI);
@@ -439,12 +439,14 @@ public class GestionarSesion extends JInternalFrameImagen {
         } else if (jR120.isSelected()) {
             precio *= 4;
         }
-        insta.setPrecio30m(precio);
-        instalaciones.add(insta);
 
-        total += precio;
+        Instalacion copia = new Instalacion(insta.getIdInstalacion(), insta.getNombre(), insta.getDetalleDeUso(), precio, insta.isEstado());
+
+        instalaciones.add(copia);
 
         cargarInsta();
+
+        recalcularTotal();
 
     }//GEN-LAST:event_jBAgregarActionPerformed
 
@@ -460,11 +462,13 @@ public class GestionarSesion extends JInternalFrameImagen {
             instalaciones.remove(instalaciones.size() - 1);
 
             cargarInsta();
+            recalcularTotal();
 
         } else {
 
             JOptionPane.showMessageDialog(null, "No hay instalaciones agregadas!");
         }
+
 
     }//GEN-LAST:event_jBQuitarActionPerformed
 
@@ -473,6 +477,7 @@ public class GestionarSesion extends JInternalFrameImagen {
         GuardarTratamientos t = new GuardarTratamientos(this);
         desk.add(t);
         t.setVisible(true);
+        total = 0;
     }//GEN-LAST:event_jBSelecActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
@@ -505,14 +510,16 @@ public class GestionarSesion extends JInternalFrameImagen {
                 copiaInst.add(new Instalacion(i.getIdInstalacion(), i.getNombre(), i.getDetalleDeUso(), i.getPrecio30m(), i.isEstado()));
             }
 
+            double totalSesi = Double.parseDouble(jTTotal.getText());
+
             Sesion sesi = new Sesion(fechaI, fechaF, tmd.buscarTratamiento(trata.getIdTratamiento()), masa, copiaInst, true);
+            sesi.setTotal(totalSesi);
 
-            
             sesi = sed.agregarSesion(sesi);
-           //agregue esto rodri 30/11 14:44 hs
+            /*Se agrega 2 veces la sesión con esto mepa
+            //agregue esto rodri 30/11 14:44 hs
             diaactual.getSesion().add(sesi);
-
-            
+            */
             vista.recibirSesion(sesi);
 
             dispose();
@@ -546,8 +553,7 @@ public class GestionarSesion extends JInternalFrameImagen {
 
     private void jBCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularActionPerformed
         // TODO add your handling code here:
-        total += trata.getPrecio();
-        jTTotal.setText(String.valueOf(total));
+        recalcularTotal();
     }//GEN-LAST:event_jBCalcularActionPerformed
 
 
@@ -658,5 +664,18 @@ public class GestionarSesion extends JInternalFrameImagen {
         Masajista produ = md.buscarMasajista(matri);
 
         return produ;
+    }
+
+    public void recalcularTotal() {
+        total = 0;
+
+        if (trata != null) {
+            total += trata.getPrecio();
+        }
+
+        for (Instalacion i : instalaciones) {
+            total += i.getPrecio30m();
+        }
+        jTTotal.setText(String.valueOf(total));
     }
 }

@@ -31,17 +31,6 @@ public class DiaDeSpa {
         this.monto = monto;
         this.estado = estado;
     }
-
-    //  // un constructor al que lo creo sin sesiones y despues se las asigno a traves de un metodo 
-    public DiaDeSpa(int idPack, Timestamp fechaHora, String preferencias, Cliente cliente, double monto, boolean estado) {
-        this.idPack = idPack;
-        this.fechaHora = fechaHora;
-        this.preferencias = preferencias;
-        this.cliente = cliente;
-        this.monto = monto;
-        this.estado = estado;
-    }
-    
    
     public int getIdPack() {
         return idPack;
@@ -124,7 +113,7 @@ public class DiaDeSpa {
     double total = 0;
 
     for (Sesion se : sesiones) {
-        total += se.getMonto();
+        total += se.getTotal();
     }
 
     return total;

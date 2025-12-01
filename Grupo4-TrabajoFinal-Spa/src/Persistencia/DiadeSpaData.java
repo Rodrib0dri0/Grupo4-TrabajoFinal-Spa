@@ -11,52 +11,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DiadeSpaData {
+
     private Connection con;
-    
-    public DiadeSpaData(){
+
+    public DiadeSpaData() {
         Conexion conexion = new Conexion("jdbc:mariadb://localhost:3306/grupo4-trabajofinal-spa", "root", "");
         con = conexion.buscarconexion();
     }
-    
+
     public void agregarDiadeSpa(DiaDeSpa diadespa) {
         try {
             String sql = "INSERT INTO diadespa(fecha_hora, preferencias, idCliente, monto, estado) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            
-            ps.setTimestamp(1,diadespa.getFechaHora());
+
+            ps.setTimestamp(1, diadespa.getFechaHora());
             ps.setString(2, diadespa.getPreferencias());
-            ps.setInt(3,diadespa.getCliente().getIdCliente());
+            ps.setInt(3, diadespa.getCliente().getIdCliente());
             ps.setDouble(4, diadespa.getMonto());
             ps.setBoolean(5, diadespa.isEstado());
-           
 
-            int registro = ps.executeUpdate(); 
-            
-            
-          
+            int registro = ps.executeUpdate();
 
             if (registro > 0) {
-                 // Obtener el ID generado para el Día de Spa
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    int idPackGenerado = rs.getInt(1);
-                    diadespa.setIdPack(idPackGenerado);
+                // Obtener el ID generado para el Día de Spa
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int idPackGenerado = rs.getInt(1);
+                        diadespa.setIdPack(idPackGenerado);
+                        
+                        guardarSesiones(idPackGenerado, diadespa.getSesion());
+                    }
+                    JOptionPane.showMessageDialog(null, "Paquete guardado correctamente!");
                 }
-            }
-            
-            // Si el día tiene sesiones cargadas, guardarlas
-            if (diadespa.getSesion() != null && !diadespa.getSesion().isEmpty()) {
-                SesionData sesionData = new SesionData();
-                for (Sesion sesion : diadespa.getSesion()) {
-                    sesion.setDiaDeSpa(diadespa);
-                    sesionData.agregarSesion(sesion);
-                }
-            }
-            
-                System.out.println("Dia de Spa guardado correctamente!");
+                ps.close();
+
+                
             }
             ps.close();
 
@@ -64,9 +58,25 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al guardar Dia de Spa");
         }
     }
-        
-        
-     public void eliminarDiaDeSpa (int id) {
+
+    public void guardarSesiones(int diadespaid, List<Sesion> sesi) {
+        try {
+            String sql = "INSERT INTO diadespa_sesion(idPack, idSesion) VALUES (?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            for (Sesion ses : sesi) {
+                ps.setInt(1, diadespaid);
+                ps.setInt(2, ses.getIdSesion());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar sesion-paquete: " + ex.getMessage());
+        }
+    }
+
+    public void eliminarDiaDeSpa(int id) {
         try {
             String sql = "DELETE FROM diadespa WHERE idPack = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -83,12 +93,12 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al eliminar.");
         }
     }
-     
-     public void actualizarDiadeSpa(DiaDeSpa diadespaAc) {
+
+    public void actualizarDiadeSpa(DiaDeSpa diadespaAc) {
         try {
             String sql = "UPDATE diadespa SET fecha_hora=?, preferencias=?, idCliente=?, monto=?, estado=? WHERE idPack = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setTimestamp(1,diadespaAc.getFechaHora());
+            ps.setTimestamp(1, diadespaAc.getFechaHora());
             ps.setString(2, diadespaAc.getPreferencias());
             ps.setInt(3, diadespaAc.getCliente().getIdCliente());
             ps.setDouble(4, diadespaAc.getMonto());
@@ -104,9 +114,10 @@ public class DiadeSpaData {
             JOptionPane.showMessageDialog(null, "Error al actualizar el dia de Spa.");
         }
     }
-     
-     //ENCONTRAR EL ERROR Y CORREGIRLO
-     public DiaDeSpa buscarDiaDeSpa(int id) {
+
+    /*
+    //ENCONTRAR EL ERROR Y CORREGIRLO
+    public DiaDeSpa buscarDiaDeSpa(int id) {
         DiaDeSpa diadespa = null;
         try {
             String sql = "SELECT * FROM diadespa WHERE idPack = ?";
@@ -123,19 +134,19 @@ public class DiadeSpaData {
                 int idCliente = rs.getInt("idCliente");
                 double monto = rs.getDouble("monto");
                 boolean estado = rs.getBoolean("estado");
-                
-                 ClienteData cliData = new ClienteData();
-                 Cliente cliente = cliData.buscarCliente(idCliente);
-                 
-                diadespa= new DiaDeSpa (idPack,fechaHora,preferencias,cliente,monto,estado);
+
+                ClienteData cliData = new ClienteData();
+                Cliente cliente = cliData.buscarCliente(idCliente);
+
+                diadespa = new DiaDeSpa(idPack, fechaHora, preferencias, cliente, monto, estado);
 
                 // 4️⃣ Recuperar las sesiones asociadas
-            SesionData sesionData = new SesionData();
-            List<Sesion> sesiones = sesionData.buscarSesionesPorDia(idPack);
+                SesionData sesionData = new SesionData();
+                List<Sesion> sesiones = sesionData.buscarSesionesPorDia(idPack);
 
-            diadespa.setSesion(sesiones); // reconstruyo la relación
-        }
- 
+                diadespa.setSesion(sesiones); // reconstruyo la relación
+            }
+
             //} 
             //ps.close();
         } catch (SQLException ex) {
@@ -143,11 +154,8 @@ public class DiadeSpaData {
         }
         return diadespa;
     }
-
-
-
-
-      public void darDeBaja(DiaDeSpa diadespa) {
+     */
+    public void darDeBaja(DiaDeSpa diadespa) {
         try {
             if (diadespa.isEstado()) {
                 String slq = "UPDATE diadespa SET estado = false WHERE idPack = ?";
@@ -156,23 +164,23 @@ public class DiadeSpaData {
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
-                   JOptionPane.showMessageDialog(null,"se dio de baja");
-                    
+                    JOptionPane.showMessageDialog(null, "se dio de baja");
+
                 }
                 ps.close();
             } else {
-               JOptionPane.showMessageDialog(null,"Ya está dado de baja!");
+                JOptionPane.showMessageDialog(null, "Ya está dado de baja!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al dar de baja.");
         }
     }
 
-      //este metodo podria ser para un dia de spa que por alguna razon aun no se reservada por estar pendiente algo y luego se reserva
-      public void darDeAlta(DiaDeSpa diadespa) {
+    //este metodo podria ser para un dia de spa que por alguna razon aun no se reservada por estar pendiente algo y luego se reserva
+    public void darDeAlta(DiaDeSpa diadespa) {
         try {
             if (diadespa.isEstado()) {
-                JOptionPane.showMessageDialog(null,"Ya está dado de alta!");
+                JOptionPane.showMessageDialog(null, "Ya está dado de alta!");
             } else {
                 String slq = "UPDATE diadespa SET estado = true WHERE idPack = ?";
                 PreparedStatement ps = con.prepareStatement(slq);
@@ -180,7 +188,7 @@ public class DiadeSpaData {
 
                 int registro = ps.executeUpdate();
                 if (registro > 0) {
-                    JOptionPane.showMessageDialog(null,"Dado de alta correctamente!");
+                    JOptionPane.showMessageDialog(null, "Dado de alta correctamente!");
                 }
                 ps.close();
             }
@@ -190,15 +198,3 @@ public class DiadeSpaData {
         }
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-

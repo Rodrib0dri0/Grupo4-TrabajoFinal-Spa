@@ -102,6 +102,7 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jBTotal = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(736, 1104));
 
@@ -188,7 +189,14 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 730, 710));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 720));
+
+        jBTotal.setText("Calcular Total");
+        jBTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTotalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,12 +205,18 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBTotal)
+                .addGap(101, 101, 101))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jBTotal)
+                .addGap(0, 270, Short.MAX_VALUE))
         );
 
         pack();
@@ -232,6 +246,11 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
 
             List<Sesion> sesiones = diaactual.getSesion();
 
+            if (sesiones.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe agregar una sesión.");
+                return;
+            }
+
             double monto = Double.parseDouble(jtmonto.getText());
 
             boolean estado = obtenerEstadoPago();
@@ -242,15 +261,13 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
 
             DiadeSpaData diaData = new DiadeSpaData(); // tu conexión
             diaData.agregarDiadeSpa(diaactual);
-
+            
+            /*
+            No conviene poner este mensaje ya que se puede mezclar con el mismo mensaje de DiaDeSpaData
             JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
-
+            */
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Monto inválido.");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
-            ex.printStackTrace();
-
         }
     }//GEN-LAST:event_jbguardarActionPerformed
 
@@ -288,9 +305,17 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jBTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTotalActionPerformed
+        // TODO add your handling code here:
+        double total = obtenerTotal();
+        
+        jtmonto.setText(String.valueOf(total));
+    }//GEN-LAST:event_jBTotalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBTotal;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCSesiones;
     private javax.swing.JLabel jLabel1;
@@ -313,6 +338,15 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
     // End of variables declaration//GEN-END:variables
 
     // MÉTODO RECIBIR SESIÓN
+    public double obtenerTotal() {
+        double total = 0;
+
+        for (Sesion sesi : diaactual.getSesion()) {
+            total += sesi.getTotal();
+        }
+        return total;
+    }
+
     public void recibirSesion(Sesion s) {
         sesion = null;
         sesion = s;
@@ -448,5 +482,9 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         // lo formateás como moneda
         NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
         jtmonto.setText(formato.format(total));
+    }
+
+    public DiaDeSpa getDiaActual() {
+        return diaactual;
     }
 }
