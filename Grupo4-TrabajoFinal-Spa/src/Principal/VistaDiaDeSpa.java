@@ -43,6 +43,7 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
      */
     public VistaDiaDeSpa() {
         initComponents();
+        this.SetImagen("/Imagenes/DiaDeSpaFondo.png");
         cargarClientes();
         inicializaMonto();
         diaactual = new DiaDeSpa();
@@ -83,77 +84,27 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtpreferencias = new javax.swing.JTextArea();
-        jtmonto = new javax.swing.JTextField();
-        jcclientes = new javax.swing.JComboBox<>();
-        jCSesiones = new javax.swing.JComboBox<>();
-        jshora = new javax.swing.JSpinner();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jabonado = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
+        jbguardar = new javax.swing.JButton();
+        jBTotal = new javax.swing.JButton();
         jagregar = new javax.swing.JButton();
         jversesiones = new javax.swing.JButton();
-        jbguardar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jtmonto = new javax.swing.JTextField();
+        jabonado = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jcclientes = new javax.swing.JComboBox<>();
+        jCSesiones = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtpreferencias = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jshora = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        jBTotal = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(736, 1104));
-
-        jPanel1.setMinimumSize(new java.awt.Dimension(736, 1104));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtpreferencias.setColumns(20);
-        jtpreferencias.setRows(5);
-        jScrollPane1.setViewportView(jtpreferencias);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 340, 100));
-        jPanel1.add(jtmonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 520, -1, -1));
-
-        jPanel1.add(jcclientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 410, 140, -1));
-
-        jPanel1.add(jCSesiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 460, 140, -1));
-        jPanel1.add(jshora, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 140, -1));
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jRadioButton1.setText("Pago pendiente");
-        jPanel1.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, -1, -1));
-
-        buttonGroup1.add(jabonado);
-        jabonado.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jabonado.setText("Abonado");
-        jPanel1.add(jabonado, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, -1, -1));
-
-        jagregar.setText("Agregar Sesion");
-        jagregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jagregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 560, -1, -1));
-
-        jversesiones.setText("Ver Sesiones");
-        jversesiones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jversesionesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jversesiones, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 520, -1, -1));
-
-        jbguardar.setText("Guardar");
-        jbguardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbguardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 630, -1, -1));
+        setPreferredSize(new java.awt.Dimension(736, 750));
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -161,35 +112,13 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 630, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Total");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Sesiones");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 460, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Cliente");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Preferencias");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Hora");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/DiaDeSpa.jpeg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 720));
+        jbguardar.setText("Guardar");
+        jbguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbguardarActionPerformed(evt);
+            }
+        });
 
         jBTotal.setText("Calcular Total");
         jBTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -198,25 +127,149 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
             }
         });
 
+        jagregar.setText("Agregar Sesion");
+        jagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jagregarActionPerformed(evt);
+            }
+        });
+
+        jversesiones.setText("Ver Sesiones");
+        jversesiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jversesionesActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Total");
+
+        buttonGroup1.add(jabonado);
+        jabonado.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jabonado.setForeground(new java.awt.Color(255, 255, 255));
+        jabonado.setText("Abonado");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("Pago pendiente");
+
+        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Sesiones");
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Cliente");
+
+        jtpreferencias.setColumns(20);
+        jtpreferencias.setRows(5);
+        jScrollPane1.setViewportView(jtpreferencias);
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Preferencias");
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Hora");
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Crear Paquete");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBTotal)
-                .addContainerGap())
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(104, 104, 104)
+                                .addComponent(jshora, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(45, 45, 45)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(86, 86, 86)
+                                .addComponent(jcclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(jRadioButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(71, 71, 71)
+                                .addComponent(jCSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(jabonado))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(150, 150, 150)
+                                .addComponent(jagregar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(41, 41, 41)
+                                .addComponent(jtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBTotal)
+                                .addGap(65, 65, 65)
+                                .addComponent(jbguardar)
+                                .addGap(9, 9, 9)
+                                .addComponent(jButton2)))
+                        .addContainerGap(85, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jversesiones)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(261, 261, 261))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 338, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBTotal)
-                .addGap(507, 507, 507))
+                .addGap(66, 66, 66)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jshora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jcclientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jabonado)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jCSesiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(31, 31, 31)
+                .addComponent(jversesiones)
+                .addGap(11, 11, 11)
+                .addComponent(jagregar)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbguardar)
+                    .addComponent(jButton2)
+                    .addComponent(jLabel8)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtmonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBTotal)))
+                .addGap(65, 65, 65))
         );
 
         pack();
@@ -326,7 +379,6 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton jabonado;

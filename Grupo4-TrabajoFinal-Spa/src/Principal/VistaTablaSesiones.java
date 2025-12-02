@@ -2,6 +2,7 @@ package Principal;
 
 import Modelo.Instalacion;
 import Modelo.Sesion;
+import Persistencia.ServicioData;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +11,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
     private List<Sesion> listaSesiones;  // atributo interno
     private DefaultTableModel modelo = new DefaultTableModel();
+    ServicioData sd = new ServicioData();
 
     public VistaTablaSesiones(List<Sesion> lista) {
         this.listaSesiones = lista;
@@ -33,7 +35,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
         modelo.addColumn("instalaciones");
         modelo.addColumn("Estado");
         jtsesiones.setModel(modelo);
-    
+
     }
 
     public void CargarTabla() {
@@ -47,7 +49,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
             modelo.addRow(new Object[]{
                 s.getIdSesion(),
-                s.getTratamiento().getIdServicio(),  // o getNombre() según tu clase
+                sd.buscarServicio(s.getTratamiento().getIdServicio()).getNombre(),
                 s.getMasajista().getNombre(),
                 s.getFechaHoraInicio(),
                 s.getFechaHoraFin(),
@@ -56,11 +58,10 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
             });
         }
     }
-    
-    public void refrescar() {
-    CargarTabla();
-}
 
+    public void refrescar() {
+        CargarTabla();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
