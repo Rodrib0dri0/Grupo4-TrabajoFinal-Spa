@@ -28,12 +28,11 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
     public void armarCabecera() {
         modelo.addColumn("IDsesion");
-        modelo.addColumn("tratamiendo");
+        modelo.addColumn("Tratamiento");
         modelo.addColumn("Masajista");
-        modelo.addColumn("fechahorainicio");
-        modelo.addColumn("fechahorafin");
-        modelo.addColumn("instalaciones");
-        modelo.addColumn("Estado");
+        modelo.addColumn("Inicio");
+        modelo.addColumn("Fin");
+        modelo.addColumn("Instalaciones");
         jtsesiones.setModel(modelo);
 
     }
@@ -53,8 +52,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
                 s.getMasajista().getNombre(),
                 s.getFechaHoraInicio(),
                 s.getFechaHoraFin(),
-                nombresInstalaciones,
-                s.isEstado() ? "Activa" : "Inactiva"
+                nombresInstalaciones
             });
         }
     }
@@ -103,22 +101,23 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jsalir)
-                .addGap(103, 103, 103))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jsalir)
-                .addGap(48, 48, 48))
+                .addGap(14, 14, 14))
         );
 
         pack();

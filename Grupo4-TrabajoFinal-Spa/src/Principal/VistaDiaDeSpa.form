@@ -64,10 +64,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="41" pref="41" max="-2" attributes="0"/>
-                              <Component id="jtmonto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jBTotal" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jtmonto" max="32767" attributes="0"/>
+                                  <Component id="jBTotal" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="151" max="32767" attributes="0"/>
                               <Component id="jbguardar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
@@ -130,12 +131,11 @@
                   <Component id="jbguardar" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jtmonto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jBTotal" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jtmonto" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jBTotal" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

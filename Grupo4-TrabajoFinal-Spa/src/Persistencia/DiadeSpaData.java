@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -115,6 +116,28 @@ public class DiadeSpaData {
         }
     }
 
+    /*public List<DiaDeSpa> traerPaquetes() {
+        List<DiaDeSpa> paquete = new ArrayList();
+        try {
+            String sql = "SELECT * FROM diadespa";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idP = rs.getInt("idPaquete");
+                int dni = rs.getInt("dni");
+                int idC = rs.getInt("idCliente");
+                double monto = rs.getDouble("monto");
+                boolean estado = rs.getBoolean("estado");
+
+                clientes.add(cli);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al traer paquetes.");
+        }
+        return clientes;
+    }*/
     /*
     //ENCONTRAR EL ERROR Y CORREGIRLO
     public DiaDeSpa buscarDiaDeSpa(int id) {
