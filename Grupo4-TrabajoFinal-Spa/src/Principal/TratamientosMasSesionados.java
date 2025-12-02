@@ -48,8 +48,7 @@ public class TratamientosMasSesionados extends JInternalFrameImagen {
         jScrollPane1.setViewportView(jTTabla);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("instalaciones más sesionadas");
+        jLabel1.setText("Tratamientos más sesionados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
