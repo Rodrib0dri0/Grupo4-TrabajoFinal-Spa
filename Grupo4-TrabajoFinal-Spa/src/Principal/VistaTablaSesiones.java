@@ -19,8 +19,8 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
     }
 
     private void inicializarTabla() {
-        modelo = (DefaultTableModel) jtsesiones.getModel();
-        actualizarTabla();
+        //modelo = (DefaultTableModel) jtsesiones.getModel();
+        CargarTabla();
 
     }
 
@@ -36,7 +36,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
     
     }
 
-    public void actualizarTabla() {
+    public void CargarTabla() {
         modelo.setRowCount(0); // limpia la tabla
         for (Sesion s : listaSesiones) {
             // Concatenar nombres de instalaciones si querés mostrar todos
@@ -47,7 +47,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
             modelo.addRow(new Object[]{
                 s.getIdSesion(),
-                s.getTratamiento().getDetalle(), // o getNombre() según tu clase
+                s.getTratamiento().getIdServicio(),  // o getNombre() según tu clase
                 s.getMasajista().getNombre(),
                 s.getFechaHoraInicio(),
                 s.getFechaHoraFin(),
@@ -58,7 +58,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
     }
     
     public void refrescar() {
-    actualizarTabla();
+    CargarTabla();
 }
 
 
@@ -73,6 +73,9 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtsesiones = new javax.swing.JTable();
+        jsalir = new javax.swing.JButton();
+
+        setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jtsesiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,29 +88,49 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtsesiones.setPreferredSize(new java.awt.Dimension(500, 800));
         jScrollPane1.setViewportView(jtsesiones);
+
+        jsalir.setText("Salir");
+        jsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jsalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jsalir)
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jsalir)
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jsalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jsalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jsalir;
     private javax.swing.JTable jtsesiones;
     // End of variables declaration//GEN-END:variables
 }

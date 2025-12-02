@@ -281,10 +281,11 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         } else {
             try {
                 tablasesiones.setSelected(true);
-                tablasesiones.actualizarTabla(); 
+                tablasesiones.refrescar(); 
             } catch (Exception e) {
             }
         }
+          
 
     }//GEN-LAST:event_jversesionesActionPerformed
 
