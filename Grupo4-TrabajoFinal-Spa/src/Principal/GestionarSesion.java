@@ -31,6 +31,7 @@ public class GestionarSesion extends JInternalFrameImagen {
     private JDesktopPane desk;
     private TratamientoMasaje trata;
     private VistaDiaDeSpa vista;
+   
     //agregue esto rodri 30/11 14:44 hs
     private DiaDeSpa diaactual;
 
@@ -521,6 +522,9 @@ public class GestionarSesion extends JInternalFrameImagen {
             diaactual.getSesion().add(sesi);
             */
             vista.recibirSesion(sesi);
+            
+            
+
 
             dispose();
         } catch (ArrayIndexOutOfBoundsException e) {

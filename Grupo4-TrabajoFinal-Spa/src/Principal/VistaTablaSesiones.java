@@ -15,6 +15,7 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
         this.listaSesiones = lista;
         initComponents();
         armarCabecera();
+        inicializarTabla();
     }
 
     private void inicializarTabla() {
@@ -55,6 +56,11 @@ public class VistaTablaSesiones extends javax.swing.JInternalFrame {
             });
         }
     }
+    
+    public void refrescar() {
+    actualizarTabla();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

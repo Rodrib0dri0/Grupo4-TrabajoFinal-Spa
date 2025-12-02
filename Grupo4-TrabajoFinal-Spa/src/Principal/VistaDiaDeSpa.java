@@ -267,7 +267,7 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
             JOptionPane.showMessageDialog(this, "Día de Spa guardado correctamente.");
             */
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Monto inválido.");
+            JOptionPane.showMessageDialog(this, "Monto inválid");
         }
     }//GEN-LAST:event_jbguardarActionPerformed
 
@@ -281,6 +281,7 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
         } else {
             try {
                 tablasesiones.setSelected(true);
+                tablasesiones.actualizarTabla(); 
             } catch (Exception e) {
             }
         }
@@ -374,7 +375,7 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
     }
 
     private double obtenerMonto() {
-        String texto = jtmonto.getText()
+       /* String texto = jtmonto.getText()
                 .replace("$", "") // quita el símbolo $
                 .replace(".", "") // quita separadores de miles
                 .replace(",", ".") // convierte coma decimal a punto
@@ -382,14 +383,40 @@ public class VistaDiaDeSpa extends JInternalFrameImagen {
 
         if (texto.isEmpty()) {
             return 0;
-        }
+        }  
 
         try {
             return Double.parseDouble(texto);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Monto inválido.");
             return 0;
-        }
+        }*/
+       
+    
+    String texto = jtmonto.getText();
+
+    if (texto == null) return 0;
+
+    // SOLO permitir dígitos, coma y punto
+    texto = texto.replaceAll("[^0-9,\\.]", "");
+
+    // convertir formato latino a formato parseable
+    texto = texto.replace(".", "");   // quita miles
+    texto = texto.replace(",", ".");  // coma → punto
+
+    if (texto.isEmpty()) {
+        return 0;
+    }
+
+    try {
+        return Double.parseDouble(texto);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Monto inválido: " + texto);
+        return 0;
+    }
+
+
+
     }
 
     private boolean obtenerEstadoPago() {
